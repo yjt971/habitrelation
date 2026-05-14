@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>習慣任務｜V8.4 使用者身份修正版｜外部PWA版</title>
+<title>習慣任務｜V8.4.2 按鈕保險修正版｜外部PWA版</title>
 <meta name="theme-color" content="#111827">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -39,7 +39,7 @@ body.dark{--bg:#0b1220;--card:#111827;--text:#f9fafb;--muted:#a3aab8;--line:#243
 </head>
 <body>
 <div class="app">
-<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4 使用者身份修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
+<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.2 按鈕保險修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
 <main>
 <section id="page-today" class="page active">
  
@@ -830,7 +830,7 @@ setupPwa=function(){
  
  
 /* =========================
-   V8.4 使用者身份修正版
+   V8.4.2 按鈕保險修正版
    - 固定兩位本機角色：我 / 使用者2
    - Google 登入者綁定到「我」，不再新增第三個 Ariana 使用者
    - 切換使用者可正常選擇：登入者（我） / 使用者2
@@ -852,7 +852,7 @@ const oldEnhanceV5Identity=enhanceV5State;
 enhanceV5State=function(){oldEnhanceV5Identity();normalizeTwoLocalUsers();loadUserDataToRoot(state.currentUserId)};
 currentUserName=function(id=state.currentUserId){const u=(state.localUsers||[]).find(u=>u.id===id);return displayNameForUser(u)||id};
 ensureCloudLocalUser=function(user){if(!user)return;state.firebase={...(state.firebase||{}),userId:user.uid,email:user.email||'',displayName:user.displayName||user.email||'',lastLoginAt:new Date().toISOString()};normalizeTwoLocalUsers();const me=state.localUsers.find(u=>u.id===FIXED_ME_ID);if(me){me.googleUid=user.uid;me.googleName=user.displayName||user.email||'';me.googleEmail=user.email||'';me.updatedAt=new Date().toISOString()}if(state.currentUserId!==FIXED_ME_ID){syncActiveUserData();state.currentUserId=FIXED_ME_ID}loadUserDataToRoot(FIXED_ME_ID)};
-renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4 使用者身份修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
+renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.2 按鈕保險修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
 const oldSwitchLocalUserIdentity=switchLocalUser;
 switchLocalUser=function(id){normalizeTwoLocalUsers();if(![FIXED_ME_ID,FIXED_USER2_ID].includes(id))id=FIXED_ME_ID;syncActiveUserData();state.currentUserId=id;loadUserDataToRoot(id);save();ensureTodayPack(true);renderAll();showToast('已切換使用者：'+currentUserName())};
 renderLocalUsers=function(){normalizeTwoLocalUsers();const box=document.getElementById('localUserList');if(!box)return;box.innerHTML=state.localUsers.map(u=>`<div class="item"><div class="itemTop"><div><div class="itemTitle">${escapeHtml(displayNameForUser(u))} ${u.id===state.currentUserId?'<span class="pill blue">目前使用</span>':''}</div><div class="itemSub">${u.id===FIXED_ME_ID?(googleDisplayName()?('Google：'+escapeHtml(googleDisplayName())):'第一位使用者 / 我'):'第二位使用者，可自行更名'}｜userId：${escapeHtml(u.id)}</div></div><div class="itemActions"><button class="btn small" data-user-switch="${u.id}">切換</button></div></div></div>`).join('');box.querySelectorAll('[data-user-switch]').forEach(b=>b.addEventListener('click',()=>switchLocalUser(b.dataset.userSwitch)))};
@@ -861,6 +861,133 @@ const oldRenderAllIdentity=renderAll;
 renderAll=function(){normalizeTwoLocalUsers();oldRenderAllIdentity();setText('todayLabel',todayDisplayText());renderUserSwitcher();renderLocalUsers()};
 const oldSaveIdentity=save;
 save=function(){normalizeTwoLocalUsers();state.version='8.4-user-identity';oldSaveIdentity()};
+ 
+ 
+ 
+/* V8.4.2 按鈕保險修正版
+   目的：用事件委派統一接管靜態按鈕與動態按鈕，避免部分按鈕因重繪、事件綁定順序或舊快取而點擊無反應。
+*/
+function switchPageSafely(page){
+  const tab=document.querySelector(`.tab[data-page="${page}"]`);
+  const target=document.getElementById('page-'+page);
+  if(!target){showToast('找不到頁面：'+page);return}
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===tab));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p===target));
+  try{renderAll()}catch(e){console.warn('render after page switch failed',e)}
+  setTimeout(()=>{try{window.ensureIdentityUI?.()}catch(e){}},0);
+}
+function safeCopyTextFrom(id){
+  const el=document.getElementById(id); if(!el)return;
+  const txt=el.value||el.textContent||'';
+  if(navigator.clipboard?.writeText){navigator.clipboard.writeText(txt).then(()=>showToast('已複製')).catch(()=>{el.select?.();document.execCommand('copy');showToast('已複製')})}
+  else{el.select?.();document.execCommand('copy');showToast('已複製')}
+}
+function safeClickAction(btn){
+  if(!btn)return false;
+  const d=btn.dataset||{};
+  if(d.page){switchPageSafely(d.page);return true}
+  if(d.pageJump){switchPageSafely(d.pageJump);return true}
+  if(d.edit){editHabit(d.edit);return true}
+  if(d.toggle){toggleHabit(d.toggle);return true}
+  if(d.delete){deleteHabit(d.delete);return true}
+  if(d.task){openTaskModal(d.task,d.status,d.kind);return true}
+  if(d.logDelete){deleteLog(d.logDelete);return true}
+  if(d.rewardEdit){editReward(d.rewardEdit);return true}
+  if(d.rewardToggle){toggleReward(d.rewardToggle);return true}
+  if(d.rewardDelete){deleteReward(d.rewardDelete);return true}
+  if(d.redeem){openRedeem(d.redeem);return true}
+  if(d.flip){doFlip(btn,itemQty('ticket')>0);return true}
+  if(d.openChest){openChest(d.openChest);return true}
+  if(d.questEdit){editQuest(d.questEdit);return true}
+  if(d.questDelete){deleteQuest(d.questDelete);return true}
+  if(d.questStart){startQuest(d.questStart);return true}
+  if(d.questPause){pauseQuest(d.questPause);return true}
+  if(d.questResume){resumeQuest(d.questResume);return true}
+  if(d.questDay){completeQuestDay(d.questDay);return true}
+  if(d.useShield){useShield(d.useShield);return true}
+  if(d.sqEdit){editSharedQuest(d.sqEdit);return true}
+  if(d.sqDelete){deleteSharedQuest(d.sqDelete);return true}
+  if(d.sqComplete){completeSharedQuest(d.sqComplete);return true}
+  if(d.srEdit){editSharedReward(d.srEdit);return true}
+  if(d.srDelete){deleteSharedReward(d.srDelete);return true}
+  if(d.srRedeem){redeemSharedReward(d.srRedeem);return true}
+  if(d.shUsed){toggleSharedRedemptionUsed(d.shUsed);return true}
+  if(d.userSwitch){switchLocalUser(d.userSwitch);return true}
+  if(d.ctEdit){editCoupleTask(d.ctEdit);return true}
+  if(d.ctDelete){deleteCoupleTask(d.ctDelete);return true}
+  if(d.ctComplete){completeCoupleTask(d.ctComplete);return true}
+  if(d.wishEdit){editWish(d.wishEdit);return true}
+  if(d.wishDelete){deleteWish(d.wishDelete);return true}
+  if(d.chEdit){editChallenge(d.chEdit);return true}
+  if(d.chDel){deleteChallenge(d.chDel);return true}
+  if(d.cpack){completeCouplePackTask(d.cpack);return true}
+  if(d.advNode){showAdventureNode(d.advNode);return true}
+  if(d.advObject){interactAdventureObject(d.advObject);return true}
+  if(d.claimAdv){claimAdventureReward(d.claimAdv);return true}
+  if(d.detailAdv){showAdventureNode(d.detailAdv);return true}
+  if(d.csvExport){exportCsv(d.csvExport);return true}
+  if(d.csvImport){triggerCsvImport(d.csvImport);return true}
+  const id=btn.id;
+  const actions={
+    renameActiveUserBtn:()=>{const v=document.getElementById('activeUserNameInput')?.value.trim();if(!v)return;normalizeTwoLocalUsers();if(state.currentUserId===FIXED_ME_ID&&googleDisplayName()){showToast('第一位使用者名稱由 Google 帳號帶入');return}const u=state.localUsers.find(x=>x.id===state.currentUserId);if(u){u.name=sanitizeUser2Name(v);u.updatedAt=new Date().toISOString();save();renderAll();showToast('已更新名稱')}} ,
+    resetHabitBtn:()=>{resetHabitForm();showToast('已清空表單')},
+    clearLogFiltersBtn:()=>{document.getElementById('logFilterDate').value='';document.getElementById('logFilterStatus').value='all';renderLogs();showToast('已清除篩選')},
+    resetRewardBtn:()=>{resetRewardForm();showToast('已清空表單')},
+    newFlipBtn:()=>startFlip(),
+    spinWheelBtn:()=>spinWheel(),
+    resetQuestBtn:()=>{resetQuestForm();showToast('已清空表單')},
+    resetCoupleChallengeBtn:()=>{resetChallengeForm();showToast('已清空表單')},
+    resetSharedQuestBtn:()=>{resetSharedQuestForm();showToast('已清空表單')},
+    resetSharedRewardBtn:()=>{resetSharedRewardForm();showToast('已清空表單')},
+    makeDailyCoupleReportBtn:()=>makeCoupleReport('daily'),
+    makeWeeklyCoupleReportBtn:()=>makeCoupleReport('weekly'),
+    copyCoupleReportBtn:()=>safeCopyTextFrom('coupleReportText'),
+    completeTodayCoupleTaskBtn:()=>completeTodayCoupleTask(),
+    changeTodayCoupleTaskBtn:()=>changeTodayCoupleTask(),
+    resetCoupleTaskBtn:()=>{resetCoupleTaskForm();showToast('已清空表單')},
+    checkHarmonyBtn:()=>checkHarmony(),
+    nextHarmonyQuestionBtn:()=>nextHarmonyQuestion(),
+    drawDateCardBtn:()=>drawDateCard(),
+    drawTalkCardBtn:()=>drawTalkCard(),
+    resetWishBtn:()=>{resetWishForm();showToast('已清空表單')},
+    exploreSoloBtn:()=>exploreCurrentNode('solo'),
+    exploreCoupleBtn:()=>exploreCurrentNode('couple'),
+    reportDailyBtn:()=>setReportCenter('今日雙人戰報',buildDailyReportText()),
+    reportWeeklyBtn:()=>setReportCenter('每週雙人戰報',buildWeeklyReportText()),
+    reportRelationshipBtn:()=>setReportCenter('關係回顧',buildRelationshipReportText()),
+    reportAdventureBtn:()=>setReportCenter('冒險回顧',buildAdventureReportText()),
+    reportMonthlyBtn:()=>setReportCenter('每月人生報告',buildMonthlyReportText()),
+    copyReportCenterBtn:()=>safeCopyTextFrom('reportCenterText'),
+    exportJsonBtn:()=>exportJson(),
+    clearAllBtn:()=>{if(confirm('清空全部資料？此動作無法復原。')){localStorage.removeItem(APP_KEY);state=loadState();enhanceV5State();enhanceV7State();enhanceV83State?.();ensureV84State?.();save();renderAll();showToast('已清空')}} ,
+    googleAuthBtn:()=>signInOrOut(),
+    manualSyncBtn:()=>syncCloud({silent:false,reason:'manualButton'}),
+    createCloudRoomBtn:()=>createCloudRoom(),
+    joinCloudRoomBtn:()=>joinCloudRoom(),
+    leaveCloudRoomBtn:()=>leaveCloudRoom(),
+    closeTaskModal:()=>document.getElementById('taskModal')?.classList.remove('show'),
+    closeRedeemModal:()=>document.getElementById('redeemModal')?.classList.remove('show')
+  };
+  if(actions[id]){actions[id]();return true}
+  return false;
+}
+function bindButtonSafetyNet(){
+  if(window.__habitButtonSafetyBound)return;
+  window.__habitButtonSafetyBound=true;
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest?.('button');
+    if(!btn)return;
+    if(safeClickAction(btn)){e.preventDefault();e.stopImmediatePropagation()}
+  },true);
+  document.addEventListener('submit',e=>{
+    if(e.defaultPrevented)return;
+    const form=e.target; if(!form||!form.id)return;
+    const id=form.id;
+    const named={partnerSupportForm:sendPartnerSupport,sharedQuestForm:saveSharedQuest,sharedRewardForm:saveSharedReward,coupleTaskForm:saveCoupleTask,wishForm:saveWish};
+    if(named[id]){e.preventDefault();named[id](e);return}
+  },false);
+}
+bindButtonSafetyNet();
  
 window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switchLocalUser=switchLocalUser;window.editHabit=editHabit;window.completePackTask=completePackTask;window.completeSecret=completeSecret;window.editQuest=editQuest;window.editWish=editWish;init();
 })();
@@ -956,7 +1083,7 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
     const subtitle=document.getElementById('headerSubtitle');
     if(subtitle){
       const current=(window.state?.currentUserId)||ME_ID;
-      subtitle.textContent='V8.4 使用者身份修正版｜目前：'+displayName(current)+'｜已自動同步';
+      subtitle.textContent='V8.4.2 按鈕保險修正版｜目前：'+displayName(current)+'｜已自動同步';
     }
   }
   window.ensureIdentityUI=ensureIdentityUI;
