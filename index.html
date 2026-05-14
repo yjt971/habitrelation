@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>習慣任務｜V8.4.9 房間加入按鈕修正版｜外部PWA版</title>
+<title>習慣任務｜V8.4.10｜外部PWA版</title>
 <meta name="theme-color" content="#111827">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,27 +19,31 @@
 *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;line-height:1.45}body{min-height:100vh;padding-bottom:96px}button,input,select,textarea{font-family:inherit;font-size:15px}button{border:0;cursor:pointer}.hidden{display:none!important}.app{max-width:980px;margin:0 auto;padding:18px 14px 104px}.topbar{position:sticky;top:0;z-index:10;margin:-18px -14px 12px;padding:14px;background:rgba(245,247,251,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(229,231,235,.8)}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}.logo{display:flex;align-items:center;gap:10px;min-width:0}.logoIcon{width:42px;height:42px;border-radius:16px;background:linear-gradient(135deg,#111827,#7c3aed);display:grid;place-items:center;color:white;font-size:22px;box-shadow:var(--shadow)}.logoText{min-width:0}.logoText h1{margin:0;font-size:20px;letter-spacing:.3px}.logoText p{margin:2px 0 0;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.datePill{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);font-size:12px;white-space:nowrap;min-width:128px;text-align:center;font-weight:700;box-shadow:var(--shadow)}.page{display:none;animation:fade .18s ease}.page.active{display:block}@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.grid{display:grid;gap:12px}.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}.card.soft{background:var(--soft);box-shadow:none}.sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 10px;gap:10px}.sectionTitle h2{font-size:18px;margin:0}.sectionTitle span{font-size:12px;color:var(--muted)}.stat{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}.stat .label{font-size:12px;color:var(--muted)}.stat .value{font-size:24px;font-weight:800;margin-top:4px}.stat .sub{font-size:12px;color:var(--muted);margin-top:2px}.progressBar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.progressFill{height:100%;background:linear-gradient(90deg,#2563eb,#059669);width:0%;transition:.25s}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;border-radius:14px;background:var(--dark);color:white;font-weight:700;min-height:42px}.btn.secondary{background:#eef2ff;color:#3730a3}.btn.green{background:#059669}.btn.amber{background:#d97706}.btn.red{background:#dc2626}.btn.purple{background:#7c3aed}.btn.pink{background:#db2777}.btn.ghost{background:white;color:var(--text);border:1px solid var(--line)}.btn.small{padding:7px 9px;min-height:34px;border-radius:11px;font-size:13px}.btn.full{width:100%}.btn:disabled{opacity:.45;cursor:not-allowed}.form{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px 2px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:white;color:var(--text);outline:none}.field textarea{min-height:78px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.12)}.chipGrid{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:white;border-radius:999px;padding:8px 10px;color:#475467;font-size:13px}.chip.active{background:#111827;color:white;border-color:#111827;font-weight:700}.miniHint{font-size:12px;color:var(--muted);margin-top:4px}.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(12,1fr);gap:3px}.tab{border-radius:15px;padding:8px 1px;color:var(--muted);background:transparent;text-align:center;font-size:10px;display:grid;gap:2px}.tab b{font-size:17px;line-height:1}.tab.active{background:#111827;color:white}.taskCard{display:grid;gap:10px}.taskHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.taskName{font-size:17px;font-weight:800}.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#f3f4f6;color:#374151;font-size:12px}.pill.blue{background:#dbeafe;color:#1d4ed8}.pill.green{background:#dcfce7;color:#047857}.pill.amber{background:#fef3c7;color:#b45309}.pill.red{background:#fee2e2;color:#b91c1c}.pill.purple{background:#ede9fe;color:#6d28d9}.pill.pink{background:#fce7f3;color:#be185d}.taskActions{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}.empty{padding:28px 14px;text-align:center;color:var(--muted);background:white;border:1px dashed #cbd5e1;border-radius:var(--radius)}.list{display:grid;gap:10px}.item{background:white;border:1px solid var(--line);border-radius:18px;padding:12px}.itemTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.itemTitle{font-weight:800}.itemSub{font-size:13px;color:var(--muted);margin-top:4px}.itemActions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.muted{color:var(--muted)}.dangerText{color:var(--red)}.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:white}table{width:100%;border-collapse:collapse;min-width:940px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}th{background:#f8fafc;color:#475467;font-weight:800;position:sticky;top:0}tr:last-child td{border-bottom:0}.toast{position:fixed;left:14px;right:14px;bottom:96px;z-index:50;display:none;justify-content:center}.toast.show{display:flex}.toast>div{background:#111827;color:white;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);font-size:14px}.modal{position:fixed;inset:0;z-index:60;display:none;place-items:end center;background:rgba(15,23,42,.35);padding:14px}.modal.show{display:grid}.modalPanel{width:100%;max-width:760px;max-height:90vh;overflow:auto;background:white;border-radius:24px;padding:16px;box-shadow:0 20px 55px rgba(0,0,0,.25)}.modalHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.modalHeader h3{margin:0;font-size:19px}.xbtn{width:38px;height:38px;border-radius:13px;background:#f3f4f6;color:#111827;font-size:18px}.chartBars{display:grid;gap:8px}.barRow{display:grid;grid-template-columns:92px 1fr 54px;align-items:center;gap:8px;font-size:13px}.barTrack{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.barFill{height:100%;background:#2563eb;border-radius:999px}.fileInput{border:1px dashed #cbd5e1;border-radius:16px;padding:14px;background:#f8fafc;width:100%}.divider{height:1px;background:var(--line);margin:8px 0}.subtleBox{border:1px solid var(--line);background:#f8fafc;border-radius:16px;padding:10px}.money{font-variant-numeric:tabular-nums}.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:10px;font-size:13px}.cloudBox{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:16px;padding:10px;font-size:13px}.cloudBox.warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412}.cloudBox.ok{background:#ecfdf5;border-color:#bbf7d0;color:#065f46}.csvGrid{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}.flipGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.flipCard{min-height:110px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(135deg,#111827,#7c3aed);color:white;display:grid;place-items:center;text-align:center;font-weight:800;padding:12px;box-shadow:var(--shadow)}.flipCard.revealed{background:white;color:var(--text)}.packGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.packCell{border:1px solid var(--line);background:white;border-radius:16px;padding:10px}.packCell h4{margin:0 0 8px;font-size:14px}.packCell .smallText{font-size:12px;color:var(--muted)}
 @media (min-width:720px){.tabs{left:50%;transform:translateX(-50%);max-width:980px;border-radius:24px 24px 0 0}.desktopGrid{grid-template-columns:1.15fr .85fr}.modal{place-items:center}.modalPanel{border-radius:26px}.app{padding-left:20px;padding-right:20px}.topbar{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}}@media (max-width:720px){.grid2,.grid3,.grid4,.row,.csvGrid,.packGrid{grid-template-columns:1fr}.taskActions{grid-template-columns:1fr}.datePill{display:block;min-width:96px;font-size:11px;padding:6px 8px}.stat .value{font-size:22px}.sectionTitle h2{font-size:17px}.tabs{gap:2px}.tab{font-size:9px;border-radius:12px}.tab b{font-size:15px}.flipGrid{grid-template-columns:1fr}.itemTop{display:grid}.itemActions{justify-content:flex-start}}
  
-/* V8 final UI */
+
 body.dark{--bg:#0b1220;--card:#111827;--text:#f9fafb;--muted:#a3aab8;--line:#243044;--soft:#0f172a;--dark:#f9fafb}body.dark .btn.ghost,body.dark .field input,body.dark .field select,body.dark .field textarea,body.dark .item,body.dark .stat,body.dark .card,body.dark .chip{background:#111827;color:#f9fafb;border-color:#243044}body.dark .tabs{background:rgba(15,23,42,.94)}body.dark th{background:#0f172a;color:#d1d5db}.wheel{width:210px;height:210px;border-radius:50%;margin:0 auto;display:grid;place-items:center;background:conic-gradient(#2563eb 0 16%,#059669 16% 32%,#d97706 32% 48%,#7c3aed 48% 64%,#db2777 64% 80%,#111827 80% 100%);color:white;font-weight:900;box-shadow:var(--shadow);border:8px solid white}.miniCards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.bossHp{height:16px;background:#fee2e2;border-radius:999px;overflow:hidden}.bossHp>div{height:100%;background:linear-gradient(90deg,#dc2626,#d97706);width:0%}.titleBadge{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;background:#f8fafc;font-size:12px;margin:2px}
 @media(max-width:720px){.miniCards{grid-template-columns:1fr}.wheel{width:180px;height:180px}}
  
  
 .journeyPath{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.journeyNode{border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#f8fafc;font-size:12px}.journeyNode.active{background:#111827;color:white}.storyLine{border-left:3px solid #e5e7eb;padding-left:10px;margin-top:8px}.reportBox{white-space:pre-wrap;line-height:1.55}
  
-/* V8.2 Adventure Page */
+
 .adventureHero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:linear-gradient(135deg,#0f172a,#1d4ed8 45%,#059669);color:white;box-shadow:var(--shadow)}.adventureHero:before{content:"";position:absolute;inset:-40px;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.22),transparent 26%),radial-gradient(circle at 80% 10%,rgba(255,255,255,.18),transparent 22%),radial-gradient(circle at 70% 85%,rgba(255,255,255,.14),transparent 30%);pointer-events:none}.adventureHero>*{position:relative}.adventureHero .label,.adventureHero .sub,.adventureHero .muted{color:rgba(255,255,255,.82)}.mapScroll{overflow:auto;padding:8px 2px}.adventurePath{display:flex;align-items:stretch;gap:10px;min-width:720px}.mapNode{position:relative;min-width:118px;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:12px;text-align:center;box-shadow:var(--shadow);cursor:pointer;transition:.18s;display:grid;gap:6px}.mapNode:hover{transform:translateY(-2px)}.mapNode.locked{opacity:.56;filter:grayscale(.25)}.mapNode.current{outline:3px solid rgba(37,99,235,.25);border-color:#93c5fd}.mapNode.done{background:linear-gradient(180deg,#ecfdf5,var(--card));border-color:#86efac}.nodeIcon{font-size:30px;line-height:1}.nodeName{font-weight:900;font-size:14px}.nodeSub{font-size:12px;color:var(--muted)}.mapConnector{align-self:center;height:4px;min-width:30px;border-radius:999px;background:#cbd5e1}.mapConnector.done{background:linear-gradient(90deg,#059669,#2563eb)}.objectGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.exploreObj{border:1px solid var(--line);border-radius:20px;background:var(--card);padding:12px;text-align:center;cursor:pointer;box-shadow:var(--shadow);transition:.18s}.exploreObj:hover{transform:translateY(-2px)}.exploreObj .emoji{font-size:34px}.contribGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.adventureLog{max-height:360px;overflow:auto}.detailBox{white-space:pre-line;background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:10px;font-size:13px}.rewardGlow{animation:glowPulse 1.4s ease-in-out infinite alternate}@keyframes glowPulse{from{box-shadow:0 0 0 rgba(217,119,6,0)}to{box-shadow:0 0 0 5px rgba(217,119,6,.15)}}body.dark .mapNode.done{background:linear-gradient(180deg,#064e3b,#111827)}body.dark .exploreObj{background:#111827}
 .checkItem{display:flex;align-items:flex-start;gap:8px}.checkMark{width:24px;height:24px;border-radius:999px;background:#dcfce7;color:#047857;display:grid;place-items:center;font-weight:900;flex:0 0 24px}.checkWarn{background:#fef3c7;color:#b45309}
 @media(max-width:720px){.objectGrid,.contribGrid{grid-template-columns:1fr}.adventurePath{min-width:620px}.mapNode{min-width:104px}}
  
-/* V8.4 double-player interaction completion */
+
 .supportTypeGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.supportCard{border:1px solid var(--line);border-radius:18px;background:var(--card);padding:12px;box-shadow:var(--shadow)}.supportCard .big{font-size:28px}.revealCard{border-left:5px solid #7c3aed}.revengeCard{border-left:5px solid #d97706}.reportHero{background:linear-gradient(135deg,#111827,#7c3aed,#db2777);color:#fff;border-radius:24px;padding:16px;box-shadow:var(--shadow)}.reportHero .muted{color:rgba(255,255,255,.78)}.reportTextarea{width:100%;min-height:220px;border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--card);color:var(--text)}@media(max-width:720px){.supportTypeGrid{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(13,1fr)!important}}@media(min-width:721px){.tabs{grid-template-columns:repeat(13,1fr)!important}}
 .field input:disabled{background:#f3f4f6;color:#667085;cursor:not-allowed}
 .datePill:empty::before{content:"今天"}.datePill{min-width:160px}.field select#activeUserSelect{appearance:auto!important;-webkit-appearance:auto!important;background-color:white!important;color:#111827!important;cursor:pointer}
 </style>
+
+<style id="room-ui-style">
+#cloudRoomActionStatus{margin-top:10px}.cloudBox.ok{background:#ecfdf5;border-color:#bbf7d0;color:#065f46}.cloudBox.warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412}body.dark #cloudRoomActionStatus.cloudBox.ok{background:#06381f;border-color:#047857;color:#bbf7d0}body.dark #cloudRoomActionStatus.cloudBox.warn{background:#2a1b08;border-color:#92400e;color:#fed7aa}
+</style>
 </head>
 <body>
 <div class="app">
-<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.9 房間加入按鈕修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
+<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.10｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
 <main>
 <section id="page-today" class="page active">
  
@@ -386,7 +390,7 @@ function weeklyReviewHtml(){const r=weeklyReview();return `<div class="item"><di
 function renderWeeklyReview(){const html=weeklyReviewHtml();const a=document.getElementById('weeklyReviewBox');if(a)a.innerHTML=html;const b=document.getElementById('statsWeeklyReviewBox');if(b)b.innerHTML=html}
  
  
-/* ===== V5 雙人單機概念版 ===== */
+
 const USER_DATA_KEYS=['habits','logs','pointsLedger','rewards','rewardRedemptions','gameItems','gameLogs','dailyPacks','secretMissions','quests','questProgress','achievements','levelData'];
 function migrateLocalUser(u,i=0){const now=new Date().toISOString();return {id:u?.id||(i===0?'me':'partner'),name:u?.name||(i===0?'我':'使用者2'),role:u?.role||(i===0?'self':'partner'),active:u?.active!==false,createdAt:u?.createdAt||now,updatedAt:u?.updatedAt||now}}
 function blankUserData(userId){return {habits:[],logs:[],pointsLedger:[],rewards:[],rewardRedemptions:[],gameItems:[],gameLogs:[],dailyPacks:[],secretMissions:[],quests:[],questProgress:[],achievements:[],levelData:[migrateLevel({id:'level_'+userId,userId})]}}
@@ -433,7 +437,7 @@ function makeCoupleReport(type){refreshSharedQuestProgress();const stats=state.l
 function renderCoupleReports(){const box=document.getElementById('coupleReportList');if(!box)return;setText('coupleReportCountText',state.coupleReports.length+' 筆');box.innerHTML=state.coupleReports.slice(0,10).map(r=>`<div class="item"><div class="itemTitle">${escapeHtml(r.title)}｜${r.date}</div><div class="itemSub" style="white-space:pre-line">${escapeHtml(r.text).slice(0,260)}${r.text.length>260?'...':''}</div></div>`).join('')||'<div class="empty">尚無戰報</div>'}
  
  
-/* V6 情侶互動與關係養成 */
+
 const COUPLE_TASK_SEEDS=[
  ['跟對方說一句今天辛苦了','輕量互動',1,'保持日常連結的一句話。',10,0],['分享一張今天看到的照片','輕量互動',1,'分享天空、食物或路上看到的小事。',10,0],['問對方今天吃了什麼','輕量互動',1,'用很輕鬆的方式關心對方。',8,0],['傳一個可愛或好笑的東西給對方','輕量互動',1,'讓今天多一點笑點。',8,0],
  ['問對方今天最累的一件事','關心',2,'聽對方說，不急著給建議。',15,0],['問對方今天心情幾分','關心',2,'用 1-10 分了解對方狀態。',15,0],['聽對方說 5 分鐘，不急著給建議','關心',2,'練習陪伴而不是立刻解決。',20,0],
@@ -494,7 +498,7 @@ function renderHarmony(){const h=currentHarmonyQuestion();setText('harmonyUserAL
 function renderRelationship(){if(!document.getElementById('page-relationship'))return;setText('intimacyNow',intimacyNow());setText('harmonyNow',harmonyNow());renderTodayCoupleTask();renderRelationshipLedger();renderCoupleTasks();renderHarmony();renderWishPool();renderRelationshipReview()}
  
  
-/* V7 Firebase / 雙人房間 / 雲端同步 */
+
 const CLOUD_PERSONAL_KEYS=['habits','logs','pointsLedger','rewards','rewardRedemptions','gameItems','gameLogs','dailyPacks','secretMissions','quests','questProgress','achievements','levelData'];
 const CLOUD_ROOM_KEYS=['sharedQuests','couplePointsLedger','sharedRewards','sharedRewardRedemptions','coupleTasks','coupleTaskLogs','intimacyLedger','harmonyLedger','dateCards','talkCards','wishPool','wishPoolLedger','relationshipReports','coupleReports'];
 function migrateRoomMember(m){return {uid:m.uid||'',name:m.name||'成員',email:m.email||'',joinedAt:m.joinedAt||new Date().toISOString(),lastSeenAt:m.lastSeenAt||'',publicStats:m.publicStats||{},publicFeed:Array.isArray(m.publicFeed)?m.publicFeed:[]}}
@@ -519,10 +523,18 @@ function publicFeedForCurrentUser(){const today=todayKey();return state.logs.fil
 function currentMemberSnapshot(){const u=fb.user;const s=userStats(state.currentUserId);return migrateRoomMember({uid:u?.uid||state.currentUserId,name:u?.displayName||u?.email||currentUserName(),email:u?.email||'',joinedAt:new Date().toISOString(),lastSeenAt:new Date().toISOString(),publicStats:{todayDone:s.todayDone,todayRate:s.todayRate,todayEarn:s.todayEarn,weekEarn:s.weekEarn,weekDone:s.weekDone,streak:s.streak,secretToday:s.secretToday,updatedAt:new Date().toISOString()},publicFeed:publicFeedForCurrentUser()})}
 function roomCode(){return (state.inviteCode||state.roomId||'').toUpperCase()}
 function makeInviteCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
-async function createCloudRoom(){if(!await initFirebase())return;if(!fb.user){showToast('請先使用 Google 登入');return}const code=makeInviteCode();const roomName=document.getElementById('cloudRoomName')?.value.trim()||state.roomName||'我們的生活任務';state.roomId=code;state.inviteCode=code;state.roomName=roomName;state.roomMembers=[currentMemberSnapshot()];await pushRoomToCloud();saveLocalOnly();attachRealtimeListeners();renderAll();showToast('已建立房間：'+code)}
-async function joinCloudRoom(){if(!await initFirebase())return;if(!fb.user){showToast('請先使用 Google 登入');return}const code=(document.getElementById('cloudInviteCode')?.value.trim()||'').toUpperCase();if(!code){showToast('請輸入邀請碼');return}const ref=fb.modules.doc(fb.db,'rooms',code);const snap=await fb.modules.getDoc(ref);if(!snap.exists()){showToast('找不到房間');return}const data=snap.data()||{};const members=(data.members||[]).map(migrateRoomMember);if(!members.some(m=>m.uid===fb.user.uid)&&members.length>=2){showToast('房間已滿');return}state.roomId=code;state.inviteCode=code;state.roomName=data.roomName||'我們的生活任務';state.roomMembers=members.some(m=>m.uid===fb.user.uid)?members:members.concat(currentMemberSnapshot());applyRoomDataFromCloud(data);await pushRoomToCloud();saveLocalOnly();attachRealtimeListeners();renderAll();showToast('已加入房間')}
-async function leaveCloudRoom(){if(!fb.user||!state.inviteCode){state.roomId=DEFAULT_ROOM_ID;state.inviteCode='';state.roomMembers=[];save();renderAll();return}if(!confirm('離開目前雙人房間？本機資料會保留。'))return;try{const ref=fb.modules.doc(fb.db,'rooms',roomCode());const snap=await fb.modules.getDoc(ref);if(snap.exists()){const data=snap.data()||{};data.members=(data.members||[]).filter(m=>m.uid!==fb.user.uid);data.updatedAt=new Date().toISOString();await fb.modules.setDoc(ref,data,{merge:true})}}catch(e){console.error(e)}state.roomId=DEFAULT_ROOM_ID;state.inviteCode='';state.roomMembers=[];detachRealtimeListeners();save();attachRealtimeListeners();renderAll();showToast('已離開房間')}
-function personalPayload(){syncActiveUserData();return {version:'8',updatedAt:state.updatedAt||new Date().toISOString(),userId:state.currentUserId,displayName:fb.user?.displayName||currentUserName(),email:fb.user?.email||'',personalData:state.userData[state.currentUserId]||blankUserData(state.currentUserId)}}
+
+function roomUiBox(){const card=document.getElementById('cloudStatusBox')?.parentElement;if(!card)return null;let box=document.getElementById('cloudRoomActionStatus');if(!box){box=document.createElement('div');box.id='cloudRoomActionStatus';box.style.marginTop='10px';card.insertBefore(box,document.getElementById('cloudRoomHint')?.parentElement||null)}return box}
+function roomUiStatus(kind,msg){const box=roomUiBox();if(!box)return;box.className=kind==='ok'?'cloudBox ok':kind==='err'?'cloudBox warn':'cloudBox';box.textContent=msg}
+function cleanInviteCode(v){return String(v||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'')}
+function setRoomButtonsBusy(busy){['createCloudRoomBtn','joinCloudRoomBtn','leaveCloudRoomBtn'].forEach(id=>{const b=document.getElementById(id);if(b)b.disabled=!!busy})}
+function saveRoomLocal(){state.updatedAt=new Date().toISOString();saveLocalOnly();try{localStorage.setItem(APP_KEY,JSON.stringify(state))}catch(e){}}
+function ensureRoomMemberLocal(){const me=currentMemberSnapshot();const old=Array.isArray(state.roomMembers)?state.roomMembers:[];state.roomMembers=mergeMembers(old,[me]);return me}
+function renderRoomLocalStatus(msg){renderCloudStatus();renderCloudRoomMembers();roomUiStatus('ok',msg||'已更新房間狀態');try{renderAll()}catch(e){}}
+async function createCloudRoom(){setRoomButtonsBusy(true);try{const code=makeInviteCode();const roomName=document.getElementById('cloudRoomName')?.value.trim()||state.roomName||'我們的生活任務';state.roomId=code;state.inviteCode=code;state.roomName=roomName;state.roomMembers=[currentMemberSnapshot()];saveRoomLocal();renderRoomLocalStatus('已建立房間，邀請碼：'+code);showToast('已建立房間：'+code);try{if(await initFirebase()&&fb.user){await pushRoomToCloud();attachRealtimeListeners();state.firebase.lastSyncAt=new Date().toISOString();saveRoomLocal();renderRoomLocalStatus('已建立並同步房間，邀請碼：'+code)}}catch(e){console.warn(e);roomUiStatus('ok','已建立本機房間，邀請碼：'+code+'。登入或網路恢復後可再按立即同步。')}}finally{setRoomButtonsBusy(false)}}
+async function joinCloudRoom(){setRoomButtonsBusy(true);try{const input=document.getElementById('cloudInviteCode');const code=cleanInviteCode(input?.value||state.inviteCode);if(!code){roomUiStatus('err','請先輸入邀請碼');showToast('請輸入邀請碼');return}if(input)input.value=code;const fallbackName=document.getElementById('cloudRoomName')?.value.trim()||state.roomName||'我們的生活任務';state.roomId=code;state.inviteCode=code;state.roomName=fallbackName;ensureRoomMemberLocal();saveRoomLocal();renderRoomLocalStatus('已加入房間，邀請碼：'+code);showToast('已加入房間：'+code);try{if(await initFirebase()&&fb.user){const ref=fb.modules.doc(fb.db,'rooms',code);const snap=await fb.modules.getDoc(ref);if(snap.exists()){const data=snap.data()||{};state.roomId=code;state.inviteCode=code;state.roomName=data.roomName||fallbackName;applyRoomDataFromCloud(data);ensureRoomMemberLocal();saveRoomLocal();await pushRoomToCloud();attachRealtimeListeners();state.firebase.lastSyncAt=new Date().toISOString();saveRoomLocal();renderRoomLocalStatus('已加入並同步房間，邀請碼：'+code)}else{await pushRoomToCloud();attachRealtimeListeners();state.firebase.lastSyncAt=new Date().toISOString();saveRoomLocal();renderRoomLocalStatus('已用此邀請碼建立/加入房間，邀請碼：'+code)}}}catch(e){console.warn(e);roomUiStatus('ok','已加入本機房間，邀請碼：'+code+'。如果雲端暫時無法讀取，資料仍會保留；可稍後按立即同步。')}}finally{setRoomButtonsBusy(false)}}
+async function leaveCloudRoom(){setRoomButtonsBusy(true);try{const old=state.inviteCode||'';if(fb.user&&state.inviteCode){try{const ref=fb.modules.doc(fb.db,'rooms',roomCode());const snap=await fb.modules.getDoc(ref);if(snap.exists()){const data=snap.data()||{};data.members=(data.members||[]).filter(m=>m.uid!==fb.user.uid);data.updatedAt=new Date().toISOString();await fb.modules.setDoc(ref,data,{merge:true})}}catch(e){console.warn(e)}}state.roomId=DEFAULT_ROOM_ID;state.inviteCode='';state.roomMembers=[];detachRealtimeListeners();saveRoomLocal();renderCloudStatus();renderCloudRoomMembers();roomUiStatus('warn',old?'已離開房間：'+old:'目前沒有加入房間');showToast('已離開房間')}finally{setRoomButtonsBusy(false)}}
+
 function roomPayload(){const payload={version:'8',roomId:state.roomId,roomName:state.roomName||'我們的生活任務',inviteCode:state.inviteCode||roomCode(),updatedAt:state.updatedAt||new Date().toISOString(),members:mergeMembers(state.roomMembers,[currentMemberSnapshot()])};CLOUD_ROOM_KEYS.forEach(k=>payload[k]=Array.isArray(state[k])?state[k]:[]);return payload}
 function mergeMembers(a,b){const map={};(a||[]).concat(b||[]).map(migrateRoomMember).forEach(m=>{if(m.uid)map[m.uid]={...(map[m.uid]||{}),...m}});return Object.values(map).slice(0,2)}
 function applyRoomDataFromCloud(data){if(!data)return;state.roomName=data.roomName||state.roomName;state.inviteCode=data.inviteCode||state.inviteCode;state.roomMembers=(data.members||[]).map(migrateRoomMember);CLOUD_ROOM_KEYS.forEach(k=>{if(Array.isArray(data[k]))state[k]=data[k]})}
@@ -534,16 +546,14 @@ async function syncCloud({silent=false,reason='manual'}={}){if(fb.syncInProgress
 function renderCloudStatus(){const btn=document.getElementById('googleAuthBtn');const box=document.getElementById('cloudStatusBox');const loginName=fb.user?(fb.user.displayName||fb.user.email||'Google 使用者'):'';if(btn){btn.textContent=fb.user?'登出':'使用 Google 登入';btn.classList.toggle('red',!!fb.user)}setText('cloudStatusPill',fb.user?'已登入：'+loginName:'未登入');if(document.getElementById('cloudRoomName')&&!document.getElementById('cloudRoomName').matches(':focus'))document.getElementById('cloudRoomName').value=state.roomName||'';if(document.getElementById('cloudInviteCode')&&!document.getElementById('cloudInviteCode').matches(':focus'))document.getElementById('cloudInviteCode').value=state.inviteCode||'';let txt='',cls='cloudBox warn';if(!isFirebaseConfigured())txt='Firebase 尚未設定：請在 HTML 程式碼的 firebaseConfig 填入你的專案設定。本機功能仍可正常使用。';else if(!fb.user)txt='Firebase 已設定，尚未登入。點選「使用 Google 登入」後，若已在瀏覽器登入 Google，可能不會再次要求輸入密碼，選擇帳號後會回到 APP 並維持登入狀態。';else{cls='cloudBox ok';txt='已登入：'+loginName+'｜Email：'+(fb.user.email||'未提供')+'｜房間：'+(state.inviteCode||'尚未加入')+'｜自動同步：已啟用｜最後同步：'+(state.firebase?.lastSyncAt?new Date(state.firebase.lastSyncAt).toLocaleString('zh-TW'):'尚未同步')}if(box){box.className=cls;box.textContent=txt}setText('cloudRoomHint',state.inviteCode?'邀請碼：'+state.inviteCode:'尚未加入房間');setText('coupleCloudRoomHint',state.inviteCode?'邀請碼：'+state.inviteCode:'未連線')}
 function renderCloudRoomMembers(){const render=(id)=>{const box=document.getElementById(id);if(!box)return;const members=(state.roomMembers&&state.roomMembers.length?state.roomMembers:[]);box.innerHTML=members.map(m=>{const s=m.publicStats||{};const feed=(m.publicFeed||[]).map(f=>`<span class="pill ${f.visibility==='secret'?'pink':f.visibility==='statusOnly'?'amber':'green'}">${escapeHtml(f.text)}</span>`).join(' ');return `<div class="item"><div class="itemTitle">${escapeHtml(m.name||m.email||m.uid)} ${m.uid===fb.user?.uid?'<span class="pill blue">我</span>':''}</div><div class="itemSub">${escapeHtml(m.email||'')}｜今日完成 ${s.todayDone??0}｜本週 ${s.weekEarn??0} 點｜連續 ${s.streak??0} 天</div><div class="meta">${feed||'<span class="pill">今日尚無公開動態</span>'}</div></div>`}).join('')||'<div class="empty">尚無雲端房間成員。登入後建立或加入雙人房間。</div>'};render('cloudMemberList');render('coupleCloudMemberList')}
  
-/* V5 覆蓋 JSON 匯入與 CSV 還原 */
+
 async function importJSON(e){const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());localStorage.setItem(APP_KEY,JSON.stringify(data));state=loadState();enhanceV5State();enhanceV7State();save();renderAll();showToast('JSON 匯入完成')}catch(err){console.error(err);showToast('JSON 匯入失敗')}e.target.value=''}
 function restoreCsvRow(table,row){['frequencyRule','rescueTask','sideTask','yearDates','rewardItems','answers','publicStats','publicFeed'].forEach(k=>{if(row[k]){try{row[k]=JSON.parse(row[k])}catch(e){}}});['targetValue','points','cost','amount','pointsEarned','actualValue','quantity','count','rewardPoints','currentValue','targetValue','rewardCouplePoints','intimacyPoints','harmonyPoints','usedCount','targetPoints','currentPoints'].forEach(k=>{if(k in row)row[k]=num(row[k],0)});['active','used','completed','revealed','bonus50Claimed','bonus100Claimed','flipEarned','flipUsed','keepStreak','unlocked','active'].forEach(k=>{if(k in row)row[k]=row[k]==='true'||row[k]===true});if(table==='habits')return migrateHabit(row);if(table==='habitLogs')return migrateLog(row);if(table==='pointsLedger')return migrateLedger(row);if(table==='rewards')return migrateReward(row);if(table==='rewardRedemptions')return migrateRedemption(row);if(table==='gameItems')return migrateItem(row);if(table==='gameLogs')return migrateGameLog(row);if(table==='dailyPacks')return migratePack(row);if(table==='secretMissions')return migrateSecret(row);if(table==='quests')return migrateQuest(row);if(table==='questProgress')return migrateQuestProgress(row);if(table==='achievements')return migrateAchievement(row);if(table==='levelData')return migrateLevel(row);if(table==='localUsers')return migrateLocalUser(row);if(table==='sharedQuests')return migrateSharedQuest(row);if(table==='couplePointsLedger')return migrateCoupleLedger(row);if(table==='sharedRewards')return migrateSharedReward(row);if(table==='sharedRewardRedemptions')return migrateSharedRedemption(row);if(table==='coupleTasks')return migrateCoupleTask(row);if(table==='coupleTaskLogs')return migrateCoupleTaskLog(row);if(table==='intimacyLedger')return migrateRelationshipLedger(row,'intimacy');if(table==='harmonyLedger')return migrateRelationshipLedger(row,'harmony');if(table==='dateCards')return migrateDateCard(row);if(table==='talkCards')return migrateTalkCard(row);if(table==='wishPool')return migrateWish(row);if(table==='wishPoolLedger')return migrateWishLedger(row);if(table==='relationshipReports')return migrateRelationshipReport(row);if(table==='coupleReports')return migrateCoupleReport(row);if(table==='roomMembers')return migrateRoomMember(row);if(table==='syncLogs')return migrateSyncLog(row);return row}
 function renderSettings(){setText('settingsHabitCount',state.habits.length);setText('settingsLogCount',state.logs.length);setText('settingsLedgerCount',state.pointsLedger.length);setText('settingsRewardCount',state.rewards.length);renderCloudStatus();renderCloudRoomMembers()}
  
  
  
-/* =========================
-   V8 最終完整遊戲化版
-   ========================= */
+
 Object.assign(CSV_TABLES,{
   bossBattles:['id','roomId','name','description','targetValue','currentValue','rewardCouplePoints','rewardIntimacy','rewardChestType','status','weekKey','createdAt','updatedAt','completedAt'],
   treasureChests:['id','userId','roomId','type','source','opened','rewardType','rewardValue','rewardText','createdAt','openedAt','updatedAt'],
@@ -603,12 +613,7 @@ applyRoomDataFromCloud=function(data){oldApplyRoomDataFromCloudV8(data);['bossBa
  
  
  
-/* =========================
-   V8.1 最終需求補齊與結構修正版
-   - 地圖推進、生活屬性值、任務劇情、每月人生報告
-   - coupleDailyPacks / life game 資料同步與 CSV
-   - Firebase 狀態文字改為「已自動同步」，不顯示最後同步時間
-   ========================= */
+
 Object.assign(CSV_TABLES,{
   coupleDailyPacks:['id','roomId','date','lightTaskId','careTaskId','bonusTaskId','secretTaskId','completedIds','rewardClaimed','createdAt','updatedAt'],
   lifeAttributes:['id','userId','roomId','name','value','source','updatedAt'],
@@ -649,7 +654,7 @@ renderCloudStatus=function(){const btn=document.getElementById('googleAuthBtn');
 setupPwa=function(){const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512"><rect width="512" height="512" rx="120" fill="#111827"/><text x="50%" y="55%" text-anchor="middle" font-size="260" fill="white" font-family="Arial">✦</text></svg>`;const icon='data:image/svg+xml,'+encodeURIComponent(svg);const manifest={name:'習慣任務 V8.2',short_name:'習慣任務',start_url:'./',display:'standalone',background_color:'#f5f7fb',theme_color:'#111827',icons:[{src:icon,sizes:'192x192',type:'image/svg+xml'},{src:icon,sizes:'512x512',type:'image/svg+xml'}]};document.getElementById('dynamicManifest').href=URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'}));if('serviceWorker'in navigator){const sw=`const CACHE='habit-mission-v82';self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./']).catch(()=>{})))});self.addEventListener('activate',e=>{e.waitUntil(self.clients.claim())});self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>{});return r}).catch(()=>caches.match(e.request)))})`;navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'text/javascript'}))).catch(()=>{})}}
  
  
-/* V8.2 獨立冒險頁：單人地圖 + 雙人共同地圖 */
+
 const ADV_NODES=[
  {name:'新手村',icon:'🏡',requiredSteps:0,rewardType:'points',rewardValue:20,story:'你從新手村出發。這裡記錄每一次小小開始，提醒你不用一次變很強，只要今天往前走。'},
  {name:'晨光森林',icon:'🌲',requiredSteps:12,rewardType:'chest',rewardValue:'wood',story:'晨光森林充滿清新的空氣。完成一批任務後，你開始感覺生活正在變得比較有節奏。'},
@@ -713,7 +718,7 @@ renderAdventurePage=function(){oldRenderAdventurePageRef();bindAdventureButtons(
  
  
  
-/* V8.4 雙人互動補齊版：最低啟動版 + 連續獎勵 + 驗收清單 */
+
 STATUS_LABELS.starter='最低啟動';
 STATUS_CLASS.starter='blue';
 try{if(typeof USER_DATA_KEYS!=='undefined'&&!USER_DATA_KEYS.includes('streakRewards'))USER_DATA_KEYS.push('streakRewards');if(typeof CLOUD_PERSONAL_KEYS!=='undefined'&&!CLOUD_PERSONAL_KEYS.includes('streakRewards'))CLOUD_PERSONAL_KEYS.push('streakRewards');CSV_TABLES.streakRewards=['id','userId','roomId','date','threshold','rewardType','points','itemType','chestType','description','claimed','createdAt','updatedAt'];}catch(e){}
@@ -754,9 +759,7 @@ enhanceV83State();
  
  
  
-/* =========================
-   V8.4 雙人互動補齊版：支援對方 / 秘密揭曉 / 雙人寶箱個別開箱 / 反擊任務 / 戰報中心
-   ========================= */
+
 function migratePartnerSupportLog(x){const now=new Date().toISOString();return {id:x.id||uid('support'),roomId:x.roomId||state.roomId||DEFAULT_ROOM_ID,date:x.date||todayKey(),senderId:x.senderId||state.currentUserId||DEFAULT_USER_ID,senderName:x.senderName||currentUserName(),recipientId:x.recipientId||'',recipientName:x.recipientName||'',type:x.type||'encourage',message:x.message||'',status:x.status||'sent',claimedAt:x.claimedAt||'',effect:x.effect||'',visibility:x.visibility||'public',createdAt:x.createdAt||now,updatedAt:x.updatedAt||now}}
 function migrateSecretRevealLog(x){const now=new Date().toISOString();return {id:x.id||uid('reveal'),roomId:x.roomId||state.roomId||DEFAULT_ROOM_ID,date:x.date||todayKey(),secretDate:x.secretDate||'',userId:x.userId||'',userName:x.userName||'',secretTitle:x.secretTitle||'',message:x.message||'',revealed:!!x.revealed,createdAt:x.createdAt||now,updatedAt:x.updatedAt||now}}
 function migrateRevengeTask(x){const now=new Date().toISOString();return {id:x.id||uid('revenge'),roomId:x.roomId||state.roomId||DEFAULT_ROOM_ID,date:x.date||todayKey(),userId:x.userId||'',userName:x.userName||'',reason:x.reason||'',title:x.title||'反擊任務',description:x.description||'',rewardCouplePoints:num(x.rewardCouplePoints,20),status:x.status||'active',completedAt:x.completedAt||'',createdAt:x.createdAt||now,updatedAt:x.updatedAt||now}}
@@ -802,7 +805,7 @@ window.claimPartnerSupport=claimPartnerSupport;window.completeRevengeTask=comple
 ensureV84State();
  
  
-/* 外部 PWA 檔案版：固定使用根目錄 manifest.webmanifest 與 service-worker.js，不再使用 Blob 動態 PWA。 */
+
 setupPwa=function(){
   const manifestLink=document.querySelector('link[rel="manifest"]');
   if(manifestLink)manifestLink.setAttribute('href','./manifest.webmanifest');
@@ -829,14 +832,7 @@ setupPwa=function(){
  
  
  
-/* =========================
-   V8.4.9 房間加入按鈕修正版
-   - 固定兩位本機角色：我 / 使用者2
-   - Google 登入者綁定到「我」，不再新增第三個 Ariana 使用者
-   - 切換使用者可正常選擇：登入者（我） / 使用者2
-   - 全站預設移除特定性別稱謂
-   - 首頁日期明確顯示
-   ========================= */
+
 const FIXED_ME_ID='me';
 const FIXED_USER2_ID='user2';
 function todayDisplayText(){return new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'short'}).replace('星期','週')}
@@ -852,7 +848,7 @@ const oldEnhanceV5Identity=enhanceV5State;
 enhanceV5State=function(){oldEnhanceV5Identity();normalizeTwoLocalUsers();loadUserDataToRoot(state.currentUserId)};
 currentUserName=function(id=state.currentUserId){const u=(state.localUsers||[]).find(u=>u.id===id);return displayNameForUser(u)||id};
 ensureCloudLocalUser=function(user){if(!user)return;state.firebase={...(state.firebase||{}),userId:user.uid,email:user.email||'',displayName:user.displayName||user.email||'',lastLoginAt:new Date().toISOString()};normalizeTwoLocalUsers();const me=state.localUsers.find(u=>u.id===FIXED_ME_ID);if(me){me.googleUid=user.uid;me.googleName=user.displayName||user.email||'';me.googleEmail=user.email||'';me.updatedAt=new Date().toISOString()}if(state.currentUserId!==FIXED_ME_ID){syncActiveUserData();state.currentUserId=FIXED_ME_ID}loadUserDataToRoot(FIXED_ME_ID)};
-renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.9 房間加入按鈕修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
+renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.9 目前：'+currentUserName()+cloudHeaderSuffix())};
 const oldSwitchLocalUserIdentity=switchLocalUser;
 switchLocalUser=function(id){normalizeTwoLocalUsers();if(![FIXED_ME_ID,FIXED_USER2_ID].includes(id))id=FIXED_ME_ID;syncActiveUserData();state.currentUserId=id;loadUserDataToRoot(id);save();ensureTodayPack(true);renderAll();showToast('已切換使用者：'+currentUserName())};
 renderLocalUsers=function(){normalizeTwoLocalUsers();const box=document.getElementById('localUserList');if(!box)return;box.innerHTML=state.localUsers.map(u=>`<div class="item"><div class="itemTop"><div><div class="itemTitle">${escapeHtml(displayNameForUser(u))} ${u.id===state.currentUserId?'<span class="pill blue">目前使用</span>':''}</div><div class="itemSub">${u.id===FIXED_ME_ID?(googleDisplayName()?('Google：'+escapeHtml(googleDisplayName())):'第一位使用者 / 我'):'第二位使用者，可自行更名'}｜userId：${escapeHtml(u.id)}</div></div><div class="itemActions"><button class="btn small" data-user-switch="${u.id}">切換</button></div></div></div>`).join('');box.querySelectorAll('[data-user-switch]').forEach(b=>b.addEventListener('click',()=>switchLocalUser(b.dataset.userSwitch)))};
@@ -864,9 +860,7 @@ save=function(){normalizeTwoLocalUsers();state.version='8.4-user-identity';oldSa
  
  
  
-/* V8.4.9 房間加入按鈕修正版
-   目的：用事件委派統一接管靜態按鈕與動態按鈕，避免部分按鈕因重繪、事件綁定順序或舊快取而點擊無反應。
-*/
+
 function switchPageSafely(page){
   const tab=document.querySelector(`.tab[data-page="${page}"]`);
   const target=document.getElementById('page-'+page);
@@ -994,9 +988,7 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
 </script>
  
 <script>
-/* V8.4.1 使用者切換與日期保險修正
-   目的：避免主程式渲染順序、舊快取或 Google 登入名稱造成日期消失 / 使用者下拉選單空白。
-*/
+
 (function(){
   const ME_ID='me';
   const USER2_ID='user2';
@@ -1083,7 +1075,7 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
     const subtitle=document.getElementById('headerSubtitle');
     if(subtitle){
       const current=(window.state?.currentUserId)||ME_ID;
-      subtitle.textContent='V8.4.9 房間加入按鈕修正版｜目前：'+displayName(current)+'｜已自動同步';
+      subtitle.textContent='V8.4.9 目前：'+displayName(current)+'｜已自動同步';
     }
   }
   window.ensureIdentityUI=ensureIdentityUI;
@@ -1102,9 +1094,7 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
 
 
 <script>
-/* V8.4.5 頁籤與關係按鈕保險修正
-   這段只接管「下方頁籤」與「關係頁三個問題按鈕」，避免影響其他功能。
-*/
+
 (function(){
   const APP_KEY='habitMissionPwaV1';
   const DATE_CARDS=['找一間你們都沒吃過的小店','一起去附近散步 30 分鐘並拍一張照片','買一樣對方喜歡的小東西，不用貴','一起安排一次放鬆行程','找一個地方看夜景或看海','一起去按摩或泡湯','安排一個不用趕行程的下午','一起完成一個小小新體驗'];
@@ -1235,7 +1225,7 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
 
 
 <style id="v846-final-ui-fix">
-/* V8.4.6 全區塊顯示 / 空狀態 / iPhone 安全距離修正 */
+
 :root{--safe-top-fallback:22px}
 .topbar{
   padding-top:calc(14px + env(safe-area-inset-top, var(--safe-top-fallback))) !important;
@@ -1258,7 +1248,7 @@ body.dark .v846-empty{background:#111827;border-color:#243044;color:#a3aab8}
 }
 </style>
 <script id="v846-final-render-fix">
-/* V8.4.6 final fix: 不改資料結構，補齊所有空白區塊、頂部安全距離與關係按鈕。 */
+
 (function(){
   if(window.__v846FinalFixLoaded)return; window.__v846FinalFixLoaded=true;
   const qs=(id)=>document.getElementById(id);
@@ -1321,42 +1311,6 @@ body.dark .v846-empty{background:#111827;border-color:#243044;color:#a3aab8}
 </script>
 
 
-
-<style id="v849-room-fix-style">
-/* V8.4.9：修正建立/加入/離開房間按鈕無反應，並加上明確狀態提示 */
-#cloudRoomActionStatus{margin-top:10px}
-.roomStatusOk{background:#ecfdf5;border:1px solid #bbf7d0;color:#065f46;border-radius:16px;padding:10px;font-size:13px;line-height:1.55}
-.roomStatusWarn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:10px;font-size:13px;line-height:1.55}
-.roomStatusErr{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:16px;padding:10px;font-size:13px;line-height:1.55}
-.roomCodePill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:5px 9px;font-weight:800;letter-spacing:.5px}
-body.dark .roomStatusOk{background:#06381f;border-color:#047857;color:#bbf7d0}body.dark .roomStatusWarn{background:#2a1b08;border-color:#92400e;color:#fed7aa}body.dark .roomStatusErr{background:#3b0a0a;border-color:#991b1b;color:#fecaca}
-</style>
-<script id="v849-room-join-fix">
-(function(){
-  if(window.__v849RoomJoinFixLoaded)return;window.__v849RoomJoinFixLoaded=true;
-  const APP_KEY='habitMissionPwaV1';
-  const $=id=>document.getElementById(id);
-  const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  function toast(msg){try{if(typeof showToast==='function'){showToast(msg);return}}catch(e){}const t=$('toast');if(t&&t.querySelector('div')){t.querySelector('div').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}else alert(msg)}
-  function state(){let s=window.state;if(!s||typeof s!=='object'){try{s=JSON.parse(localStorage.getItem(APP_KEY)||'{}')}catch(e){s={}}window.state=s}if(!Array.isArray(s.roomMembers))s.roomMembers=[];if(!Array.isArray(s.localUsers)||!s.localUsers.length)s.localUsers=[{id:'me',name:'我',role:'self',active:true},{id:'user2',name:'使用者2',role:'partner',active:true}];if(!s.currentUserId)s.currentUserId='me';return s}
-  function save(){const s=state();s.version='8.4.9';s.updatedAt=new Date().toISOString();try{localStorage.setItem(APP_KEY,JSON.stringify(s))}catch(e){console.warn(e)}}
-  function makeCode(){const letters='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let out='';for(let i=0;i<6;i++)out+=letters[Math.floor(Math.random()*letters.length)];return out}
-  function userSnapshot(){const s=state();const fb=window.fb||{};const u=fb.user||{};const local=(s.localUsers||[]).find(x=>x.id===s.currentUserId)||(s.localUsers||[])[0]||{};return {uid:u.uid||s.currentUserId||'me',name:u.displayName||local.name||'我',email:u.email||local.email||'',role:local.role||'self',joinedAt:new Date().toISOString(),publicStats:{todayDone:0,weekEarn:0,streak:0},publicFeed:[]}}
-  function ensureStatusBox(){const card=$('cloudStatusBox')?.parentElement;if(!card)return null;let box=$('cloudRoomActionStatus');if(!box){box=document.createElement('div');box.id='cloudRoomActionStatus';card.insertBefore(box,$('cloudRoomHint')?.parentElement||null)}return box}
-  function setActionStatus(type,msg){const box=ensureStatusBox();if(!box)return;box.className=type==='ok'?'roomStatusOk':type==='err'?'roomStatusErr':'roomStatusWarn';box.innerHTML=msg}
-  function roomNameInput(){return ($('cloudRoomName')?.value||'').trim()}
-  function inviteInput(){return ($('cloudInviteCode')?.value||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'')}
-  function renderRoom(){const s=state();const code=s.inviteCode||'';const rn=$('cloudRoomName'),ic=$('cloudInviteCode');if(rn&&!rn.matches(':focus'))rn.value=s.roomName||'';if(ic&&!ic.matches(':focus'))ic.value=code||'';const hint=code?`邀請碼：${code}`:'尚未加入房間';['cloudRoomHint','coupleCloudRoomHint'].forEach(id=>{const el=$(id);if(el)el.textContent=id==='coupleCloudRoomHint'?(code?`邀請碼：${code}`:'未連線'):hint});const pill=$('cloudStatusPill');if(pill&&code)pill.textContent='已加入房間';const status=$('cloudStatusBox');if(status&&code){status.className='cloudBox ok';status.textContent=`已加入房間：${s.roomName||'雙人房間'}｜邀請碼：${code}｜${(window.fb&&window.fb.user)?'Google 已登入，可同步':'本機房間模式，之後登入 Google 可同步'}`}
-    const members=s.roomMembers&&s.roomMembers.length?s.roomMembers:[userSnapshot()];const html=members.map(m=>`<div class="item"><div class="itemTitle">${esc(m.name||m.email||m.uid)} ${m.uid===(window.fb&&window.fb.user&&window.fb.user.uid)?'<span class="pill blue">我</span>':''}</div><div class="itemSub">${esc(m.email||'本機成員')}｜${code?'已在房間':'尚未加入房間'}</div><div class="meta"><span class="pill green">房間成員</span></div></div>`).join('')||'<div class="empty">尚無房間成員。</div>';['cloudMemberList','coupleCloudMemberList'].forEach(id=>{const box=$(id);if(box)box.innerHTML=html});}
-  async function tryNative(fnName){try{const fn=window[fnName];if(typeof fn==='function'){const p=fn();if(p&&typeof p.then==='function')await Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error('cloud timeout')),5000))]);return true}}catch(e){console.warn('Native room function fallback:',e);return false}return false}
-  async function createRoom(){const s=state();const code=makeCode();s.roomId=code;s.inviteCode=code;s.roomName=roomNameInput()||s.roomName||'我們的生活任務';s.roomMembers=[userSnapshot()];save();renderRoom();setActionStatus('ok',`已建立雙人房間。請把邀請碼 <span class="roomCodePill">${code}</span> 傳給對方，對方輸入邀請碼後按「加入房間」。`);toast('已建立房間：'+code);setTimeout(()=>tryNative('createCloudRoom').then(()=>renderRoom()),50)}
-  async function joinRoom(){const code=inviteInput();if(!code){setActionStatus('err','請先輸入邀請碼，再按「加入房間」。');toast('請輸入邀請碼');return}const s=state();s.roomId=code;s.inviteCode=code;s.roomName=roomNameInput()||s.roomName||'我們的生活任務';const me=userSnapshot();const existing=Array.isArray(s.roomMembers)?s.roomMembers:[];s.roomMembers=existing.filter(m=>m&&m.uid!==me.uid);s.roomMembers.unshift(me);if(s.roomMembers.length<2){s.roomMembers.push({uid:'partner_waiting',name:'對方',email:'等待雲端同步或對方加入',role:'partner',joinedAt:new Date().toISOString(),publicStats:{todayDone:0,weekEarn:0,streak:0},publicFeed:[]})}save();renderRoom();setActionStatus('ok',`已加入房間 <span class="roomCodePill">${code}</span>。若對方也用相同邀請碼加入，雲端同步後會顯示對方資料。`);toast('已加入房間：'+code);setTimeout(()=>tryNative('joinCloudRoom').then(()=>renderRoom()),50)}
-  async function leaveRoom(){const s=state();const old=s.inviteCode||'';s.roomId='default-room';s.inviteCode='';s.roomName='';s.roomMembers=[];save();renderRoom();setActionStatus('warn',old?`已離開房間 ${esc(old)}。本機資料仍保留。`:'目前沒有加入房間。');toast('已離開房間');setTimeout(()=>tryNative('leaveCloudRoom').then(()=>renderRoom()),50)}
-  function attach(){[['createCloudRoomBtn',createRoom],['joinCloudRoomBtn',joinRoom],['leaveCloudRoomBtn',leaveRoom]].forEach(([id,fn])=>{const b=$(id);if(!b||b.dataset.v849RoomBound)return;b.dataset.v849RoomBound='1';b.type='button';b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();fn();return false},true)});renderRoom();const code=state().inviteCode;if(!code){setActionStatus('warn','房間按鈕已啟用：可先建立房間取得邀請碼，或輸入邀請碼後加入。未登入 Google 時也會先進入本機房間模式，不會再按了沒反應。')}}
-  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#createCloudRoomBtn,#joinCloudRoomBtn,#leaveCloudRoomBtn');if(!b)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();if(b.id==='createCloudRoomBtn')createRoom();if(b.id==='joinCloudRoomBtn')joinRoom();if(b.id==='leaveCloudRoomBtn')leaveRoom();return false},true);
-  document.addEventListener('DOMContentLoaded',attach);window.addEventListener('load',attach);window.addEventListener('focus',attach);setTimeout(attach,400);setTimeout(attach,1400);
-})();
-</script>
 
 </body>
 </html>
