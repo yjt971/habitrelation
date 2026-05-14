@@ -1,8 +1,8 @@
 {
   "name": "習慣任務｜雙人冒險養成",
   "short_name": "習慣任務",
-  "description": "個人習慣、雙人挑戰、情侶互動、集點兌獎與冒險地圖的 PWA App。",
-  "id": "./?app=habit-mission",
+  "description": "個人習慣、雙人挑戰、情侶互動、集點兌獎、小遊戲與冒險地圖的 PWA App。",
+  "id": "./index.html",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -10,9 +10,9 @@
   "orientation": "portrait",
   "background_color": "#f5f7fb",
   "theme_color": "#111827",
-  "categories": ["productivity", "health", "lifestyle"],
   "lang": "zh-Hant-TW",
   "dir": "ltr",
+  "categories": ["productivity", "health", "lifestyle"],
   "icons": [
     { "src": "./icons/icon-72x72.png", "sizes": "72x72", "type": "image/png" },
     { "src": "./icons/icon-96x96.png", "sizes": "96x96", "type": "image/png" },
