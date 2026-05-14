@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>習慣任務｜V8.4.5 頁籤與關係按鈕修正版｜外部PWA版</title>
+<title>習慣任務｜V8.4.6 全區塊空狀態與安全距離修正版｜外部PWA版</title>
 <meta name="theme-color" content="#111827">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -39,7 +39,7 @@ body.dark{--bg:#0b1220;--card:#111827;--text:#f9fafb;--muted:#a3aab8;--line:#243
 </head>
 <body>
 <div class="app">
-<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.5 頁籤與關係按鈕修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
+<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.6 全區塊空狀態與安全距離修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
 <main>
 <section id="page-today" class="page active">
  
@@ -830,7 +830,7 @@ setupPwa=function(){
  
  
 /* =========================
-   V8.4.5 頁籤與關係按鈕修正版
+   V8.4.6 全區塊空狀態與安全距離修正版
    - 固定兩位本機角色：我 / 使用者2
    - Google 登入者綁定到「我」，不再新增第三個 Ariana 使用者
    - 切換使用者可正常選擇：登入者（我） / 使用者2
@@ -852,7 +852,7 @@ const oldEnhanceV5Identity=enhanceV5State;
 enhanceV5State=function(){oldEnhanceV5Identity();normalizeTwoLocalUsers();loadUserDataToRoot(state.currentUserId)};
 currentUserName=function(id=state.currentUserId){const u=(state.localUsers||[]).find(u=>u.id===id);return displayNameForUser(u)||id};
 ensureCloudLocalUser=function(user){if(!user)return;state.firebase={...(state.firebase||{}),userId:user.uid,email:user.email||'',displayName:user.displayName||user.email||'',lastLoginAt:new Date().toISOString()};normalizeTwoLocalUsers();const me=state.localUsers.find(u=>u.id===FIXED_ME_ID);if(me){me.googleUid=user.uid;me.googleName=user.displayName||user.email||'';me.googleEmail=user.email||'';me.updatedAt=new Date().toISOString()}if(state.currentUserId!==FIXED_ME_ID){syncActiveUserData();state.currentUserId=FIXED_ME_ID}loadUserDataToRoot(FIXED_ME_ID)};
-renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.5 頁籤與關係按鈕修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
+renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.6 全區塊空狀態與安全距離修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
 const oldSwitchLocalUserIdentity=switchLocalUser;
 switchLocalUser=function(id){normalizeTwoLocalUsers();if(![FIXED_ME_ID,FIXED_USER2_ID].includes(id))id=FIXED_ME_ID;syncActiveUserData();state.currentUserId=id;loadUserDataToRoot(id);save();ensureTodayPack(true);renderAll();showToast('已切換使用者：'+currentUserName())};
 renderLocalUsers=function(){normalizeTwoLocalUsers();const box=document.getElementById('localUserList');if(!box)return;box.innerHTML=state.localUsers.map(u=>`<div class="item"><div class="itemTop"><div><div class="itemTitle">${escapeHtml(displayNameForUser(u))} ${u.id===state.currentUserId?'<span class="pill blue">目前使用</span>':''}</div><div class="itemSub">${u.id===FIXED_ME_ID?(googleDisplayName()?('Google：'+escapeHtml(googleDisplayName())):'第一位使用者 / 我'):'第二位使用者，可自行更名'}｜userId：${escapeHtml(u.id)}</div></div><div class="itemActions"><button class="btn small" data-user-switch="${u.id}">切換</button></div></div></div>`).join('');box.querySelectorAll('[data-user-switch]').forEach(b=>b.addEventListener('click',()=>switchLocalUser(b.dataset.userSwitch)))};
@@ -864,7 +864,7 @@ save=function(){normalizeTwoLocalUsers();state.version='8.4-user-identity';oldSa
  
  
  
-/* V8.4.5 頁籤與關係按鈕修正版
+/* V8.4.6 全區塊空狀態與安全距離修正版
    目的：用事件委派統一接管靜態按鈕與動態按鈕，避免部分按鈕因重繪、事件綁定順序或舊快取而點擊無反應。
 */
 function switchPageSafely(page){
@@ -1083,7 +1083,7 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
     const subtitle=document.getElementById('headerSubtitle');
     if(subtitle){
       const current=(window.state?.currentUserId)||ME_ID;
-      subtitle.textContent='V8.4.5 頁籤與關係按鈕修正版｜目前：'+displayName(current)+'｜已自動同步';
+      subtitle.textContent='V8.4.6 全區塊空狀態與安全距離修正版｜目前：'+displayName(current)+'｜已自動同步';
     }
   }
   window.ensureIdentityUI=ensureIdentityUI;
@@ -1229,6 +1229,94 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
   window.addEventListener('load',attach);
   window.addEventListener('focus',attach);
   setTimeout(attach,250);setTimeout(attach,1000);setTimeout(attach,2000);
+})();
+</script>
+
+
+
+<style id="v846-final-ui-fix">
+/* V8.4.6 全區塊顯示 / 空狀態 / iPhone 安全距離修正 */
+:root{--safe-top-fallback:22px}
+.topbar{
+  padding-top:calc(14px + env(safe-area-inset-top, var(--safe-top-fallback))) !important;
+  min-height:calc(78px + env(safe-area-inset-top, var(--safe-top-fallback))) !important;
+}
+.logoText h1{line-height:1.1}
+.datePill{max-width:50vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v846-empty{padding:16px 12px;text-align:center;color:var(--muted);background:#fff;border:1px dashed #cbd5e1;border-radius:16px;font-size:14px;line-height:1.5}
+body.dark .v846-empty{background:#111827;border-color:#243044;color:#a3aab8}
+.v846-mini{display:grid;gap:8px}
+.v846-mini .itemSub{line-height:1.45}
+@media(max-width:720px){
+  .topbar{padding-left:14px!important;padding-right:14px!important}
+  .brand{align-items:flex-start!important;gap:8px!important}
+  .logoIcon{width:38px!important;height:38px!important;flex:0 0 38px!important}
+  .logoText h1{font-size:19px!important;max-width:44vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .logoText p{max-width:45vw!important}
+  .datePill{font-size:11px!important;min-width:132px!important;max-width:47vw!important;margin-top:0!important}
+  .app{padding-top:0!important}
+}
+</style>
+<script id="v846-final-render-fix">
+/* V8.4.6 final fix: 不改資料結構，補齊所有空白區塊、頂部安全距離與關係按鈕。 */
+(function(){
+  if(window.__v846FinalFixLoaded)return; window.__v846FinalFixLoaded=true;
+  const qs=(id)=>document.getElementById(id);
+  const esc=(v)=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+  const now=()=>new Date().toISOString();
+  const uid=(p)=>p+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+  const empty=(msg)=>`<div class="v846-empty">${esc(msg)}</div>`;
+  const isBlank=(el)=>!el || !String(el.textContent||'').trim();
+  const setIfBlank=(id,msg)=>{const el=qs(id); if(el&&isBlank(el))el.innerHTML=empty(msg)};
+  function appState(){try{return state}catch(e){window.state=window.state||{};return window.state}}
+  function saveSafe(){try{if(typeof save==='function')save();else localStorage.setItem('habitMissionPwaV1',JSON.stringify(appState()))}catch(e){try{localStorage.setItem('habitMissionPwaV1',JSON.stringify(appState()))}catch(_){}}}
+  function toast(msg){try{if(typeof showToast==='function'){showToast(msg);return}}catch(e){} const t=qs('toast'); if(t&&t.querySelector('div')){t.querySelector('div').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)} }
+
+  const DEFAULT_COUPLE_TASKS=[
+    ['跟對方說一句今天辛苦了','輕量互動',1,'保持日常連結的一句話。',10,0],['分享一張今天看到的照片','輕量互動',1,'分享天空、食物或路上看到的小事。',10,0],['問對方今天吃了什麼','輕量互動',1,'用很輕鬆的方式關心對方。',8,0],['傳一個可愛或好笑的東西給對方','輕量互動',1,'讓今天多一點笑點。',8,0],
+    ['問對方今天最累的一件事','關心',2,'聽對方說，不急著給建議。',15,0],['問對方今天心情幾分','關心',2,'用 1-10 分了解對方狀態。',15,0],['聽對方說 5 分鐘，不急著給建議','關心',2,'練習陪伴而不是立刻解決。',20,0],
+    ['稱讚對方一個具體的地方','肯定',3,'越具體越好，不要只說你很棒。',20,0],['說一件最近感謝對方的事','肯定',3,'讓對方知道自己被看見。',20,0],['告訴對方你喜歡他的一個小習慣','肯定',3,'累積正向感。',20,0],
+    ['一起散步 15 分鐘','陪伴',4,'可以見面或通話時一起完成。',25,5],['一起吃飯時不滑手機 20 分鐘','陪伴',4,'提高相處品質。',25,5],['一起看一集劇','陪伴',4,'簡單但穩定的陪伴。',20,5],['一起做伸展 5 分鐘','陪伴',4,'把健康任務變成雙人任務。',20,5],
+    ['一起去一間沒吃過的店','約會',5,'創造新的共同體驗。',40,10],['一起拍一張合照','約會',5,'留下今天的共同記憶。',30,10],['一起規劃下次約會','約會',5,'把期待放進未來。',30,10],['一起完成一件新體驗','約會',5,'讓關係有新鮮感。',45,15]
+  ];
+  const HARMONY_Q=['今晚想吃什麼？','對方今天心情最可能是？','對方最近最想做的是什麼？','對方壓力大的時候最需要什麼？','對方最喜歡哪種約會？'];
+  const DATE_CARDS=['找一間你們都沒吃過的小店','一起去附近散步 30 分鐘並拍一張照片','買一樣對方喜歡的小東西，不用貴','一起安排一次放鬆行程','找一個地方看夜景或看海','一起去按摩或泡湯','安排一個不用趕行程的下午','一起完成一個小小新體驗'];
+  const TALK_CARDS=[['輕鬆深聊','最近有哪件小事讓你覺得開心？'],['輕鬆深聊','如果這週可以重來一天，你想重來哪一天？'],['輕鬆深聊','最近有什麼想吃但還沒吃的？'],['關係深聊','最近我有什麼地方讓你覺得被照顧？'],['關係深聊','你覺得我們最近相處最舒服的是什麼時候？'],['關係深聊','最近你希望我多注意什麼？'],['未來深聊','這個月我們想一起完成什麼？'],['未來深聊','今年有沒有一個地方想一起去？'],['未來深聊','你希望我們之後多增加哪一種相處方式？']];
+
+  function ensureArrays(s){['coupleTasks','coupleTaskLogs','intimacyLedger','harmonyLedger','dateCards','talkCards','relationshipReports','dailyPacks','secretMissions','gameItems','gameLogs','rewards','rewardRedemptions','sharedQuests','sharedRewards','sharedRewardRedemptions','coupleChallenges','couplePointsLedger','partnerSupportLogs','secretRevealLogs','revengeTasks','coupleChestOpenings','quests','achievements','adventureMaps','adventureLogs','adventureInteractions','wishPool','wishPoolLedger'].forEach(k=>{if(!Array.isArray(s[k]))s[k]=[]});if(!s.coupleDailyTasks||typeof s.coupleDailyTasks!=='object')s.coupleDailyTasks={};if(!s.harmonyDaily||typeof s.harmonyDaily!=='object')s.harmonyDaily={};if(!Array.isArray(s.localUsers)||s.localUsers.length<2)s.localUsers=[{id:'me',name:'我',role:'self',active:true},{id:'user2',name:'使用者2',role:'partner',active:true}];if(!s.currentUserId)s.currentUserId=s.localUsers[0].id||'me';if(!s.roomId)s.roomId='default-room'}
+  function seedIfNeeded(){const s=appState();ensureArrays(s);if(!s.coupleTasks.length){s.coupleTasks=DEFAULT_COUPLE_TASKS.map(x=>({id:uid('coupleTask'),roomId:s.roomId,title:x[0],category:x[1],level:x[2],description:x[3],intimacyPoints:x[4],harmonyPoints:x[5],active:true,createdAt:now(),updatedAt:now()}));}
+    if(!s.dateCards.length)s.dateCards=DATE_CARDS.map(x=>({id:uid('dateCard'),title:x,description:x,active:true,usedCount:0,createdAt:now(),updatedAt:now()}));
+    if(!s.talkCards.length)s.talkCards=TALK_CARDS.map(x=>({id:uid('talkCard'),category:x[0],question:x[1],active:true,usedCount:0,createdAt:now(),updatedAt:now()}));
+    const dk=today();if(!s.harmonyDaily[dk])s.harmonyDaily[dk]={question:HARMONY_Q[(new Date().getDate())%HARMONY_Q.length],done:false};
+    if(!s.coupleDailyTasks[dk]){const active=s.coupleTasks.filter(x=>x.active!==false);if(active.length){const t=active[(new Date().getDate()+new Date().getMonth()*3)%active.length];s.coupleDailyTasks[dk]={date:dk,taskId:t.id,changed:false,completed:false,createdAt:now(),updatedAt:now()}}}
+  }
+  function todayCoupleTask(){const s=appState();seedIfNeeded();const r=s.coupleDailyTasks[today()];return r?s.coupleTasks.find(x=>x.id===r.taskId):null}
+  function renderHarmonyFix(){seedIfNeeded();const s=appState();const h=s.harmonyDaily[today()]||{question:HARMONY_Q[0],done:false};const q=qs('harmonyQuestionBox');if(q&&!String(q.textContent||'').trim()){q.textContent=(h.question||HARMONY_Q[0])+(h.done?'（今日已答對）':'')}
+    const a=qs('harmonyUserALabel'), b=qs('harmonyUserBLabel');if(a)a.textContent=(s.localUsers?.[0]?.name||'使用者 A')+' 答案';if(b)b.textContent=(s.localUsers?.[1]?.name||'使用者 B')+' 答案';}
+  function renderTodayCoupleFix(){seedIfNeeded();const s=appState(), t=todayCoupleTask(), box=qs('todayCoupleTaskBox');if(!box)return;if(!t){box.innerHTML=empty('尚無可用情侶任務');return}const rec=s.coupleDailyTasks[today()]||{};const done=rec.completed||s.coupleTaskLogs.some(l=>l.date===today()&&l.taskId===t.id);box.innerHTML=`<div class="item"><div class="itemTitle">${esc(t.title)} ${done?'<span class="pill green">已完成</span>':''}</div><div class="itemSub">${esc(t.category)}｜Level ${esc(t.level)}｜親密值 +${Number(t.intimacyPoints)||0}｜默契值 +${Number(t.harmonyPoints)||0}</div><div class="itemSub">${esc(t.description||'今天完成即可，不完成不扣分。')}</div></div>`;}
+  function renderRelationshipLedgerFix(){const s=appState(), box=qs('relationshipLedgerBox');if(!box)return;const items=[...s.intimacyLedger.map(x=>({...x,label:'親密值'})),...s.harmonyLedger.map(x=>({...x,label:'默契值'}))].sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||''))).slice(0,6);if(!items.length&&isBlank(box)){box.innerHTML=empty('尚無關係數值紀錄，完成「今日靠近一點」後會顯示在這裡。')}else if(items.length){box.innerHTML=items.map(x=>`<div class="item"><div class="itemTitle">${esc(x.label)} ${Number(x.amount)>0?'+':''}${esc(x.amount)}</div><div class="itemSub">${esc(x.description||'')}｜${esc(x.date||'')}</div></div>`).join('')}
+    const int=s.intimacyLedger.reduce((a,b)=>a+(Number(b.amount)||0),0), har=s.harmonyLedger.reduce((a,b)=>a+(Number(b.amount)||0),0); if(qs('intimacyNow'))qs('intimacyNow').textContent=int;if(qs('harmonyNow'))qs('harmonyNow').textContent=har;}
+  function completeTodayFix(){seedIfNeeded();const s=appState(), t=todayCoupleTask(), dk=today();if(!t){toast('尚無可完成的情侶任務');return}const rec=s.coupleDailyTasks[dk];if(rec.completed||s.coupleTaskLogs.some(l=>l.date===dk&&l.taskId===t.id)){toast('今日靠近一點已完成');renderTodayCoupleFix();renderRelationshipLedgerFix();return}rec.completed=true;rec.updatedAt=now();s.coupleTaskLogs.push({id:uid('coupleTaskLog'),roomId:s.roomId,taskId:t.id,title:t.title,category:t.category,date:dk,intimacyPoints:Number(t.intimacyPoints)||0,harmonyPoints:Number(t.harmonyPoints)||0,note:'今日靠近一點',createdAt:now()});if(Number(t.intimacyPoints))s.intimacyLedger.push({id:uid('intimacy'),date:dk,type:'earn',source:'coupleTask',amount:Number(t.intimacyPoints)||0,description:'完成情侶任務：'+t.title,relatedId:t.id,createdAt:now()});if(Number(t.harmonyPoints))s.harmonyLedger.push({id:uid('harmony'),date:dk,type:'earn',source:'coupleTask',amount:Number(t.harmonyPoints)||0,description:'完成情侶任務：'+t.title,relatedId:t.id,createdAt:now()});saveSafe();try{if(typeof renderAll==='function')renderAll()}catch(e){}renderTodayCoupleFix();renderRelationshipLedgerFix();toast('已完成今日靠近一點')}
+  function changeTodayFix(){seedIfNeeded();const s=appState(), dk=today(), old=s.coupleDailyTasks[dk];if(old?.changed){toast('今天已經換過一次');return}const active=s.coupleTasks.filter(x=>x.active!==false);if(!active.length)return;let t=active[Math.floor(Math.random()*active.length)];if(old&&active.length>1){let n=0;while(t.id===old.taskId&&n++<8)t=active[Math.floor(Math.random()*active.length)]}s.coupleDailyTasks[dk]={date:dk,taskId:t.id,changed:true,completed:false,createdAt:old?.createdAt||now(),updatedAt:now()};saveSafe();renderTodayCoupleFix();toast('已更換今日任務')}
+  function drawFix(kind){seedIfNeeded();const s=appState(), box=qs('drawnCardBox');if(kind==='date'){const arr=s.dateCards.filter(c=>c.active!==false);const c=arr[Math.floor(Math.random()*arr.length)];c.usedCount=(Number(c.usedCount)||0)+1;c.updatedAt=now();s.relationshipReports.unshift({id:uid('rel'),date:today(),type:'dateCard',title:'約會靈感卡',text:c.title,createdAt:now()});saveSafe();if(box)box.innerHTML=`<div class="item"><div class="itemTitle">約會靈感卡</div><div class="itemSub">${esc(c.title)}</div></div>`;toast('已抽出約會靈感卡')}else{const arr=s.talkCards.filter(c=>c.active!==false);const c=arr[Math.floor(Math.random()*arr.length)];c.usedCount=(Number(c.usedCount)||0)+1;c.updatedAt=now();s.relationshipReports.unshift({id:uid('rel'),date:today(),type:'talkCard',title:'深聊卡｜'+(c.category||''),text:c.question,createdAt:now()});saveSafe();if(box)box.innerHTML=`<div class="item"><div class="itemTitle">${esc(c.category||'深聊卡')}</div><div class="itemSub">${esc(c.question)}</div></div>`;toast('已抽出深聊卡')}}
+
+  function renderTodayFallbacks(){setIfBlank('streakRewardBox','連續獎勵會在完成習慣後累積；3 / 7 / 14 / 30 天可領取獎勵。');const pack=qs('todayPackGrid');if(pack&&isBlank(pack)){pack.innerHTML=`<div class="packCell"><h4>主線任務</h4><div class="smallText">今日無主線</div></div><div class="packCell"><h4>支線任務</h4><div class="smallText">完成任一小任務可累積任務包。</div></div><div class="packCell"><h4>加分任務</h4><div class="smallText">完成後可取得 bonus。</div></div><div class="packCell"><h4>秘密任務</h4><div class="smallText">完成後才會揭曉。</div></div>`;}setIfBlank('todayFixedTasks','目前沒有今日指定任務。');setIfBlank('todayFlexTasks','目前沒有本期彈性任務。');}
+  function renderWalletFallbacks(){setIfBlank('gameItemList','目前沒有道具。完成任務包、翻牌或寶箱後，道具會出現在這裡。');const tb=qs('ledgerTableBody');if(tb&&isBlank(tb))tb.innerHTML='<tr><td colspan="6" class="muted">尚無點數紀錄</td></tr>';}
+  function renderRewardFallbacks(){setIfBlank('rewardList','尚未新增獎勵。新增獎勵後會出現在獎勵商店。');const tb=qs('redemptionTableBody');if(tb&&isBlank(tb))tb.innerHTML='<tr><td colspan="7" class="muted">尚無兌換紀錄</td></tr>';}
+  function renderGameFallbacks(){setIfBlank('secretMissionBox','今日尚無秘密任務。');setIfBlank('flipArea','點「開始翻牌」後選一張卡。');setIfBlank('treasureChestList','目前沒有可開啟的寶箱。完成任務包、冒險或挑戰後可取得寶箱。');const tb=qs('gameLogTableBody');if(tb&&isBlank(tb))tb.innerHTML='<tr><td colspan="4" class="muted">尚無遊戲紀錄</td></tr>';}
+  function renderQuestFallbacks(){setIfBlank('questList','尚未新增任務線。');setIfBlank('achievementList','尚未解鎖成就徽章。完成習慣、連續天數或任務線後會自動解鎖。');setIfBlank('weeklyReviewBox','本週尚無可回顧資料。完成任務後會自動整理。');}
+  function renderCoupleFallbacks(){setIfBlank('coupleBattleList','尚無雙人戰況資料；切換使用者完成任務後會顯示比較。');setIfBlank('coupleCloudMemberList','尚未連線雲端房間。');setIfBlank('bossBattleBox','尚未產生本週 Boss 戰；完成任務後會自動累積。');setIfBlank('titleList','本週尚未獲得雙人稱號。');setIfBlank('coupleChallengeList','尚未新增雙人挑戰。');setIfBlank('partnerSupportInbox','目前沒有收到支援。');setIfBlank('secretRevealList','尚無秘密任務揭曉。');setIfBlank('revengeTaskList','尚無反擊任務。');setIfBlank('coupleChestOpeningList','目前沒有雙人寶箱可開。');setIfBlank('partnerInteractionLog','尚無雙人互動紀錄。');setIfBlank('localCoupleBattleList','尚無本機雙人摘要；完成任務後會出現。');setIfBlank('sharedQuestList','尚未新增雙人共同任務。');setIfBlank('sharedRewardList','尚未新增雙人獎勵。');const tb=qs('sharedRedemptionTableBody');if(tb&&isBlank(tb))tb.innerHTML='<tr><td colspan="7" class="muted">尚無雙人獎勵兌換紀錄</td></tr>';}
+  function renderRelationshipFallbacks(){const box=qs('coupleDailyPackBox');if(box&&isBlank(box)){box.innerHTML='<div class="item"><div class="itemTitle">輕量互動</div><div class="itemSub">完成今日靠近一點即可累積</div></div><div class="item"><div class="itemTitle">關心</div><div class="itemSub">問候、傾聽、陪伴</div></div><div class="item"><div class="itemTitle">加分</div><div class="itemSub">高強度互動會加更多分</div></div><div class="item"><div class="itemTitle">秘密關心</div><div class="itemSub">可在任務中慢慢累積</div></div>';}renderTodayCoupleFix();renderRelationshipLedgerFix();renderHarmonyFix();setIfBlank('coupleTaskList','情侶任務庫尚未顯示；預設任務已建立，可按「今天換一題」抽換。');setIfBlank('drawnCardBox','按上方按鈕後，抽到的卡片會顯示在這裡。');setIfBlank('wishPoolList','尚未新增雙人願望。');setIfBlank('relationshipReviewBox','本週尚無關係回顧資料。');}
+  function renderAdventureFallbacks(){try{if(typeof ensureAdventureData==='function')ensureAdventureData();if(typeof renderAdventurePage==='function')renderAdventurePage()}catch(e){}setIfBlank('soloMapProgressBox','完成個人任務後，我的冒險地圖會開始前進。');setIfBlank('coupleMapProgressBox','兩人任務、情侶互動與共同挑戰會推進共同旅程。');setIfBlank('soloAdventurePath','尚未載入個人地圖節點。');setIfBlank('coupleAdventurePath','尚未載入共同地圖節點。');setIfBlank('adventureContribBox','本週尚無地圖貢獻。');setIfBlank('adventureObjects','尚未載入可探索物件。');setIfBlank('adventureRewardList','目前沒有可領取的抵達獎勵。');setIfBlank('adventureLogList','尚無冒險紀錄。');}
+  function renderReportFallbacks(){const txt=qs('coupleReportText');if(txt&&!String(txt.value||'').trim())txt.placeholder='按「產生今日戰報」或「產生每週戰報」後，文字會出現在這裡。';setIfBlank('coupleReportList','尚無歷史戰報。');}
+  function applyAllFallbacks(){try{seedIfNeeded()}catch(e){}renderTodayFallbacks();renderWalletFallbacks();renderRewardFallbacks();renderGameFallbacks();renderQuestFallbacks();renderCoupleFallbacks();renderRelationshipFallbacks();renderAdventureFallbacks();renderReportFallbacks();}
+
+  function goPage(page){const target=qs('page-'+page);if(!target){toast('找不到頁面：'+page);return}document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p===target));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.page===page));try{if(typeof renderAll==='function')renderAll()}catch(e){console.warn(e)}setTimeout(applyAllFallbacks,0);}
+  document.addEventListener('click',function(ev){const tab=ev.target.closest&&ev.target.closest('.tab[data-page]');if(tab){ev.preventDefault();ev.stopPropagation();ev.stopImmediatePropagation();goPage(tab.dataset.page);return false}const b=ev.target.closest&&ev.target.closest('button');if(!b)return;if(b.id==='completeTodayCoupleTaskBtn'){ev.preventDefault();ev.stopPropagation();ev.stopImmediatePropagation();completeTodayFix();return false}if(b.id==='changeTodayCoupleTaskBtn'){ev.preventDefault();ev.stopPropagation();ev.stopImmediatePropagation();changeTodayFix();return false}if(b.id==='drawDateCardBtn'){ev.preventDefault();ev.stopPropagation();ev.stopImmediatePropagation();drawFix('date');return false}if(b.id==='drawTalkCardBtn'){ev.preventDefault();ev.stopPropagation();ev.stopImmediatePropagation();drawFix('talk');return false}},true);
+  try{const oldRender=renderAll;renderAll=function(){let r;try{r=oldRender.apply(this,arguments)}catch(e){console.warn('renderAll interrupted; V8.4.6 fallback continued',e)}setTimeout(applyAllFallbacks,0);return r}}catch(e){}
+  ['DOMContentLoaded','load','focus'].forEach(evt=>window.addEventListener(evt,()=>setTimeout(()=>{try{if(typeof renderAll==='function')renderAll()}catch(e){}applyAllFallbacks()},evt==='DOMContentLoaded'?0:100)));
+  setTimeout(applyAllFallbacks,250);setTimeout(applyAllFallbacks,1000);setTimeout(applyAllFallbacks,2500);
 })();
 </script>
 
