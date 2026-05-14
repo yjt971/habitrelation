@@ -16,7 +16,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512x512.png">
 <style>
 :root{--bg:#f5f7fb;--card:#fff;--text:#111827;--muted:#667085;--line:#e5e7eb;--soft:#f8fafc;--dark:#111827;--blue:#2563eb;--green:#059669;--amber:#d97706;--red:#dc2626;--purple:#7c3aed;--pink:#db2777;--shadow:0 10px 25px rgba(15,23,42,.08);--radius:20px}
-*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;line-height:1.45}body{min-height:100vh;padding-bottom:96px}button,input,select,textarea{font-family:inherit;font-size:15px}button{border:0;cursor:pointer}.hidden{display:none!important}.app{max-width:980px;margin:0 auto;padding:18px 14px 104px}.topbar{position:sticky;top:0;z-index:10;margin:-18px -14px 12px;padding:14px;background:rgba(245,247,251,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(229,231,235,.8)}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}.logo{display:flex;align-items:center;gap:10px;min-width:0}.logoIcon{width:42px;height:42px;border-radius:16px;background:linear-gradient(135deg,#111827,#7c3aed);display:grid;place-items:center;color:white;font-size:22px;box-shadow:var(--shadow)}.logoText{min-width:0}.logoText h1{margin:0;font-size:20px;letter-spacing:.3px}.logoText p{margin:2px 0 0;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.datePill{padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);font-size:12px;white-space:nowrap;min-width:128px;text-align:center;font-weight:700;box-shadow:var(--shadow)}.page{display:none;animation:fade .18s ease}.page.active{display:block}@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.grid{display:grid;gap:12px}.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}.card.soft{background:var(--soft);box-shadow:none}.sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 10px;gap:10px}.sectionTitle h2{font-size:18px;margin:0}.sectionTitle span{font-size:12px;color:var(--muted)}.stat{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}.stat .label{font-size:12px;color:var(--muted)}.stat .value{font-size:24px;font-weight:800;margin-top:4px}.stat .sub{font-size:12px;color:var(--muted);margin-top:2px}.progressBar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.progressFill{height:100%;background:linear-gradient(90deg,#2563eb,#059669);width:0%;transition:.25s}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;border-radius:14px;background:var(--dark);color:white;font-weight:700;min-height:42px}.btn.secondary{background:#eef2ff;color:#3730a3}.btn.green{background:#059669}.btn.amber{background:#d97706}.btn.red{background:#dc2626}.btn.purple{background:#7c3aed}.btn.pink{background:#db2777}.btn.ghost{background:white;color:var(--text);border:1px solid var(--line)}.btn.small{padding:7px 9px;min-height:34px;border-radius:11px;font-size:13px}.btn.full{width:100%}.btn:disabled{opacity:.45;cursor:not-allowed}.form{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px 2px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:white;color:var(--text);outline:none}.field textarea{min-height:78px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.12)}.chipGrid{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:white;border-radius:999px;padding:8px 10px;color:#475467;font-size:13px}.chip.active{background:#111827;color:white;border-color:#111827;font-weight:700}.miniHint{font-size:12px;color:var(--muted);margin-top:4px}.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(12,1fr);gap:3px}.tab{border-radius:15px;padding:8px 1px;color:var(--muted);background:transparent;text-align:center;font-size:10px;display:grid;gap:2px}.tab b{font-size:17px;line-height:1}.tab.active{background:#111827;color:white}.taskCard{display:grid;gap:10px}.taskHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.taskName{font-size:17px;font-weight:800}.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#f3f4f6;color:#374151;font-size:12px}.pill.blue{background:#dbeafe;color:#1d4ed8}.pill.green{background:#dcfce7;color:#047857}.pill.amber{background:#fef3c7;color:#b45309}.pill.red{background:#fee2e2;color:#b91c1c}.pill.purple{background:#ede9fe;color:#6d28d9}.pill.pink{background:#fce7f3;color:#be185d}.taskActions{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}.empty{padding:28px 14px;text-align:center;color:var(--muted);background:white;border:1px dashed #cbd5e1;border-radius:var(--radius)}.list{display:grid;gap:10px}.item{background:white;border:1px solid var(--line);border-radius:18px;padding:12px}.itemTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.itemTitle{font-weight:800}.itemSub{font-size:13px;color:var(--muted);margin-top:4px}.itemActions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.muted{color:var(--muted)}.dangerText{color:var(--red)}.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:white}table{width:100%;border-collapse:collapse;min-width:940px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}th{background:#f8fafc;color:#475467;font-weight:800;position:sticky;top:0}tr:last-child td{border-bottom:0}.toast{position:fixed;left:14px;right:14px;bottom:96px;z-index:50;display:none;justify-content:center}.toast.show{display:flex}.toast>div{background:#111827;color:white;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);font-size:14px}.modal{position:fixed;inset:0;z-index:60;display:none;place-items:end center;background:rgba(15,23,42,.35);padding:14px}.modal.show{display:grid}.modalPanel{width:100%;max-width:760px;max-height:90vh;overflow:auto;background:white;border-radius:24px;padding:16px;box-shadow:0 20px 55px rgba(0,0,0,.25)}.modalHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.modalHeader h3{margin:0;font-size:19px}.xbtn{width:38px;height:38px;border-radius:13px;background:#f3f4f6;color:#111827;font-size:18px}.chartBars{display:grid;gap:8px}.barRow{display:grid;grid-template-columns:92px 1fr 54px;align-items:center;gap:8px;font-size:13px}.barTrack{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.barFill{height:100%;background:#2563eb;border-radius:999px}.fileInput{border:1px dashed #cbd5e1;border-radius:16px;padding:14px;background:#f8fafc;width:100%}.divider{height:1px;background:var(--line);margin:8px 0}.subtleBox{border:1px solid var(--line);background:#f8fafc;border-radius:16px;padding:10px}.money{font-variant-numeric:tabular-nums}.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:10px;font-size:13px}.cloudBox{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:16px;padding:10px;font-size:13px}.cloudBox.warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412}.cloudBox.ok{background:#ecfdf5;border-color:#bbf7d0;color:#065f46}.csvGrid{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}.flipGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.flipCard{min-height:110px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(135deg,#111827,#7c3aed);color:white;display:grid;place-items:center;text-align:center;font-weight:800;padding:12px;box-shadow:var(--shadow)}.flipCard.revealed{background:white;color:var(--text)}.packGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.packCell{border:1px solid var(--line);background:white;border-radius:16px;padding:10px}.packCell h4{margin:0 0 8px;font-size:14px}.packCell .smallText{font-size:12px;color:var(--muted)}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;line-height:1.45}body{min-height:100vh;padding-bottom:96px}button,input,select,textarea{font-family:inherit;font-size:15px}button{border:0;cursor:pointer}.hidden{display:none!important}.app{max-width:980px;margin:0 auto;padding:18px 14px 104px}.topbar{position:sticky;top:0;z-index:10;margin:-18px -14px 12px;padding:14px;background:rgba(245,247,251,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(229,231,235,.8)}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}.logo{display:flex;align-items:center;gap:10px;min-width:0}.logoIcon{width:42px;height:42px;border-radius:16px;background:linear-gradient(135deg,#111827,#7c3aed);display:grid;place-items:center;color:white;font-size:22px;box-shadow:var(--shadow)}.logoText{min-width:0}.logoText h1{margin:0;font-size:20px;letter-spacing:.3px}.logoText p{margin:2px 0 0;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.datePill{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);font-size:12px;white-space:nowrap;min-width:128px;text-align:center;font-weight:700;box-shadow:var(--shadow)}.page{display:none;animation:fade .18s ease}.page.active{display:block}@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.grid{display:grid;gap:12px}.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}.card.soft{background:var(--soft);box-shadow:none}.sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 10px;gap:10px}.sectionTitle h2{font-size:18px;margin:0}.sectionTitle span{font-size:12px;color:var(--muted)}.stat{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}.stat .label{font-size:12px;color:var(--muted)}.stat .value{font-size:24px;font-weight:800;margin-top:4px}.stat .sub{font-size:12px;color:var(--muted);margin-top:2px}.progressBar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.progressFill{height:100%;background:linear-gradient(90deg,#2563eb,#059669);width:0%;transition:.25s}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;border-radius:14px;background:var(--dark);color:white;font-weight:700;min-height:42px}.btn.secondary{background:#eef2ff;color:#3730a3}.btn.green{background:#059669}.btn.amber{background:#d97706}.btn.red{background:#dc2626}.btn.purple{background:#7c3aed}.btn.pink{background:#db2777}.btn.ghost{background:white;color:var(--text);border:1px solid var(--line)}.btn.small{padding:7px 9px;min-height:34px;border-radius:11px;font-size:13px}.btn.full{width:100%}.btn:disabled{opacity:.45;cursor:not-allowed}.form{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px 2px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:white;color:var(--text);outline:none}.field textarea{min-height:78px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.12)}.chipGrid{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:white;border-radius:999px;padding:8px 10px;color:#475467;font-size:13px}.chip.active{background:#111827;color:white;border-color:#111827;font-weight:700}.miniHint{font-size:12px;color:var(--muted);margin-top:4px}.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(12,1fr);gap:3px}.tab{border-radius:15px;padding:8px 1px;color:var(--muted);background:transparent;text-align:center;font-size:10px;display:grid;gap:2px}.tab b{font-size:17px;line-height:1}.tab.active{background:#111827;color:white}.taskCard{display:grid;gap:10px}.taskHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.taskName{font-size:17px;font-weight:800}.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#f3f4f6;color:#374151;font-size:12px}.pill.blue{background:#dbeafe;color:#1d4ed8}.pill.green{background:#dcfce7;color:#047857}.pill.amber{background:#fef3c7;color:#b45309}.pill.red{background:#fee2e2;color:#b91c1c}.pill.purple{background:#ede9fe;color:#6d28d9}.pill.pink{background:#fce7f3;color:#be185d}.taskActions{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}.empty{padding:28px 14px;text-align:center;color:var(--muted);background:white;border:1px dashed #cbd5e1;border-radius:var(--radius)}.list{display:grid;gap:10px}.item{background:white;border:1px solid var(--line);border-radius:18px;padding:12px}.itemTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.itemTitle{font-weight:800}.itemSub{font-size:13px;color:var(--muted);margin-top:4px}.itemActions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.muted{color:var(--muted)}.dangerText{color:var(--red)}.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:white}table{width:100%;border-collapse:collapse;min-width:940px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}th{background:#f8fafc;color:#475467;font-weight:800;position:sticky;top:0}tr:last-child td{border-bottom:0}.toast{position:fixed;left:14px;right:14px;bottom:96px;z-index:50;display:none;justify-content:center}.toast.show{display:flex}.toast>div{background:#111827;color:white;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);font-size:14px}.modal{position:fixed;inset:0;z-index:60;display:none;place-items:end center;background:rgba(15,23,42,.35);padding:14px}.modal.show{display:grid}.modalPanel{width:100%;max-width:760px;max-height:90vh;overflow:auto;background:white;border-radius:24px;padding:16px;box-shadow:0 20px 55px rgba(0,0,0,.25)}.modalHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.modalHeader h3{margin:0;font-size:19px}.xbtn{width:38px;height:38px;border-radius:13px;background:#f3f4f6;color:#111827;font-size:18px}.chartBars{display:grid;gap:8px}.barRow{display:grid;grid-template-columns:92px 1fr 54px;align-items:center;gap:8px;font-size:13px}.barTrack{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.barFill{height:100%;background:#2563eb;border-radius:999px}.fileInput{border:1px dashed #cbd5e1;border-radius:16px;padding:14px;background:#f8fafc;width:100%}.divider{height:1px;background:var(--line);margin:8px 0}.subtleBox{border:1px solid var(--line);background:#f8fafc;border-radius:16px;padding:10px}.money{font-variant-numeric:tabular-nums}.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:10px;font-size:13px}.cloudBox{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:16px;padding:10px;font-size:13px}.cloudBox.warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412}.cloudBox.ok{background:#ecfdf5;border-color:#bbf7d0;color:#065f46}.csvGrid{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}.flipGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.flipCard{min-height:110px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(135deg,#111827,#7c3aed);color:white;display:grid;place-items:center;text-align:center;font-weight:800;padding:12px;box-shadow:var(--shadow)}.flipCard.revealed{background:white;color:var(--text)}.packGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.packCell{border:1px solid var(--line);background:white;border-radius:16px;padding:10px}.packCell h4{margin:0 0 8px;font-size:14px}.packCell .smallText{font-size:12px;color:var(--muted)}
 @media (min-width:720px){.tabs{left:50%;transform:translateX(-50%);max-width:980px;border-radius:24px 24px 0 0}.desktopGrid{grid-template-columns:1.15fr .85fr}.modal{place-items:center}.modalPanel{border-radius:26px}.app{padding-left:20px;padding-right:20px}.topbar{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}}@media (max-width:720px){.grid2,.grid3,.grid4,.row,.csvGrid,.packGrid{grid-template-columns:1fr}.taskActions{grid-template-columns:1fr}.datePill{display:block;min-width:96px;font-size:11px;padding:6px 8px}.stat .value{font-size:22px}.sectionTitle h2{font-size:17px}.tabs{gap:2px}.tab{font-size:9px;border-radius:12px}.tab b{font-size:15px}.flipGrid{grid-template-columns:1fr}.itemTop{display:grid}.itemActions{justify-content:flex-start}}
  
 /* V8 final UI */
@@ -33,15 +33,17 @@ body.dark{--bg:#0b1220;--card:#111827;--text:#f9fafb;--muted:#a3aab8;--line:#243
  
 /* V8.4 double-player interaction completion */
 .supportTypeGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.supportCard{border:1px solid var(--line);border-radius:18px;background:var(--card);padding:12px;box-shadow:var(--shadow)}.supportCard .big{font-size:28px}.revealCard{border-left:5px solid #7c3aed}.revengeCard{border-left:5px solid #d97706}.reportHero{background:linear-gradient(135deg,#111827,#7c3aed,#db2777);color:#fff;border-radius:24px;padding:16px;box-shadow:var(--shadow)}.reportHero .muted{color:rgba(255,255,255,.78)}.reportTextarea{width:100%;min-height:220px;border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--card);color:var(--text)}@media(max-width:720px){.supportTypeGrid{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(13,1fr)!important}}@media(min-width:721px){.tabs{grid-template-columns:repeat(13,1fr)!important}}
-.field input:disabled{background:#f3f4f6;color:#667085;cursor:not-allowed}</style>
+.field input:disabled{background:#f3f4f6;color:#667085;cursor:not-allowed}
+.datePill:empty::before{content:"今天"}.datePill{min-width:160px}.field select#activeUserSelect{appearance:auto!important;-webkit-appearance:auto!important;background-color:white!important;color:#111827!important;cursor:pointer}
+</style>
 </head>
 <body>
 <div class="app">
-<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4 使用者身份修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel"></div></div></header>
+<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4 使用者身份修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
 <main>
 <section id="page-today" class="page active">
  
-<div class="card" style="margin-bottom:12px"><div class="sectionTitle" style="margin-top:0"><h2>目前使用者</h2><span id="currentUserHint">本機雙人模式</span></div><div class="row"><div class="field"><label>切換使用者</label><select id="activeUserSelect"></select></div><div class="field"><label>快速更名</label><input id="activeUserNameInput" placeholder="例如：我 / 使用者2"></div></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn small" id="renameActiveUserBtn">儲存名稱</button><button class="btn ghost small" data-page-jump="couple">查看雙人戰況</button></div></div>
+<div class="card" style="margin-bottom:12px"><div class="sectionTitle" style="margin-top:0"><h2>目前使用者</h2><span id="currentUserHint">今天：載入中｜目前：我</span></div><div class="row"><div class="field"><label>切換使用者</label><select id="activeUserSelect"><option value="me">我</option><option value="user2">使用者2</option></select></div><div class="field"><label>快速更名</label><input id="activeUserNameInput" placeholder="例如：我 / 使用者2"></div></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn small" id="renameActiveUserBtn">儲存名稱</button><button class="btn ghost small" data-page-jump="couple">查看雙人戰況</button></div></div>
 <div class="grid grid4"><div class="stat"><div class="label">今日完成率</div><div class="value" id="statTodayRate">0%</div><div class="sub" id="statTodayCount">0 / 0 個任務</div></div><div class="stat"><div class="label">今日獲得點數</div><div class="value money" id="statTodayPoints">0</div><div class="sub">依點數紀錄統計</div></div><div class="stat"><div class="label">目前點數</div><div class="value money" id="statCurrentPoints">0</div><div class="sub">可用於兌換獎勵</div></div><div class="stat"><div class="label">每日連續</div><div class="value" id="statDailyStreak">0</div><div class="sub" id="statBestDailyStreak">最高 0 天</div></div></div>
 <div class="card" style="margin-top:12px"><div class="sectionTitle" style="margin-top:0"><h2>今日進度</h2><span id="todayProgressText">尚無任務</span></div><div class="progressBar"><div class="progressFill" id="todayProgressFill"></div></div></div>
 <div class="card" style="margin-top:12px"><div class="sectionTitle" style="margin-top:0"><h2>連續獎勵</h2><span id="streakRewardHint">3 / 7 / 14 / 30 天</span></div><div id="streakRewardBox" class="miniCards"></div></div>
@@ -848,7 +850,7 @@ const oldMigrateLocalUserIdentity=migrateLocalUser;
 migrateLocalUser=function(u,i=0){const now=new Date().toISOString();const isMe=(u?.id===FIXED_ME_ID)||(!u&&i===0)||u?.role==='self';const id=isMe?FIXED_ME_ID:FIXED_USER2_ID;return {id,name:isMe?'我':sanitizeUser2Name(u?.name),role:isMe?'self':'partner',active:true,createdAt:u?.createdAt||now,updatedAt:u?.updatedAt||now,googleUid:isMe?(u?.googleUid||state?.firebase?.userId||''):'',googleName:isMe?(u?.googleName||state?.firebase?.displayName||''):'',googleEmail:isMe?(u?.googleEmail||state?.firebase?.email||''):''}}
 const oldEnhanceV5Identity=enhanceV5State;
 enhanceV5State=function(){oldEnhanceV5Identity();normalizeTwoLocalUsers();loadUserDataToRoot(state.currentUserId)};
-currentUserName=function(id=state.currentUserId){normalizeTwoLocalUsers();return displayNameForUser(state.localUsers.find(u=>u.id===id))||id};
+currentUserName=function(id=state.currentUserId){const u=(state.localUsers||[]).find(u=>u.id===id);return displayNameForUser(u)||id};
 ensureCloudLocalUser=function(user){if(!user)return;state.firebase={...(state.firebase||{}),userId:user.uid,email:user.email||'',displayName:user.displayName||user.email||'',lastLoginAt:new Date().toISOString()};normalizeTwoLocalUsers();const me=state.localUsers.find(u=>u.id===FIXED_ME_ID);if(me){me.googleUid=user.uid;me.googleName=user.displayName||user.email||'';me.googleEmail=user.email||'';me.updatedAt=new Date().toISOString()}if(state.currentUserId!==FIXED_ME_ID){syncActiveUserData();state.currentUserId=FIXED_ME_ID}loadUserDataToRoot(FIXED_ME_ID)};
 renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4 使用者身份修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
 const oldSwitchLocalUserIdentity=switchLocalUser;
@@ -860,8 +862,115 @@ renderAll=function(){normalizeTwoLocalUsers();oldRenderAllIdentity();setText('to
 const oldSaveIdentity=save;
 save=function(){normalizeTwoLocalUsers();state.version='8.4-user-identity';oldSaveIdentity()};
  
-window.editHabit=editHabit;window.completePackTask=completePackTask;window.completeSecret=completeSecret;window.editQuest=editQuest;window.editWish=editWish;init();
+window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switchLocalUser=switchLocalUser;window.editHabit=editHabit;window.completePackTask=completePackTask;window.completeSecret=completeSecret;window.editQuest=editQuest;window.editWish=editWish;init();
 })();
 </script>
+ 
+<script>
+/* V8.4.1 使用者切換與日期保險修正
+   目的：避免主程式渲染順序、舊快取或 Google 登入名稱造成日期消失 / 使用者下拉選單空白。
+*/
+(function(){
+  const ME_ID='me';
+  const USER2_ID='user2';
+  function dateText(){
+    return new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'short'}).replace('星期','週');
+  }
+  function safeGoogleName(){
+    try{
+      const s=window.state||{};
+      const fb=window.fb||{};
+      return (fb.user?.displayName||fb.user?.email||s.firebase?.displayName||s.firebase?.email||'').trim();
+    }catch(e){return ''}
+  }
+  function displayName(id){
+    if(id===ME_ID){
+      const g=safeGoogleName();
+      return g ? `${g}（我）` : '我';
+    }
+    try{
+      const u=(window.state?.localUsers||[]).find(x=>x.id===USER2_ID);
+      const n=(u?.name||'使用者2').trim();
+      return /^(男|女)/.test(n) ? '使用者2' : (n||'使用者2');
+    }catch(e){return '使用者2'}
+  }
+  function ensureStateShape(){
+    try{
+      if(!window.state) return;
+      const s=window.state;
+      s.localUsers=Array.isArray(s.localUsers)?s.localUsers:[];
+      const user2Old=s.localUsers.find(u=>u.id===USER2_ID)||s.localUsers.find(u=>u.role==='partner')||s.localUsers.find(u=>/^(男|女)/.test(String(u.name||'')))||{};
+      const user2Name=/^(男|女)/.test(String(user2Old.name||''))?'使用者2':(user2Old.name||'使用者2');
+      s.localUsers=[
+        {id:ME_ID,role:'self',name:'我',active:true,createdAt:s.localUsers[0]?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString(),googleUid:s.firebase?.userId||'',googleName:s.firebase?.displayName||'',googleEmail:s.firebase?.email||''},
+        {id:USER2_ID,role:'partner',name:user2Name,active:true,createdAt:user2Old.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()}
+      ];
+      if(![ME_ID,USER2_ID].includes(s.currentUserId)) s.currentUserId=ME_ID;
+      s.userData=s.userData&&typeof s.userData==='object'?s.userData:{};
+      if(!s.userData[ME_ID] && typeof window.blankUserData==='function') s.userData[ME_ID]=window.blankUserData(ME_ID);
+      if(!s.userData[USER2_ID] && typeof window.blankUserData==='function') s.userData[USER2_ID]=window.blankUserData(USER2_ID);
+    }catch(e){console.warn('identity state fallback skipped',e)}
+  }
+  function updateDate(){
+    const txt=dateText();
+    const top=document.getElementById('todayLabel');
+    if(top) top.textContent=txt;
+    const hint=document.getElementById('currentUserHint');
+    if(hint){
+      const current=(window.state?.currentUserId)||ME_ID;
+      hint.textContent=`今天：${txt}｜目前：${displayName(current)}`;
+    }
+  }
+  function updateSelect(){
+    const sel=document.getElementById('activeUserSelect');
+    if(!sel) return;
+    const current=(window.state?.currentUserId)||ME_ID;
+    const opts=[ME_ID,USER2_ID].map(id=>`<option value="${id}">${displayName(id)}</option>`).join('');
+    if(sel.innerHTML!==opts) sel.innerHTML=opts;
+    sel.value=[ME_ID,USER2_ID].includes(current)?current:ME_ID;
+    sel.disabled=false;
+    sel.style.pointerEvents='auto';
+    sel.onchange=function(){
+      const next=this.value;
+      ensureStateShape();
+      try{
+        if(typeof window.switchLocalUser==='function') window.switchLocalUser(next);
+        else if(window.state) window.state.currentUserId=next;
+      }catch(e){
+        if(window.state) window.state.currentUserId=next;
+      }
+      setTimeout(()=>{ensureIdentityUI();},0);
+    };
+    const inp=document.getElementById('activeUserNameInput');
+    if(inp){
+      const isMe=sel.value===ME_ID;
+      if(!inp.matches(':focus')) inp.value=isMe?'我':displayName(USER2_ID);
+      inp.disabled=isMe && !!safeGoogleName();
+      inp.placeholder=isMe?'我':'例如：使用者2 / 對方';
+    }
+  }
+  function ensureIdentityUI(){
+    ensureStateShape();
+    updateDate();
+    updateSelect();
+    const subtitle=document.getElementById('headerSubtitle');
+    if(subtitle){
+      const current=(window.state?.currentUserId)||ME_ID;
+      subtitle.textContent='V8.4 使用者身份修正版｜目前：'+displayName(current)+'｜已自動同步';
+    }
+  }
+  window.ensureIdentityUI=ensureIdentityUI;
+  // Run repeatedly during initial render because the main renderAll may rewrite the select.
+  document.addEventListener('DOMContentLoaded',()=>{
+    ensureIdentityUI();
+    let n=0;
+    const timer=setInterval(()=>{ensureIdentityUI(); if(++n>=20) clearInterval(timer);},250);
+  });
+  window.addEventListener('load',ensureIdentityUI);
+  window.addEventListener('focus',ensureIdentityUI);
+  window.addEventListener('error',()=>setTimeout(ensureIdentityUI,0));
+})();
+</script>
+ 
 </body>
 </html>
