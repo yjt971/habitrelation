@@ -1,9 +1,10 @@
+<!DOCTYPE html> 開始完整複製到最後 </html>。
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>習慣任務｜V8.4.2 按鈕保險修正版｜外部PWA版</title>
+<title>習慣任務｜V8.4.3 關係按鈕修正版｜外部PWA版</title>
 <meta name="theme-color" content="#111827">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -39,7 +40,7 @@ body.dark{--bg:#0b1220;--card:#111827;--text:#f9fafb;--muted:#a3aab8;--line:#243
 </head>
 <body>
 <div class="app">
-<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.2 按鈕保險修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
+<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.3 關係按鈕修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
 <main>
 <section id="page-today" class="page active">
  
@@ -103,9 +104,9 @@ body.dark{--bg:#0b1220;--card:#111827;--text:#f9fafb;--muted:#a3aab8;--line:#243
 <section id="page-relationship" class="page">
 <div class="grid grid4"><div class="stat"><div class="label">親密值</div><div class="value money" id="intimacyNow">0</div><div class="sub">情侶任務累積</div></div><div class="stat"><div class="label">默契值</div><div class="value money" id="harmonyNow">0</div><div class="sub">默契挑戰累積</div></div><div class="stat"><div class="label">本週互動</div><div class="value" id="relationshipWeekTaskCount">0</div><div class="sub">完成情侶任務</div></div><div class="stat"><div class="label">願望池</div><div class="value" id="wishPoolActiveCount">0</div><div class="sub">進行中的共同願望</div></div></div>
 <div class="card" style="margin-top:12px"><div class="sectionTitle" style="margin-top:0"><h2>情侶每日任務包</h2><span>輕量互動 / 關心 / 加分 / 秘密關心</span></div><div id="coupleDailyPackBox" class="miniCards"></div></div>
-<div class="grid desktopGrid" style="margin-top:12px"><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>今日靠近一點</h2><span>不完成不扣分</span></div><div id="todayCoupleTaskBox" class="list"></div><div class="grid grid2" style="margin-top:10px"><button class="btn pink full" id="completeTodayCoupleTaskBtn">完成今日靠近一點</button><button class="btn ghost full" id="changeTodayCoupleTaskBtn">今天換一題</button></div></div><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>關係數值</h2><span>共同累積</span></div><div id="relationshipLedgerBox" class="list"></div></div></div>
+<div class="grid desktopGrid" style="margin-top:12px"><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>今日靠近一點</h2><span>不完成不扣分</span></div><div id="todayCoupleTaskBox" class="list"></div><div class="grid grid2" style="margin-top:10px"><button class="btn pink full" id="completeTodayCoupleTaskBtn" onclick="window.completeTodayCoupleTask&&window.completeTodayCoupleTask()">完成今日靠近一點</button><button class="btn ghost full" id="changeTodayCoupleTaskBtn" onclick="window.changeTodayCoupleTask&&window.changeTodayCoupleTask()">今天換一題</button></div></div><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>關係數值</h2><span>共同累積</span></div><div id="relationshipLedgerBox" class="list"></div></div></div>
 <div class="grid desktopGrid" style="margin-top:12px"><div class="card"><div class="sectionTitle" style="margin-top:0"><h2 id="coupleTaskFormTitle">新增情侶任務</h2><span>任務庫</span></div><form id="coupleTaskForm" class="form"><input id="coupleTaskId" type="hidden"><div class="row"><div class="field"><label>任務名稱</label><input id="coupleTaskTitle" required placeholder="例如：跟對方說一句今天辛苦了"></div><div class="field"><label>分類</label><select id="coupleTaskCategory"><option>輕量互動</option><option>關心</option><option>肯定</option><option>陪伴</option><option>約會</option><option>回憶</option><option>未來</option></select></div></div><div class="row"><div class="field"><label>互動強度</label><select id="coupleTaskLevel"><option value="1">Level 1 輕量</option><option value="2">Level 2 關心</option><option value="3">Level 3 肯定</option><option value="4">Level 4 陪伴</option><option value="5">Level 5 約會</option></select></div><div class="field"><label>狀態</label><select id="coupleTaskActive"><option value="true">啟用</option><option value="false">停用</option></select></div></div><div class="field"><label>說明</label><textarea id="coupleTaskDescription" placeholder="任務說明，可留空"></textarea></div><div class="row"><div class="field"><label>親密值</label><input id="coupleTaskIntimacy" type="number" min="0" value="10"></div><div class="field"><label>默契值</label><input id="coupleTaskHarmony" type="number" min="0" value="0"></div></div><div class="grid grid2"><button class="btn full" type="submit">儲存情侶任務</button><button class="btn ghost full" id="resetCoupleTaskBtn" type="button">清空表單</button></div></form></div><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>情侶任務庫</h2><span id="coupleTaskCountText">0 個</span></div><div id="coupleTaskList" class="list"></div></div></div>
-<div class="grid desktopGrid" style="margin-top:12px"><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>默契挑戰</h2><span>答案一致增加默契值</span></div><div id="harmonyQuestionBox" class="notice"></div><div class="row" style="margin-top:10px"><div class="field"><label id="harmonyUserALabel">使用者 A 答案</label><input id="harmonyAnswerA" placeholder="例如：火鍋"></div><div class="field"><label id="harmonyUserBLabel">使用者 B 答案</label><input id="harmonyAnswerB" placeholder="例如：火鍋"></div></div><div class="grid grid2" style="margin-top:10px"><button class="btn purple full" id="checkHarmonyBtn">檢查默契</button><button class="btn ghost full" id="nextHarmonyQuestionBtn">換一題</button></div><div id="harmonyResultBox" class="list" style="margin-top:10px"></div></div><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>卡片抽取</h2><span>約會 / 深聊</span></div><div class="grid grid2"><button class="btn pink full" id="drawDateCardBtn">抽約會靈感卡</button><button class="btn secondary full" id="drawTalkCardBtn">抽深聊卡</button></div><div id="drawnCardBox" class="list" style="margin-top:10px"></div></div></div>
+<div class="grid desktopGrid" style="margin-top:12px"><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>默契挑戰</h2><span>答案一致增加默契值</span></div><div id="harmonyQuestionBox" class="notice"></div><div class="row" style="margin-top:10px"><div class="field"><label id="harmonyUserALabel">使用者 A 答案</label><input id="harmonyAnswerA" placeholder="例如：火鍋"></div><div class="field"><label id="harmonyUserBLabel">使用者 B 答案</label><input id="harmonyAnswerB" placeholder="例如：火鍋"></div></div><div class="grid grid2" style="margin-top:10px"><button class="btn purple full" id="checkHarmonyBtn">檢查默契</button><button class="btn ghost full" id="nextHarmonyQuestionBtn">換一題</button></div><div id="harmonyResultBox" class="list" style="margin-top:10px"></div></div><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>卡片抽取</h2><span>約會 / 深聊</span></div><div class="grid grid2"><button class="btn pink full" id="drawDateCardBtn" onclick="window.drawDateCard&&window.drawDateCard()">抽約會靈感卡</button><button class="btn secondary full" id="drawTalkCardBtn" onclick="window.drawTalkCard&&window.drawTalkCard()">抽深聊卡</button></div><div id="drawnCardBox" class="list" style="margin-top:10px"></div></div></div>
 <div class="grid desktopGrid" style="margin-top:12px"><div class="card"><div class="sectionTitle" style="margin-top:0"><h2 id="wishFormTitle">新增雙人願望</h2><span>共同期待</span></div><form id="wishForm" class="form"><input id="wishId" type="hidden"><div class="field"><label>願望名稱</label><input id="wishTitle" required placeholder="例如：一起去溫泉"></div><div class="field"><label>願望說明</label><textarea id="wishDescription" placeholder="可寫想去的地方、想完成的方式"></textarea></div><div class="row"><div class="field"><label>目標雙人點數</label><input id="wishTargetPoints" type="number" min="1" value="1500"></div><div class="field"><label>投入雙人點數</label><input id="wishAddPoints" type="number" min="0" value="0"></div></div><div class="grid grid2"><button class="btn full" type="submit">儲存 / 投入願望</button><button class="btn ghost full" id="resetWishBtn" type="button">清空表單</button></div></form></div><div class="card"><div class="sectionTitle" style="margin-top:0"><h2>雙人願望池</h2><span>目前 <b id="wishCouplePointBalance">0</b> 雙人點</span></div><div id="wishPoolList" class="list"></div></div></div>
 <div class="card" style="margin-top:12px"><div class="sectionTitle" style="margin-top:0"><h2>每週關係回顧</h2><span>互動累積</span></div><div id="relationshipReviewBox" class="list"></div></div>
 </section>
@@ -188,12 +189,12 @@ const DEFAULT_ROOM_ID='local-room';
 // 未填入時，APP 仍可用本機 localStorage 正常運作。
 const firebaseConfig={
   apiKey: "AIzaSyCH027zWsaR-S8qCRDCcaDcvGFP0BQGbUA",
-  authDomain: "habitrelation.firebaseapp.com",
-  projectId: "habitrelation",
-  storageBucket: "habitrelation.firebasestorage.app",
-  messagingSenderId: "830734839933",
-  appId: "1:830734839933:web:1795a56d42e68512e08114",
-  measurementId: "G-D98929ZP63"
+  authDomain: "habitrelation.firebaseapp.com",
+  projectId: "habitrelation",
+  storageBucket: "habitrelation.firebasestorage.app",
+  messagingSenderId: "830734839933",
+  appId: "1:830734839933:web:1795a56d42e68512e08114",
+  measurementId: "G-D98929ZP63"
 };
 let fb={app:null,auth:null,db:null,modules:null,user:null,ready:false,initializing:false,lastSyncAt:'',syncTimer:null,autoSyncTimer:null,syncInProgress:false,syncQueued:false,userUnsub:null,roomUnsub:null,autoEventsBound:false,lastRemoteUserUpdated:'',lastRemoteRoomUpdated:''};
 const DAYS=['日','一','二','三','四','五','六'];
@@ -474,14 +475,59 @@ function renderCoupleTasks(){const box=document.getElementById('coupleTaskList')
 function editCoupleTask(id){const t=state.coupleTasks.find(x=>x.id===id);if(!t)return;setText('coupleTaskFormTitle','編輯情侶任務');document.getElementById('coupleTaskId').value=t.id;document.getElementById('coupleTaskTitle').value=t.title;document.getElementById('coupleTaskCategory').value=t.category;document.getElementById('coupleTaskLevel').value=String(t.level);document.getElementById('coupleTaskDescription').value=t.description;document.getElementById('coupleTaskIntimacy').value=t.intimacyPoints;document.getElementById('coupleTaskHarmony').value=t.harmonyPoints;document.getElementById('coupleTaskActive').value=String(t.active);window.scrollTo({top:0,behavior:'smooth'})}
 function deleteCoupleTask(id){if(!confirm('刪除此情侶任務？'))return;state.coupleTasks=state.coupleTasks.filter(x=>x.id!==id);save();renderAll();showToast('已刪除情侶任務')}
 function completeCoupleTask(id,note){const t=state.coupleTasks.find(x=>x.id===id);if(!t)return;state.coupleTaskLogs.push(migrateCoupleTaskLog({taskId:t.id,title:t.title,category:t.category,intimacyPoints:t.intimacyPoints,harmonyPoints:t.harmonyPoints,note:note||''}));addIntimacy(t.intimacyPoints,'coupleTask','完成情侶任務：'+t.title,t.id);addHarmony(t.harmonyPoints,'coupleTask','完成情侶任務：'+t.title,t.id);save();renderAll();showToast('情侶任務完成，親密值 +' + t.intimacyPoints)}
-function completeTodayCoupleTask(){const rec=ensureTodayCoupleTask();const t=todayCoupleTask();if(!rec||!t)return;if(rec.completed||state.coupleTaskLogs.some(l=>l.date===todayKey()&&l.taskId===t.id)){showToast('今日靠近一點已完成');return}rec.completed=true;completeCoupleTask(t.id,'今日靠近一點')}
+function completeTodayCoupleTask(){
+  if(!Array.isArray(state.coupleTasks)||!state.coupleTasks.length){if(typeof seedCoupleTasks==='function')seedCoupleTasks()}
+  if(!state.coupleDailyTasks||typeof state.coupleDailyTasks!=='object')state.coupleDailyTasks={};
+  const rec=ensureTodayCoupleTask();
+  const t=todayCoupleTask();
+  if(!rec||!t){showToast('尚無可完成的今日靠近一點任務');renderTodayCoupleTask();return}
+  const already=rec.completed||state.coupleTaskLogs.some(l=>l.date===todayKey()&&l.taskId===t.id&&l.note==='今日靠近一點');
+  if(already){showToast('今日靠近一點已完成');renderTodayCoupleTask();return}
+  rec.completed=true;rec.completedAt=new Date().toISOString();
+  state.coupleTaskLogs.push(migrateCoupleTaskLog({taskId:t.id,title:t.title,category:t.category,intimacyPoints:t.intimacyPoints,harmonyPoints:t.harmonyPoints,note:'今日靠近一點'}));
+  addIntimacy(t.intimacyPoints,'todayCoupleTask','完成今日靠近一點：'+t.title,t.id);
+  addHarmony(t.harmonyPoints,'todayCoupleTask','完成今日靠近一點：'+t.title,t.id);
+  save();renderAll();showToast('已完成今日靠近一點，親密值 +'+t.intimacyPoints);
+}
 function changeTodayCoupleTask(){const dk=todayKey();const rec=ensureTodayCoupleTask();if(rec?.changed){showToast('今天已經換過一次');return}state.coupleDailyTasks[dk]=null;ensureTodayCoupleTask(true);state.coupleDailyTasks[dk].changed=true;save();renderAll();showToast('已更換今日任務')}
-function renderTodayCoupleTask(){const box=document.getElementById('todayCoupleTaskBox');if(!box)return;const rec=ensureTodayCoupleTask();const t=todayCoupleTask();if(!t){box.innerHTML='<div class="empty">尚無可用情侶任務</div>';return}const done=rec.completed||state.coupleTaskLogs.some(l=>l.date===todayKey()&&l.taskId===t.id);box.innerHTML=`<div class="item"><div class="itemTitle">${escapeHtml(t.title)} ${done?'<span class="pill green">已完成</span>':''}</div><div class="itemSub">${escapeHtml(t.category)}｜Level ${t.level}｜親密值 +${t.intimacyPoints}｜默契值 +${t.harmonyPoints}</div><div class="itemSub">${escapeHtml(t.description||'今天完成即可，不完成不扣分。')}</div></div>`;}
+function renderTodayCoupleTask(){
+  const box=document.getElementById('todayCoupleTaskBox');if(!box)return;
+  if(!Array.isArray(state.coupleTasks)||!state.coupleTasks.length){if(typeof seedCoupleTasks==='function')seedCoupleTasks()}
+  const rec=ensureTodayCoupleTask();const t=todayCoupleTask();
+  if(!t){box.innerHTML='<div class="empty">尚無可用情侶任務</div>';return}
+  const today=todayKey();
+  const done=!!(rec&&rec.completed)||state.coupleTaskLogs.some(l=>l.date===today&&l.taskId===t.id);
+  const todays=(state.coupleTaskLogs||[]).filter(l=>l.date===today).slice(-5).reverse();
+  const logHtml=todays.length?`<div class="divider"></div><div class="itemTitle">今日完成紀錄</div>${todays.map(l=>`<div class="itemSub">✅ ${escapeHtml(l.title)}｜親密值 +${num(l.intimacyPoints,0)}${num(l.harmonyPoints,0)?'｜默契值 +'+num(l.harmonyPoints,0):''}${l.note?'｜'+escapeHtml(l.note):''}</div>`).join('')}`:'';
+  box.innerHTML=`<div class="item"><div class="itemTitle">${escapeHtml(t.title)} ${done?'<span class="pill green">已完成</span>':''}</div><div class="itemSub">${escapeHtml(t.category)}｜Level ${t.level}｜親密值 +${t.intimacyPoints}｜默契值 +${t.harmonyPoints}</div><div class="itemSub">${escapeHtml(t.description||'今天完成即可，不完成不扣分。')}</div>${logHtml}</div>`;
+}
 function currentHarmonyQuestion(){const dk=todayKey();if(!state.harmonyDaily[dk])state.harmonyDaily[dk]={question:HARMONY_QUESTIONS[new Date().getDate()%HARMONY_QUESTIONS.length],done:false};return state.harmonyDaily[dk]}
 function nextHarmonyQuestion(){const dk=todayKey();const cur=currentHarmonyQuestion();let idx=(HARMONY_QUESTIONS.indexOf(cur.question)+1)%HARMONY_QUESTIONS.length;state.harmonyDaily[dk]={question:HARMONY_QUESTIONS[idx],done:false};save();renderAll()}
 function checkHarmony(){const h=currentHarmonyQuestion();const a=(document.getElementById('harmonyAnswerA').value||'').trim().toLowerCase();const b=(document.getElementById('harmonyAnswerB').value||'').trim().toLowerCase();const box=document.getElementById('harmonyResultBox');if(!a||!b){showToast('請輸入兩人的答案');return}if(h.done){showToast('這題已完成');return}if(a===b){h.done=true;addHarmony(20,'harmonyChallenge','默契挑戰答對：'+h.question,uid('harmony'));box.innerHTML='<div class="item"><div class="itemTitle">答案一致！默契值 +20</div></div>';save();renderAll()}else{box.innerHTML='<div class="item"><div class="itemTitle">答案不同，但也是一次了解彼此</div><div class="itemSub">不扣分，可以換題再玩。</div></div>'}}
-function drawDateCard(){const arr=state.dateCards.filter(c=>c.active);if(!arr.length)return;const c=arr[Math.floor(Math.random()*arr.length)];c.usedCount++;c.updatedAt=new Date().toISOString();state.relationshipReports.unshift(migrateRelationshipReport({type:'dateCard',title:'約會靈感卡',text:c.title,date:todayKey()}));save();renderAll();document.getElementById('drawnCardBox').innerHTML=`<div class="item"><div class="itemTitle">約會靈感卡</div><div class="itemSub">${escapeHtml(c.title)}</div></div>`}
-function drawTalkCard(){const arr=state.talkCards.filter(c=>c.active);if(!arr.length)return;const c=arr[Math.floor(Math.random()*arr.length)];c.usedCount++;c.updatedAt=new Date().toISOString();state.relationshipReports.unshift(migrateRelationshipReport({type:'talkCard',title:'深聊卡｜'+c.category,text:c.question,date:todayKey()}));save();renderAll();document.getElementById('drawnCardBox').innerHTML=`<div class="item"><div class="itemTitle">${escapeHtml(c.category)}</div><div class="itemSub">${escapeHtml(c.question)}</div></div>`}
+function drawDateCard(){
+  if(!Array.isArray(state.dateCards)||!state.dateCards.length){if(typeof seedDateCards==='function')seedDateCards()}
+  const arr=(state.dateCards||[]).filter(c=>c.active!==false);
+  const box=document.getElementById('drawnCardBox');
+  if(!arr.length){if(box)box.innerHTML='<div class="empty">目前沒有可抽的約會靈感卡</div>';showToast('目前沒有可抽的約會靈感卡');return}
+  const c=arr[Math.floor(Math.random()*arr.length)];c.usedCount=num(c.usedCount,0)+1;c.updatedAt=new Date().toISOString();
+  state.relationshipReports.unshift(migrateRelationshipReport({type:'dateCard',title:'約會靈感卡',text:c.title,date:todayKey()}));
+  save();renderAll();
+  const html=`<div class="item"><div class="itemTitle">約會靈感卡</div><div class="itemSub">${escapeHtml(c.title)}</div>${c.description&&c.description!==c.title?`<div class="itemSub">${escapeHtml(c.description)}</div>`:''}</div>`;
+  if(document.getElementById('drawnCardBox'))document.getElementById('drawnCardBox').innerHTML=html;
+  showToast('已抽出約會靈感卡');
+}
+function drawTalkCard(){
+  if(!Array.isArray(state.talkCards)||!state.talkCards.length){if(typeof seedTalkCards==='function')seedTalkCards()}
+  const arr=(state.talkCards||[]).filter(c=>c.active!==false);
+  const box=document.getElementById('drawnCardBox');
+  if(!arr.length){if(box)box.innerHTML='<div class="empty">目前沒有可抽的深聊卡</div>';showToast('目前沒有可抽的深聊卡');return}
+  const c=arr[Math.floor(Math.random()*arr.length)];c.usedCount=num(c.usedCount,0)+1;c.updatedAt=new Date().toISOString();
+  state.relationshipReports.unshift(migrateRelationshipReport({type:'talkCard',title:'深聊卡｜'+c.category,text:c.question,date:todayKey()}));
+  save();renderAll();
+  const html=`<div class="item"><div class="itemTitle">深聊卡｜${escapeHtml(c.category)}</div><div class="itemSub">${escapeHtml(c.question)}</div></div>`;
+  if(document.getElementById('drawnCardBox'))document.getElementById('drawnCardBox').innerHTML=html;
+  showToast('已抽出深聊卡');
+}
 function saveWish(e){e.preventDefault();const id=document.getElementById('wishId').value||uid('wish');const old=state.wishPool.find(w=>w.id===id);const add=num(document.getElementById('wishAddPoints').value,0);const w=migrateWish({id,roomId:state.roomId,title:document.getElementById('wishTitle').value.trim(),description:document.getElementById('wishDescription').value,targetPoints:num(document.getElementById('wishTargetPoints').value,1),currentPoints:old?.currentPoints||0,status:old?.status||'active',createdAt:old?.createdAt,completedAt:old?.completedAt});if(!w.title)return;if(add>0){if(coupleWallet().current<add){showToast('雙人點數不足');return}w.currentPoints+=add;state.wishPoolLedger.push(migrateWishLedger({wishId:w.id,amount:add,description:'投入願望：'+w.title}));addCouplePoints(-add,'spend','wishPool','投入願望池：'+w.title,w.id)}if(w.currentPoints>=w.targetPoints&&w.status!=='completed'){w.status='completed';w.completedAt=todayKey()}state.wishPool=state.wishPool.filter(x=>x.id!==id).concat(w);save();resetWishForm();renderAll();showToast('已儲存願望')}
 function resetWishForm(){const f=document.getElementById('wishForm');if(f)f.reset();setText('wishFormTitle','新增雙人願望');document.getElementById('wishId').value='';document.getElementById('wishTargetPoints').value=1500;document.getElementById('wishAddPoints').value=0}
 function editWish(id){const w=state.wishPool.find(x=>x.id===id);if(!w)return;setText('wishFormTitle','編輯雙人願望');document.getElementById('wishId').value=w.id;document.getElementById('wishTitle').value=w.title;document.getElementById('wishDescription').value=w.description;document.getElementById('wishTargetPoints').value=w.targetPoints;document.getElementById('wishAddPoints').value=0}
@@ -830,7 +876,7 @@ setupPwa=function(){
  
  
 /* =========================
-   V8.4.2 按鈕保險修正版
+   V8.4.3 關係按鈕修正版
    - 固定兩位本機角色：我 / 使用者2
    - Google 登入者綁定到「我」，不再新增第三個 Ariana 使用者
    - 切換使用者可正常選擇：登入者（我） / 使用者2
@@ -852,7 +898,7 @@ const oldEnhanceV5Identity=enhanceV5State;
 enhanceV5State=function(){oldEnhanceV5Identity();normalizeTwoLocalUsers();loadUserDataToRoot(state.currentUserId)};
 currentUserName=function(id=state.currentUserId){const u=(state.localUsers||[]).find(u=>u.id===id);return displayNameForUser(u)||id};
 ensureCloudLocalUser=function(user){if(!user)return;state.firebase={...(state.firebase||{}),userId:user.uid,email:user.email||'',displayName:user.displayName||user.email||'',lastLoginAt:new Date().toISOString()};normalizeTwoLocalUsers();const me=state.localUsers.find(u=>u.id===FIXED_ME_ID);if(me){me.googleUid=user.uid;me.googleName=user.displayName||user.email||'';me.googleEmail=user.email||'';me.updatedAt=new Date().toISOString()}if(state.currentUserId!==FIXED_ME_ID){syncActiveUserData();state.currentUserId=FIXED_ME_ID}loadUserDataToRoot(FIXED_ME_ID)};
-renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.2 按鈕保險修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
+renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.3 關係按鈕修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
 const oldSwitchLocalUserIdentity=switchLocalUser;
 switchLocalUser=function(id){normalizeTwoLocalUsers();if(![FIXED_ME_ID,FIXED_USER2_ID].includes(id))id=FIXED_ME_ID;syncActiveUserData();state.currentUserId=id;loadUserDataToRoot(id);save();ensureTodayPack(true);renderAll();showToast('已切換使用者：'+currentUserName())};
 renderLocalUsers=function(){normalizeTwoLocalUsers();const box=document.getElementById('localUserList');if(!box)return;box.innerHTML=state.localUsers.map(u=>`<div class="item"><div class="itemTop"><div><div class="itemTitle">${escapeHtml(displayNameForUser(u))} ${u.id===state.currentUserId?'<span class="pill blue">目前使用</span>':''}</div><div class="itemSub">${u.id===FIXED_ME_ID?(googleDisplayName()?('Google：'+escapeHtml(googleDisplayName())):'第一位使用者 / 我'):'第二位使用者，可自行更名'}｜userId：${escapeHtml(u.id)}</div></div><div class="itemActions"><button class="btn small" data-user-switch="${u.id}">切換</button></div></div></div>`).join('');box.querySelectorAll('[data-user-switch]').forEach(b=>b.addEventListener('click',()=>switchLocalUser(b.dataset.userSwitch)))};
@@ -864,7 +910,7 @@ save=function(){normalizeTwoLocalUsers();state.version='8.4-user-identity';oldSa
  
  
  
-/* V8.4.2 按鈕保險修正版
+/* V8.4.3 關係按鈕修正版
    目的：用事件委派統一接管靜態按鈕與動態按鈕，避免部分按鈕因重繪、事件綁定順序或舊快取而點擊無反應。
 */
 function switchPageSafely(page){
@@ -989,7 +1035,7 @@ function bindButtonSafetyNet(){
 }
 bindButtonSafetyNet();
  
-window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switchLocalUser=switchLocalUser;window.editHabit=editHabit;window.completePackTask=completePackTask;window.completeSecret=completeSecret;window.editQuest=editQuest;window.editWish=editWish;init();
+window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.completeTodayCoupleTask=completeTodayCoupleTask;window.changeTodayCoupleTask=changeTodayCoupleTask;window.drawDateCard=drawDateCard;window.drawTalkCard=drawTalkCard;window.switchLocalUser=switchLocalUser;window.editHabit=editHabit;window.completePackTask=completePackTask;window.completeSecret=completeSecret;window.editQuest=editQuest;window.editWish=editWish;init();
 })();
 </script>
  
@@ -1083,7 +1129,7 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
     const subtitle=document.getElementById('headerSubtitle');
     if(subtitle){
       const current=(window.state?.currentUserId)||ME_ID;
-      subtitle.textContent='V8.4.2 按鈕保險修正版｜目前：'+displayName(current)+'｜已自動同步';
+      subtitle.textContent='V8.4.3 關係按鈕修正版｜目前：'+displayName(current)+'｜已自動同步';
     }
   }
   window.ensureIdentityUI=ensureIdentityUI;
