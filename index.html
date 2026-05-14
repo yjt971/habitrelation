@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>習慣任務｜V8.4.7 可操作清單與深色模式修正版｜外部PWA版</title>
+<title>習慣任務｜V8.4.8 任務玩法與冒險地圖修正版修正版｜外部PWA版</title>
 <meta name="theme-color" content="#111827">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -39,7 +39,7 @@ body.dark{--bg:#0b1220;--card:#111827;--text:#f9fafb;--muted:#a3aab8;--line:#243
 </head>
 <body>
 <div class="app">
-<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.7 可操作清單與深色模式修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
+<header class="topbar"><div class="brand"><div class="logo"><div class="logoIcon">✦</div><div class="logoText"><h1>習慣任務</h1><p id="headerSubtitle">V8.4.8 任務玩法與冒險地圖修正版修正版｜完整遊戲化 + 已自動同步</p></div></div><div class="datePill" id="todayLabel">今天</div></div></header>
 <main>
 <section id="page-today" class="page active">
  
@@ -830,7 +830,7 @@ setupPwa=function(){
  
  
 /* =========================
-   V8.4.7 可操作清單與深色模式修正版
+   V8.4.8 任務玩法與冒險地圖修正版修正版
    - 固定兩位本機角色：我 / 使用者2
    - Google 登入者綁定到「我」，不再新增第三個 Ariana 使用者
    - 切換使用者可正常選擇：登入者（我） / 使用者2
@@ -852,7 +852,7 @@ const oldEnhanceV5Identity=enhanceV5State;
 enhanceV5State=function(){oldEnhanceV5Identity();normalizeTwoLocalUsers();loadUserDataToRoot(state.currentUserId)};
 currentUserName=function(id=state.currentUserId){const u=(state.localUsers||[]).find(u=>u.id===id);return displayNameForUser(u)||id};
 ensureCloudLocalUser=function(user){if(!user)return;state.firebase={...(state.firebase||{}),userId:user.uid,email:user.email||'',displayName:user.displayName||user.email||'',lastLoginAt:new Date().toISOString()};normalizeTwoLocalUsers();const me=state.localUsers.find(u=>u.id===FIXED_ME_ID);if(me){me.googleUid=user.uid;me.googleName=user.displayName||user.email||'';me.googleEmail=user.email||'';me.updatedAt=new Date().toISOString()}if(state.currentUserId!==FIXED_ME_ID){syncActiveUserData();state.currentUserId=FIXED_ME_ID}loadUserDataToRoot(FIXED_ME_ID)};
-renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.7 可操作清單與深色模式修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
+renderUserSwitcher=function(){normalizeTwoLocalUsers();const sel=document.getElementById('activeUserSelect');if(sel){sel.innerHTML=state.localUsers.map(u=>`<option value="${u.id}">${escapeHtml(displayNameForUser(u))}</option>`).join('');sel.value=state.currentUserId;sel.onchange=()=>switchLocalUser(sel.value)}const inp=document.getElementById('activeUserNameInput');if(inp&&!inp.matches(':focus')){const current=state.localUsers.find(u=>u.id===state.currentUserId);inp.value=current?.id===FIXED_ME_ID?'我':(current?.name||'使用者2');inp.placeholder=current?.id===FIXED_ME_ID?(googleDisplayName()?'Google 登入名稱由帳號帶入':'我'):'例如：使用者2 / 對方'}if(inp){inp.disabled=state.currentUserId===FIXED_ME_ID&&!!googleDisplayName()}const today=todayDisplayText();setText('todayLabel',today);setText('currentUserHint',`今天：${today}｜目前：${currentUserName()}`);setText('headerSubtitle','V8.4.8 任務玩法與冒險地圖修正版修正版｜目前：'+currentUserName()+cloudHeaderSuffix())};
 const oldSwitchLocalUserIdentity=switchLocalUser;
 switchLocalUser=function(id){normalizeTwoLocalUsers();if(![FIXED_ME_ID,FIXED_USER2_ID].includes(id))id=FIXED_ME_ID;syncActiveUserData();state.currentUserId=id;loadUserDataToRoot(id);save();ensureTodayPack(true);renderAll();showToast('已切換使用者：'+currentUserName())};
 renderLocalUsers=function(){normalizeTwoLocalUsers();const box=document.getElementById('localUserList');if(!box)return;box.innerHTML=state.localUsers.map(u=>`<div class="item"><div class="itemTop"><div><div class="itemTitle">${escapeHtml(displayNameForUser(u))} ${u.id===state.currentUserId?'<span class="pill blue">目前使用</span>':''}</div><div class="itemSub">${u.id===FIXED_ME_ID?(googleDisplayName()?('Google：'+escapeHtml(googleDisplayName())):'第一位使用者 / 我'):'第二位使用者，可自行更名'}｜userId：${escapeHtml(u.id)}</div></div><div class="itemActions"><button class="btn small" data-user-switch="${u.id}">切換</button></div></div></div>`).join('');box.querySelectorAll('[data-user-switch]').forEach(b=>b.addEventListener('click',()=>switchLocalUser(b.dataset.userSwitch)))};
@@ -864,7 +864,7 @@ save=function(){normalizeTwoLocalUsers();state.version='8.4-user-identity';oldSa
  
  
  
-/* V8.4.7 可操作清單與深色模式修正版
+/* V8.4.8 任務玩法與冒險地圖修正版修正版
    目的：用事件委派統一接管靜態按鈕與動態按鈕，避免部分按鈕因重繪、事件綁定順序或舊快取而點擊無反應。
 */
 function switchPageSafely(page){
@@ -1083,7 +1083,7 @@ window.state=state;window.fb=fb;window.blankUserData=blankUserData;window.switch
     const subtitle=document.getElementById('headerSubtitle');
     if(subtitle){
       const current=(window.state?.currentUserId)||ME_ID;
-      subtitle.textContent='V8.4.7 可操作清單與深色模式修正版｜目前：'+displayName(current)+'｜已自動同步';
+      subtitle.textContent='V8.4.8 任務玩法與冒險地圖修正版修正版｜目前：'+displayName(current)+'｜已自動同步';
     }
   }
   window.ensureIdentityUI=ensureIdentityUI;
@@ -1323,7 +1323,7 @@ body.dark .v846-empty{background:#111827;border-color:#243044;color:#a3aab8}
 
 
 <style id="v847-operable-ui-fix">
-/* V8.4.7：只修正本次回報的區塊：空清單、玩法說明、深色模式、寬度溢出 */
+/* V8.4.8：只修正本次回報的區塊：空清單、玩法說明、深色模式、寬度溢出 */
 html,body{max-width:100%;overflow-x:hidden!important}.app{width:100%;max-width:980px;overflow-x:hidden}.topbar{max-width:100vw;overflow:hidden}.tabs{max-width:100vw;overflow-x:hidden;grid-template-columns:repeat(13,minmax(0,1fr))!important}.tab{min-width:0}.tab span{white-space:nowrap}.card,.stat,.item,.notice,.empty,.v846-empty,.v847-empty,.field input,.field select,.field textarea,.btn,.tableWrap{max-width:100%;overflow-wrap:anywhere}.btn.full{width:100%;max-width:100%}.sectionTitle{min-width:0}.sectionTitle h2{min-width:0}.sectionTitle span{min-width:0;text-align:right;line-height:1.35}.tableWrap{overflow-x:auto}.miniCards,.packGrid,.objectGrid,.contribGrid,.supportTypeGrid{min-width:0}.v847-empty{padding:16px 12px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed #cbd5e1;border-radius:16px;font-size:14px;line-height:1.55}.v847-guide{display:grid;gap:10px}.v847-step{border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--card)}.v847-step b{display:block;margin-bottom:4px}.v847-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.v847-actions .btn{flex:1 1 140px}.v847-tag{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 8px;font-size:12px;color:var(--muted);margin:2px}.v847-miniTable{display:grid;gap:8px}.v847-miniRow{border:1px solid var(--line);border-radius:16px;padding:10px;background:var(--card)}.v847-map{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px}.v847-node{min-width:118px;border:1px solid var(--line);border-radius:18px;padding:10px;background:var(--card);box-shadow:var(--shadow);text-align:center;cursor:pointer}.v847-node.current{border-color:#93c5fd;outline:3px solid rgba(37,99,235,.16)}.v847-node.done{border-color:#86efac;background:#ecfdf5}.v847-node .emoji{font-size:28px}.v847-progress{height:9px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:8px}.v847-progress>div{height:100%;background:linear-gradient(90deg,#2563eb,#059669)}.v847-check{display:grid;gap:8px}.v847-check .itemTitle{display:flex;justify-content:space-between;gap:8px}body.dark{background:#0b1220!important;color:#f9fafb!important}body.dark .topbar{background:rgba(15,23,42,.92)!important;border-color:#243044!important}body.dark .datePill,body.dark .card,body.dark .stat,body.dark .item,body.dark .v847-empty,body.dark .v847-step,body.dark .v847-miniRow,body.dark .v847-node,body.dark .field input,body.dark .field select,body.dark .field textarea,body.dark .btn.ghost,body.dark .packCell,body.dark .tableWrap{background:#111827!important;color:#f9fafb!important;border-color:#243044!important}body.dark .notice{background:#251a0b!important;border-color:#92400e!important;color:#fed7aa!important}body.dark .tabs{background:rgba(15,23,42,.94)!important;border-color:#243044!important}body.dark .tab.active{background:#f9fafb!important;color:#111827!important}body.dark .v847-node.done{background:#06381f!important}.logoText p{max-width:46vw}.datePill{max-width:42vw;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:720px){.app{padding-left:14px!important;padding-right:14px!important}.topbar{margin:0 -14px 12px!important;padding:16px 14px 14px!important}.brand{align-items:center}.logoText h1{font-size:20px!important}.logoText p{max-width:45vw!important}.datePill{min-width:132px!important;max-width:42vw!important}.grid2,.grid3,.grid4,.row,.csvGrid,.packGrid,.miniCards,.objectGrid,.contribGrid,.supportTypeGrid{grid-template-columns:1fr!important}.sectionTitle span{font-size:12px}.tabs{padding-left:2px!important;padding-right:2px!important}.tab{font-size:9px!important;padding-left:0!important;padding-right:0!important}.tab b{font-size:15px!important}}
 </style>
@@ -1392,6 +1392,97 @@ html,body{max-width:100%;overflow-x:hidden!important}.app{width:100%;max-width:9
   document.addEventListener('submit',ev=>{if(ev.target&&ev.target.id==='partnerSupportForm'){ev.preventDefault();const s=ensure();const target=$('supportTargetUser')?.value||s.localUsers.find(u=>u.id!==s.currentUserId)?.id||'user2';const type=$('supportType')?.value||'encourage';const msg=$('supportMessage')?.value||'今天辛苦了，下一個任務加油！';s.partnerSupportLogs.unshift({id:uid('support'),fromUserId:s.currentUserId,targetUserId:target,type,typeLabel:type==='encourage'?'鼓勵卡':type==='supply'?'補給包':'加倍卡',message:msg,claimed:false,createdAt:now()});save();toast('已送出支援；切換到對方使用者可領取');renderAllFix();}},true);
   ['DOMContentLoaded','load','focus'].forEach(evt=>window.addEventListener(evt,()=>setTimeout(renderAllFix,evt==='DOMContentLoaded'?0:120)));
   setTimeout(renderAllFix,300);setTimeout(renderAllFix,1200);setTimeout(renderAllFix,2500);
+})();
+</script>
+
+
+
+<style id="v848-playable-missions-ui-fix">
+/* V8.4.8：只修正被提出的區域：上方安全距離、手機寬度、今日任務包、指定/彈性任務、情侶任務庫、冒險地圖與可探索物件 */
+html,body{max-width:100%;overflow-x:hidden!important}
+body{padding-top:env(safe-area-inset-top,0px)!important}
+.app{width:100%!important;max-width:980px!important;overflow-x:hidden!important;padding-left:14px!important;padding-right:14px!important}
+main,.page,.card,.stat,.item,.modalPanel{max-width:100%!important}
+.card,.stat,.item{overflow:hidden}
+.topbar{position:sticky!important;top:0!important;margin:0 -14px 12px!important;padding:calc(46px + env(safe-area-inset-top,0px)) 14px 14px!important;min-height:132px!important;background:rgba(245,247,251,.96)!important;z-index:30!important}
+.logoText h1{font-size:21px!important;line-height:1.1!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:42vw!important}
+.logoText p{max-width:46vw!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.datePill{max-width:42vw!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;padding:8px 10px!important}
+.tabs{max-width:100vw!important;width:100%!important;left:0!important;right:0!important;transform:none!important;overflow:hidden!important}
+.tableWrap{max-width:100%!important;overflow-x:auto!important}
+.btn.full{width:100%!important;max-width:100%!important}
+.v848-action-card{border:1px solid var(--line);border-radius:18px;padding:12px;background:var(--card);display:grid;gap:8px;box-shadow:var(--shadow)}
+.v848-action-card.done{background:#ecfdf5;border-color:#86efac}
+.v848-action-card .title{font-weight:900;font-size:16px;color:var(--text)}
+.v848-action-card .sub{font-size:13px;color:var(--muted);line-height:1.45}
+.v848-action-card .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.v848-empty-note{padding:12px;border:1px dashed #cbd5e1;border-radius:16px;color:var(--muted);text-align:center;background:rgba(248,250,252,.8);line-height:1.55}
+.v848-guide{margin-top:10px;padding:12px;border-radius:16px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;line-height:1.55;font-size:13px}
+.v848-map-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;min-width:0!important;align-items:stretch!important}
+.v848-node{border:1px solid var(--line);border-radius:18px;background:var(--card);padding:10px;text-align:center;display:grid;gap:5px;box-shadow:var(--shadow);cursor:pointer;min-width:0!important}
+.v848-node.current{outline:3px solid rgba(37,99,235,.22);border-color:#93c5fd}
+.v848-node.done{background:#ecfdf5;border-color:#86efac}
+.v848-node .emoji{font-size:26px;line-height:1}
+.v848-node .name{font-weight:900;color:#2563eb;font-size:14px;line-height:1.2}
+.v848-node .sub{font-size:12px;color:var(--muted)}
+.v848-sidequests{display:grid;gap:8px;margin-top:10px}
+.v848-sidequest{display:flex;justify-content:space-between;gap:8px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:9px;background:var(--soft)}
+.v848-object-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+.v848-object{border:1px solid var(--line);border-radius:18px;background:var(--card);padding:12px;text-align:center;box-shadow:var(--shadow);cursor:pointer;display:grid;gap:5px}
+.v848-object .emoji{font-size:28px}.v848-object .name{font-weight:900;color:#2563eb}.v848-object .sub{font-size:12px;color:var(--muted)}
+body.dark .topbar{background:rgba(11,18,32,.96)!important}body.dark .v848-action-card,body.dark .v848-node,body.dark .v848-object{background:#111827;border-color:#243044}body.dark .v848-action-card.done,body.dark .v848-node.done{background:#063827;border-color:#047857}body.dark .v848-empty-note,body.dark .v848-sidequest{background:#0f172a;border-color:#243044;color:#a3aab8}body.dark .v848-guide{background:#2a1b08;border-color:#92400e;color:#fed7aa}
+@media(max-width:420px){.topbar{padding-top:calc(50px + env(safe-area-inset-top,0px))!important;min-height:138px!important}.brand{align-items:flex-start!important}.logoIcon{width:40px!important;height:40px!important;flex:0 0 40px!important}.datePill{font-size:11px!important;max-width:40vw!important}.sectionTitle{align-items:flex-start!important}.sectionTitle span{max-width:45%;text-align:right}.v848-action-card .actions{grid-template-columns:1fr}.v848-map-grid{grid-template-columns:1fr!important}.v848-object-grid{grid-template-columns:1fr!important}}
+@media(min-width:721px){.v848-map-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}.v848-object-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}}
+</style>
+<script id="v848-playable-missions-adventure-fix">
+(function(){
+ if(window.__v848PlayableFixLoaded)return; window.__v848PlayableFixLoaded=true;
+ const KEY='habitMissionV848Patch';
+ const $=id=>document.getElementById(id);
+ const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+ const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+ const uid=p=>p+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+ function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}}
+ function save(d){localStorage.setItem(KEY,JSON.stringify(d))}
+ function patch(){const d=load();d.completed=d.completed||{};d.points=d.points||0;d.soloStep=d.soloStep||0;d.coupleStep=d.coupleStep||0;d.logs=d.logs||[];d.selectedNode=d.selectedNode||0;d.selectedMap=d.selectedMap||'solo';return d}
+ function toast(msg){try{if(typeof showToast==='function'){showToast(msg);return}}catch(e){} const t=$('toast'); if(t&&t.querySelector('div')){t.querySelector('div').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)} }
+ const fixedTasks=[
+  {id:'fixed_water',title:'喝水 500ml',sub:'今日指定任務｜完成後 +5 點，任務包主線 +1',points:5,pack:'main'},
+  {id:'fixed_walk',title:'走路或伸展 5 分鐘',sub:'今日指定任務｜完成後 +8 點，任務包主線 +1',points:8,pack:'main'},
+  {id:'fixed_review',title:'睡前回顧今天 1 件完成的事',sub:'今日指定任務｜完成後 +6 點，任務包主線 +1',points:6,pack:'main'}
+ ];
+ const flexTasks=[
+  {id:'flex_clean',title:'整理桌面或房間 3 分鐘',sub:'本期彈性任務｜完成任一小任務可累積支線',points:8,pack:'side'},
+  {id:'flex_note',title:'記下一個明天要做的小任務',sub:'本期彈性任務｜完成後可取得 bonus',points:10,pack:'bonus'},
+  {id:'flex_secret',title:'完成一件不想公開的小努力',sub:'秘密任務｜完成後才揭曉',points:12,pack:'secret'}
+ ];
+ const coupleTasks=[
+  ['ct1','跟對方說一句今天辛苦了','輕量互動','保持日常連結的一句話。',10,0],['ct2','分享一張今天看到的照片','輕量互動','分享天空、食物或路上看到的小事。',10,0],['ct3','問對方今天吃了什麼','輕量互動','用很輕鬆的方式關心對方。',8,0],['ct4','傳一個可愛或好笑的東西給對方','輕量互動','讓今天多一點笑點。',8,0],['ct5','問對方今天最累的一件事','關心','聽對方說，不急著給建議。',15,0],['ct6','問對方今天心情幾分','關心','用 1-10 分了解對方狀態。',15,0],['ct7','聽對方說 5 分鐘，不急著給建議','關心','練習陪伴而不是立刻解決。',20,0],['ct8','稱讚對方一個具體的地方','肯定','越具體越好，不要只說你很棒。',20,0],['ct9','說一件最近感謝對方的事','肯定','讓對方知道自己被看見。',20,0],['ct10','告訴對方你喜歡他的一個小習慣','肯定','累積正向感。',20,0],['ct11','一起散步 15 分鐘','陪伴','可以見面或通話時一起完成。',25,5],['ct12','一起吃飯時不滑手機 20 分鐘','陪伴','提高相處品質。',25,5],['ct13','一起看一集劇','陪伴','簡單但穩定的陪伴。',20,5],['ct14','一起做伸展 5 分鐘','陪伴','把健康任務變成雙人任務。',20,5],['ct15','一起去一間沒吃過的店','約會','創造新的共同體驗。',40,10],['ct16','一起拍一張合照','約會','留下今天的共同記憶。',30,10],['ct17','一起規劃下次約會','約會','把期待放進未來。',30,10],['ct18','一起完成一件新體驗','約會','讓關係有新鮮感。',45,15],['ct19','互相說一個明天的小期待','未來','讓未來多一點共同感。',18,5],['ct20','一起回顧一張舊照片','回憶','回到你們曾經很開心的時刻。',18,5],['ct21','幫對方做一件小事','關心','不需要很大，但要讓對方感覺被照顧。',25,5],['ct22','一起決定下次約會主題','約會','讓約會不再只是臨時安排。',25,10],['ct23','問對方最近想被怎麼陪伴','關心','練習理解對方需求。',20,10],['ct24','給對方一個小小驚喜','肯定','可以是一句話、一張圖或小禮物。',30,10],['ct25','一起完成今天任一個人任務','陪伴','把個人任務變成雙人合作。',30,10]
+ ].map(x=>({id:x[0],title:x[1],cat:x[2],sub:x[3],intimacy:x[4],harmony:x[5]}));
+ const places=[
+  ['🏡','新手村','整理背包','寫下今天想完成的一件小事','探索村口公告'],['🌲','晨光森林','撿拾露水','完成 5 分鐘伸展','找到森林小路'],['🌌','星光湖','觀察湖面','記錄一件感謝的事','夜晚散步 10 分鐘'],['🪨','風鳴峽谷','聽見回音','完成一個延後的小任務','收集風之石'],['🌸','花語草原','採一朵花','對自己說一句肯定','完成一次呼吸練習'],['🛤️','舊鐵道','沿線前進','清理一個待辦','拍下今日風景'],['🕯️','月影小鎮','點亮路燈','整理桌面 3 分鐘','寫一封給未來的短訊'],['☕','旅人茶館','休息補給','喝水 500ml','和某人說一句問候'],['🗼','雲端燈塔','眺望遠方','完成一件學習任務','標記下一個目標'],['🌧️','雨聲巷','聽雨前行','處理一個拖延任務','收集雨滴徽章'],['📚','古書圖書館','翻閱地圖','閱讀 3 頁或 5 分鐘','記下新學到的一句話'],['🧊','冰晶洞穴','通過冰橋','完成一次低門檻任務','找到冰晶碎片'],['🔥','暖火營地','升起營火','做一次簡單運動','分享今日小成果'],['🛶','靜河碼頭','划向對岸','完成一件生活整理','領取河岸補給'],['🏔️','遠山坡道','爬上坡道','完成困難任務的一小步','獲得山風標記'],['🏮','夜市街','尋找小吃','記錄一筆花費或飲食','和對方分享想吃的東西'],['🎡','微光樂園','啟動旋轉木馬','完成一個讓自己開心的小事','抽一張靈感卡'],['🌊','藍潮海岸','聽海浪','散步 10 分鐘','寫下想放下的一件事'],['🚪','祕密門廊','找到鑰匙','完成秘密任務','解鎖隱藏支線'],['🏰','願望城堡','抵達城門','完成今日任務包','許下一個本週願望']
+ ].map((p,i)=>({id:'node'+i,emoji:p[0],name:p[1],need:i*6,side:p.slice(2)}));
+ const objects=[['🪨','神秘石頭','點擊後可能得到 1 格前進'],['🌸','路邊小花','點擊後獲得心情補給'],['🎁','補給箱','點擊後可能獲得點數'],['✉️','故事信件','點擊後顯示一段任務提示'],['🧭','舊指南針','幫你標記下一個地點'],['🪙','幸運硬幣','可能獲得 bonus 點數'],['🔑','小鑰匙','可視為寶箱線索'],['🍵','熱茶','恢復今日能量'],['📷','拍立得','留下今天的冒險記錄'],['🕯️','小燈火','點亮一個支線任務']];
+ function done(id){const d=patch();return !!d.completed[today()+':'+id]}
+ function completeTask(t){const d=patch();const key=today()+':'+t.id;if(d.completed[key]){toast('今天已完成這個任務');return}d.completed[key]=true;d.points+=(t.points||0);d.logs.unshift({date:today(),title:t.title,points:t.points||0});save(d);toast('完成：'+t.title+' +'+(t.points||0)+'點');renderAllV848();}
+ function actionCard(t){const ok=done(t.id);return `<div class="v848-action-card ${ok?'done':''}"><div class="title">${ok?'✅ ':''}${esc(t.title)}</div><div class="sub">${esc(t.sub)}</div><div class="actions"><button class="btn ${ok?'ghost':'green'} small" data-v848-complete="${esc(t.id)}">${ok?'已完成':'完成任務'}</button><button class="btn ghost small" data-v848-detail="${esc(t.id)}">玩法說明</button></div></div>`}
+ function renderTodayTasks(){const f=$('todayFixedTasks'),x=$('todayFlexTasks');if(f)f.innerHTML=fixedTasks.map(actionCard).join('');if(x)x.innerHTML=flexTasks.map(actionCard).join('');const fh=$('todayFixedHint');if(fh)fh.textContent='可直接完成';const xh=$('todayFlexHint');if(xh)xh.textContent='任選完成';}
+ function renderPack(){const box=$('todayPackGrid');if(box){const all=[...fixedTasks,...flexTasks], main=all.filter(t=>t.pack==='main').filter(t=>done(t.id)).length, side=all.filter(t=>t.pack==='side').filter(t=>done(t.id)).length, bonus=all.filter(t=>t.pack==='bonus').filter(t=>done(t.id)).length, secret=all.filter(t=>t.pack==='secret').filter(t=>done(t.id)).length;box.innerHTML=[['main','主線任務',`${main}/3`, '完成今日指定任務會累積任務包。'],['side','支線任務',`${side}/1`, '完成任一小任務可累積任務包。'],['bonus','加分任務',`${bonus}/1`, '完成後可取得 bonus。'],['secret','秘密任務',`${secret}/1`, '完成後才會揭曉。']].map(p=>`<div class="packCell v848-pack-cell" data-v848-pack="${p[0]}"><h4>${p[1]} <span class="pill ${p[2].startsWith('0')?'':'green'}">${p[2]}</span></h4><div class="smallText">${p[3]}</div><button class="btn ghost small full" style="margin-top:8px" data-v848-packgo="${p[0]}">去完成</button></div>`).join('') + '<div class="v848-guide" style="grid-column:1/-1">玩法：按「去完成」會帶你到對應任務；按任務卡上的「完成任務」即可累積任務包，不再是不能按的空框。</div>';}const notice=$('packRewardNotice');if(notice)notice.textContent='完成主線 / 支線 / 加分 / 秘密任務後，任務包會自動累積。';}
+ function renderCouplePack(){const box=$('coupleDailyPackBox');if(box)box.innerHTML=[['輕量互動','完成今日靠近一點即可累積'],['關心','問候、傾聽、陪伴'],['加分','高強度互動會加更多分'],['秘密關心','可在任務中慢慢累積']].map(x=>`<div class="v848-action-card"><div class="title">${x[0]}</div><div class="sub">${x[1]}</div><button class="btn ghost small full" data-v848-scroll-couple="1">去做今日靠近一點</button></div>`).join('')}
+ function renderCoupleLibrary(){const box=$('coupleTaskList');if(box){box.innerHTML=coupleTasks.map(t=>`<div class="v848-action-card"><div class="title">${esc(t.title)}</div><div class="sub">${esc(t.cat)}｜親密值 +${t.intimacy}｜默契值 +${t.harmony}<br>${esc(t.sub)}</div><div class="actions"><button class="btn pink small" data-v848-couple-complete="${t.id}">完成一次</button><button class="btn ghost small" data-v848-couple-set="${t.id}">設為今日</button></div></div>`).join('');const c=$('coupleTaskCountText');if(c)c.textContent=coupleTasks.length+' 個';}}
+ function completeCouple(id){const t=coupleTasks.find(x=>x.id===id);if(!t)return;const d=patch();d.completed[today()+':couple:'+id]=true;d.logs.unshift({date:today(),title:'情侶任務：'+t.title,points:t.intimacy});save(d);try{const led=$('relationshipLedgerBox'); if(led)led.innerHTML=`<div class="item"><div class="itemTitle">親密值 +${t.intimacy}</div><div class="itemSub">完成情侶任務：${esc(t.title)}｜${today()}</div></div>`;}catch(e){}toast('已完成情侶任務：'+t.title);}
+ function setCoupleToday(id){const t=coupleTasks.find(x=>x.id===id);if(!t)return;const box=$('todayCoupleTaskBox');if(box)box.innerHTML=`<div class="item"><div class="itemTitle">${esc(t.title)}</div><div class="itemSub">${esc(t.cat)}｜親密值 +${t.intimacy}｜默契值 +${t.harmony}</div><div class="itemSub">${esc(t.sub)}</div></div>`;toast('已設為今日靠近一點');}
+ function renderMaps(){const d=patch();const solo=$('soloAdventurePath'), couple=$('coupleAdventurePath');const nodeHtml=(map)=>places.map((n,i)=>`<div class="v848-node ${i<=Math.floor((map==='solo'?d.soloStep:d.coupleStep)/6)?'done':''} ${d.selectedMap===map&&d.selectedNode===i?'current':''}" data-v848-node="${i}" data-v848-map="${map}"><div class="emoji">${n.emoji}</div><div class="name">${esc(n.name)}</div><div class="sub">需 ${n.need} 格</div><div class="sub">支線 ${n.side.length} 個</div></div>`).join(''); if(solo){solo.className='adventurePath v848-map-grid';solo.innerHTML=nodeHtml('solo')} if(couple){couple.className='adventurePath v848-map-grid';couple.innerHTML=nodeHtml('couple')} const sp=$('soloMapProgressBox');if(sp)sp.innerHTML=`<div class="progressBar"><div class="progressFill" style="width:${Math.min(100,d.soloStep/(places.at(-1).need||1)*100)}%"></div></div><div class="miniHint">玩法：完成個人任務、按「探索我的目前地點」或完成地點支線會推進。</div>`; const cp=$('coupleMapProgressBox');if(cp)cp.innerHTML=`<div class="progressBar"><div class="progressFill" style="width:${Math.min(100,d.coupleStep/(places.at(-1).need||1)*100)}%"></div></div><div class="miniHint">玩法：完成情侶任務、共同任務或雙人挑戰會推進。</div>`; renderNodeDetail();}
+ function renderNodeDetail(){const d=patch();const n=places[d.selectedNode]||places[0];const box=$('adventureDetailBox');if(!box)return;box.innerHTML=`<b>${n.emoji} ${esc(n.name)}</b>｜需要 ${n.need} 格\n${d.selectedMap==='solo'?'我的地圖':'共同旅程'}目前選擇此地點。\n\n支線任務：<div class="v848-sidequests">${n.side.map((s,idx)=>`<div class="v848-sidequest"><span>${esc(s)}</span><button class="btn small green" data-v848-sidequest="${d.selectedMap}:${d.selectedNode}:${idx}">完成</button></div>`).join('')}</div>`; const hint=$('currentNodeHint');if(hint)hint.textContent='目前：'+n.name;}
+ function renderObjects(){const box=$('adventureObjects');if(box){box.className='objectGrid v848-object-grid';box.innerHTML=objects.map((o,i)=>`<div class="v848-object" data-v848-object="${i}"><div class="emoji">${o[0]}</div><div class="name">${esc(o[1])}</div><div class="sub">${esc(o[2])}</div></div>`).join('')} }
+ function explore(map){const d=patch(); if(map==='solo')d.soloStep+=2; else d.coupleStep+=2; d.logs.unshift({date:today(),title:(map==='solo'?'探索我的地點':'探索共同地點'),points:0}); save(d);toast('探索成功，地圖前進 2 格');renderMaps();}
+ function completeSide(key){const [map,node,idx]=key.split(':');const d=patch();const k=today()+':side:'+key;if(d.completed[k]){toast('今天已完成這個支線');return}d.completed[k]=true;if(map==='solo')d.soloStep+=3;else d.coupleStep+=3;d.logs.unshift({date:today(),title:'完成支線：'+(places[+node]?.side[+idx]||''),points:0});save(d);toast('支線完成，地圖前進 3 格');renderMaps();}
+ function clickObject(i){const o=objects[i];const d=patch();d.logs.unshift({date:today(),title:'探索物件：'+o[1],points:1});d.points+=1;save(d);toast('已探索：'+o[1]+'，獲得 1 點');const detail=$('adventureDetailBox');if(detail)detail.innerHTML=`<b>${o[0]} ${esc(o[1])}</b>\n${esc(o[2])}\n\n今日已互動，獲得 1 點。`;}
+ function renderChecklist(){const box=$('checklistBox')||$('qaChecklistBox'); if(box)box.innerHTML='<div class="v848-action-card"><div class="title">✅ V8.4.8 功能驗收清單</div><div class="sub">1. 下方頁籤可切換<br>2. 每日任務包可按<br>3. 指定 / 彈性任務可完成<br>4. 情侶任務庫可完成或設為今日<br>5. 冒險地圖 20 個地點與支線任務<br>6. 可探索物件 10 個<br>7. 深色模式可即時切換<br>8. 手機版不再水平溢出</div></div>';}
+ function renderAllV848(){renderTodayTasks();renderPack();renderCouplePack();renderCoupleLibrary();renderMaps();renderObjects();renderChecklist();}
+ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-v848-complete],[data-v848-detail],[data-v848-packgo],[data-v848-couple-complete],[data-v848-couple-set],[data-v848-scroll-couple],[data-v848-node],[data-v848-object],[data-v848-sidequest],#exploreSoloBtn,#exploreCoupleBtn'); if(!b)return; if(b.dataset.v848Complete){e.preventDefault();completeTask([...fixedTasks,...flexTasks].find(t=>t.id===b.dataset.v848Complete));return} if(b.dataset.v848Detail){e.preventDefault();const t=[...fixedTasks,...flexTasks].find(t=>t.id===b.dataset.v848Detail);alert(`${t.title}\n\n${t.sub}\n\n按「完成任務」即可累積點數與任務包。`);return} if(b.dataset.v848Packgo){e.preventDefault();document.getElementById(b.dataset.v848Packgo==='main'?'todayFixedTasks':'todayFlexTasks')?.scrollIntoView({behavior:'smooth',block:'center'});return} if(b.dataset.v848CoupleComplete){e.preventDefault();completeCouple(b.dataset.v848CoupleComplete);return} if(b.dataset.v848CoupleSet){e.preventDefault();setCoupleToday(b.dataset.v848CoupleSet);document.getElementById('todayCoupleTaskBox')?.scrollIntoView({behavior:'smooth',block:'center'});return} if(b.dataset.v848ScrollCouple){e.preventDefault();document.getElementById('todayCoupleTaskBox')?.scrollIntoView({behavior:'smooth',block:'center'});return} if(b.dataset.v848Node){e.preventDefault();const d=patch();d.selectedNode=+b.dataset.v848Node;d.selectedMap=b.dataset.v848Map||'solo';save(d);renderMaps();document.getElementById('adventureDetailBox')?.scrollIntoView({behavior:'smooth',block:'center'});return} if(b.dataset.v848Object){e.preventDefault();clickObject(+b.dataset.v848Object);return} if(b.dataset.v848Sidequest){e.preventDefault();completeSide(b.dataset.v848Sidequest);return} if(b.id==='exploreSoloBtn'){e.preventDefault();explore('solo');return} if(b.id==='exploreCoupleBtn'){e.preventDefault();explore('couple');return}},true);
+ document.addEventListener('change',e=>{if(e.target&&e.target.id==='appearanceMode'){setTimeout(()=>{const val=e.target.value||'';document.body.classList.toggle('dark',val.includes('深')||val==='dark')},0)}});
+ window.addEventListener('DOMContentLoaded',()=>setTimeout(renderAllV848,150));window.addEventListener('load',()=>setTimeout(renderAllV848,400));window.addEventListener('focus',()=>setTimeout(renderAllV848,300));setTimeout(renderAllV848,800);setTimeout(renderAllV848,2000);
 })();
 </script>
 
