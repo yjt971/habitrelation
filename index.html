@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>習慣任務｜V1 個人基礎版</title>
+<meta name="theme-color" content="#111827">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link id="dynamicManifest" rel="manifest">
+<style>
+:root{
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#667085;
+  --line:#e5e7eb;
+  --soft:#f8fafc;
+  --dark:#111827;
+  --blue:#2563eb;
+  --green:#059669;
+  --amber:#d97706;
+  --red:#dc2626;
+  --purple:#7c3aed;
+  --shadow:0 10px 25px rgba(15,23,42,.08);
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;line-height:1.45}
+body{min-height:100vh;padding-bottom:88px}
+button,input,select,textarea{font-family:inherit;font-size:15px}
+button{border:0;cursor:pointer}
+.hidden{display:none!important}
+.app{max-width:980px;margin:0 auto;padding:18px 14px 96px}
+.topbar{position:sticky;top:0;z-index:10;margin:-18px -14px 12px;padding:14px 14px 12px;background:rgba(245,247,251,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(229,231,235,.8)}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;min-width:0}
+.logoIcon{width:42px;height:42px;border-radius:16px;background:linear-gradient(135deg,#111827,#2563eb);display:grid;place-items:center;color:white;font-size:22px;box-shadow:var(--shadow)}
+.logoText{min-width:0}.logoText h1{margin:0;font-size:20px;letter-spacing:.3px}.logoText p{margin:2px 0 0;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.datePill{padding:8px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:12px;white-space:nowrap}
+.page{display:none;animation:fade .18s ease}.page.active{display:block}@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+.grid{display:grid;gap:12px}.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+.card.soft{background:var(--soft);box-shadow:none}.sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 10px}.sectionTitle h2{font-size:18px;margin:0}.sectionTitle span{font-size:12px;color:var(--muted)}
+.stat{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}.stat .label{font-size:12px;color:var(--muted)}.stat .value{font-size:24px;font-weight:800;margin-top:4px}.stat .sub{font-size:12px;color:var(--muted);margin-top:2px}
+.progressBar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.progressFill{height:100%;background:linear-gradient(90deg,#2563eb,#059669);width:0%;transition:.25s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;border-radius:14px;background:var(--dark);color:white;font-weight:700;min-height:42px}.btn.secondary{background:#eef2ff;color:#3730a3}.btn.green{background:#059669}.btn.amber{background:#d97706}.btn.red{background:#dc2626}.btn.ghost{background:white;color:var(--text);border:1px solid var(--line)}.btn.small{padding:7px 9px;min-height:34px;border-radius:11px;font-size:13px}.btn.full{width:100%}.btn:disabled{opacity:.45;cursor:not-allowed}
+.form{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px 2px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:white;color:var(--text);outline:none}.field textarea{min-height:78px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.weekday{border:1px solid var(--line);background:white;border-radius:12px;padding:9px 0;text-align:center;color:var(--muted);font-size:13px}.weekday.active{background:#111827;color:white;border-color:#111827;font-weight:700}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.tab{border-radius:15px;padding:8px 4px;color:var(--muted);background:transparent;text-align:center;font-size:11px;display:grid;gap:2px}.tab b{font-size:18px;line-height:1}.tab.active{background:#111827;color:white}
+.taskCard{display:grid;gap:10px}.taskHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.taskName{font-size:17px;font-weight:800}.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#f3f4f6;color:#374151;font-size:12px}.pill.blue{background:#dbeafe;color:#1d4ed8}.pill.green{background:#dcfce7;color:#047857}.pill.amber{background:#fef3c7;color:#b45309}.pill.red{background:#fee2e2;color:#b91c1c}.pill.purple{background:#ede9fe;color:#6d28d9}.taskActions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.empty{padding:28px 14px;text-align:center;color:var(--muted);background:white;border:1px dashed #cbd5e1;border-radius:var(--radius)}
+.list{display:grid;gap:10px}.item{background:white;border:1px solid var(--line);border-radius:18px;padding:12px}.itemTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.itemTitle{font-weight:800}.itemSub{font-size:13px;color:var(--muted);margin-top:4px}.itemActions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.muted{color:var(--muted)}.dangerText{color:var(--red)}
+.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:white}table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}th{background:#f8fafc;color:#475467;font-weight:800;position:sticky;top:0}tr:last-child td{border-bottom:0}
+.toast{position:fixed;left:14px;right:14px;bottom:88px;z-index:50;display:none;justify-content:center}.toast.show{display:flex}.toast>div{background:#111827;color:white;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);font-size:14px}
+.modal{position:fixed;inset:0;z-index:60;display:none;place-items:end center;background:rgba(15,23,42,.35);padding:14px}.modal.show{display:grid}.modalPanel{width:100%;max-width:760px;max-height:90vh;overflow:auto;background:white;border-radius:24px;padding:16px;box-shadow:0 20px 55px rgba(0,0,0,.25)}.modalHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.modalHeader h3{margin:0;font-size:19px}.xbtn{width:38px;height:38px;border-radius:13px;background:#f3f4f6;color:#111827;font-size:18px}
+.chartBars{display:grid;gap:8px}.barRow{display:grid;grid-template-columns:92px 1fr 48px;align-items:center;gap:8px;font-size:13px}.barTrack{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.barFill{height:100%;background:#2563eb;border-radius:999px}
+.fileInput{border:1px dashed #cbd5e1;border-radius:16px;padding:14px;background:#f8fafc;width:100%}
+@media (min-width:720px){.tabs{left:50%;transform:translateX(-50%);max-width:980px;border-radius:24px 24px 0 0}.desktopGrid{grid-template-columns:1.15fr .85fr}.modal{place-items:center}.modalPanel{border-radius:26px}.app{padding-left:20px;padding-right:20px}.topbar{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}}
+@media (max-width:520px){.grid2,.grid3,.row{grid-template-columns:1fr}.taskActions{grid-template-columns:1fr}.datePill{display:none}.stat .value{font-size:22px}.sectionTitle h2{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">
+        <div class="logoIcon">✓</div>
+        <div class="logoText">
+          <h1>習慣任務</h1>
+          <p id="headerSubtitle">V1 個人基礎版｜本機儲存</p>
+        </div>
+      </div>
+      <div class="datePill" id="todayLabel"></div>
+    </div>
+  </header>
+ 
+  <main>
+    <section id="page-today" class="page active">
+      <div class="grid grid3">
+        <div class="stat"><div class="label">今日完成率</div><div class="value" id="statTodayRate">0%</div><div class="sub" id="statTodayCount">0 / 0 個任務</div></div>
+        <div class="stat"><div class="label">今日獲得點數</div><div class="value" id="statTodayPoints">0</div><div class="sub">V1 先記錄於完成紀錄</div></div>
+        <div class="stat"><div class="label">啟用習慣</div><div class="value" id="statActiveHabits">0</div><div class="sub">依頻率產生任務</div></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="sectionTitle" style="margin-top:0"><h2>今日進度</h2><span id="todayProgressText">尚無任務</span></div>
+        <div class="progressBar"><div class="progressFill" id="todayProgressFill"></div></div>
+      </div>
+      <div class="sectionTitle"><h2>今日任務</h2><span id="todayTaskHint"></span></div>
+      <div id="todayTasks" class="list"></div>
+    </section>
+ 
+    <section id="page-habits" class="page">
+      <div class="card">
+        <div class="sectionTitle" style="margin-top:0"><h2 id="habitFormTitle">新增習慣</h2><span>V1 基礎欄位</span></div>
+        <form id="habitForm" class="form">
+          <input type="hidden" id="habitId">
+          <div class="row">
+            <div class="field"><label>習慣名稱</label><input id="habitName" required placeholder="例如：運動 15 分鐘"></div>
+            <div class="field"><label>分類</label><select id="habitCategory"></select></div>
+          </div>
+          <div class="row">
+            <div class="field"><label>頻率</label><select id="habitFrequencyType"><option value="daily">每日</option><option value="weeklyCount">每週指定天數</option><option value="weekdays">指定星期</option></select></div>
+            <div class="field" id="weeklyCountField"><label>每週幾天</label><input id="habitWeeklyCount" type="number" min="1" max="7" value="3"></div>
+          </div>
+          <div class="field" id="weekdaysField">
+            <label>指定星期</label>
+            <div class="weekdays" id="weekdayPicker"></div>
+          </div>
+          <div class="row">
+            <div class="field"><label>目標數值</label><input id="habitTargetValue" type="number" min="0" step="0.1" required placeholder="例如：15"></div>
+            <div class="field"><label>目標單位</label><input id="habitTargetUnit" required placeholder="例如：分鐘、次、ml、頁"></div>
+          </div>
+          <div class="row">
+            <div class="field"><label>難度</label><select id="habitDifficulty"><option>簡單</option><option selected>普通</option><option>困難</option><option>挑戰</option></select></div>
+            <div class="field"><label>完成點數</label><input id="habitPoints" type="number" min="0" step="1" value="10" required></div>
+          </div>
+          <div class="row">
+            <div class="field"><label>公開範圍預留</label><select id="habitVisibility"><option value="private">private 私密</option><option value="public">public 完全公開</option><option value="statusOnly">statusOnly 只公開狀態</option><option value="secret">secret 秘密任務</option></select></div>
+            <div class="field"><label>狀態</label><select id="habitActive"><option value="true">啟用</option><option value="false">停用</option></select></div>
+          </div>
+          <div class="field"><label>備註</label><textarea id="habitNote" placeholder="怎樣算完成、注意事項等"></textarea></div>
+          <div class="row">
+            <button class="btn" type="submit">儲存習慣</button>
+            <button class="btn ghost" type="button" id="resetHabitFormBtn">清空表單</button>
+          </div>
+        </form>
+      </div>
+      <div class="sectionTitle"><h2>習慣清單</h2><span id="habitCountText"></span></div>
+      <div id="habitList" class="list"></div>
+    </section>
+ 
+    <section id="page-logs" class="page">
+      <div class="card">
+        <div class="sectionTitle" style="margin-top:0"><h2>完成紀錄</h2><span id="logCountText"></span></div>
+        <div class="row">
+          <div class="field"><label>篩選日期</label><input id="logFilterDate" type="date"></div>
+          <div class="field"><label>篩選狀態</label><select id="logFilterStatus"><option value="all">全部</option><option value="completed">完成</option><option value="partial">部分完成</option><option value="missed">未完成</option></select></div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn ghost small" id="clearLogFiltersBtn">清除篩選</button>
+        </div>
+      </div>
+      <div style="height:12px"></div>
+      <div class="tableWrap"><table><thead><tr><th>日期</th><th>習慣</th><th>目標</th><th>實際</th><th>狀態</th><th>點數</th><th>備註</th><th>操作</th></tr></thead><tbody id="logTableBody"></tbody></table></div>
+    </section>
+ 
+    <section id="page-stats" class="page">
+      <div class="grid grid3">
+        <div class="stat"><div class="label">今日完成率</div><div class="value" id="statsTodayRate">0%</div><div class="sub" id="statsTodaySub"></div></div>
+        <div class="stat"><div class="label">本週完成率</div><div class="value" id="statsWeekRate">0%</div><div class="sub" id="statsWeekSub"></div></div>
+        <div class="stat"><div class="label">本月完成率</div><div class="value" id="statsMonthRate">0%</div><div class="sub" id="statsMonthSub"></div></div>
+      </div>
+      <div class="grid desktopGrid" style="margin-top:12px">
+        <div class="card"><div class="sectionTitle" style="margin-top:0"><h2>最近 7 天完成狀況</h2><span>依每日任務計算</span></div><div id="last7Days" class="chartBars"></div></div>
+        <div class="card"><div class="sectionTitle" style="margin-top:0"><h2>各分類完成次數</h2><span>完成狀態</span></div><div id="categoryStats" class="chartBars"></div></div>
+      </div>
+      <div class="card" style="margin-top:12px"><div class="sectionTitle" style="margin-top:0"><h2>各習慣完成次數</h2><span>完成狀態</span></div><div id="habitStats" class="chartBars"></div></div>
+    </section>
+ 
+    <section id="page-settings" class="page">
+      <div class="card">
+        <div class="sectionTitle" style="margin-top:0"><h2>設定 / 備份</h2><span>localStorage</span></div>
+        <div class="grid">
+          <button class="btn full" id="exportJsonBtn">匯出 JSON</button>
+          <label class="fileInput">匯入 JSON<input id="importJsonInput" type="file" accept="application/json,.json" style="display:block;margin-top:10px"></label>
+          <button class="btn red full" id="clearAllBtn">清空全部資料</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h2 style="margin:0 0 8px;font-size:18px">資料狀態</h2>
+        <div class="grid grid2">
+          <div class="item"><div class="itemTitle" id="settingsHabitCount">0</div><div class="itemSub">習慣數</div></div>
+          <div class="item"><div class="itemTitle" id="settingsLogCount">0</div><div class="itemSub">完成紀錄數</div></div>
+        </div>
+        <p class="muted" style="font-size:13px;margin-bottom:0">V1 使用本機儲存。資料結構已預留 userId、roomId、visibility、updatedAt，方便未來 V7 接 Firebase 與雙人同步。</p>
+      </div>
+    </section>
+  </main>
+</div>
+ 
+<nav class="tabs">
+  <button class="tab active" data-page="today"><b>✓</b><span>今日</span></button>
+  <button class="tab" data-page="habits"><b>＋</b><span>習慣</span></button>
+  <button class="tab" data-page="logs"><b>≡</b><span>紀錄</span></button>
+  <button class="tab" data-page="stats"><b>↗</b><span>統計</span></button>
+  <button class="tab" data-page="settings"><b>⚙</b><span>設定</span></button>
+</nav>
+ 
+<div class="toast" id="toast"><div id="toastText"></div></div>
+ 
+<div class="modal" id="taskModal">
+  <div class="modalPanel">
+    <div class="modalHeader"><h3 id="taskModalTitle">更新任務</h3><button class="xbtn" id="closeTaskModal">×</button></div>
+    <form id="taskLogForm" class="form">
+      <input type="hidden" id="taskHabitId">
+      <input type="hidden" id="taskStatus">
+      <div class="row">
+        <div class="field"><label>日期</label><input id="taskDate" type="date" required></div>
+        <div class="field"><label>實際完成量</label><input id="taskActualValue" type="number" min="0" step="0.1" required></div>
+      </div>
+      <div class="field"><label>備註</label><textarea id="taskNote" placeholder="例如：今天狀態、完成內容、失敗原因"></textarea></div>
+      <button class="btn full" type="submit">儲存紀錄</button>
+    </form>
+  </div>
+</div>
+ 
+<script>
+(function(){
+'use strict';
+ 
+const APP_KEY = 'habitMissionPwaV1';
+const DEFAULT_USER_ID = 'local-user-v1';
+const DEFAULT_ROOM_ID = 'local-room-placeholder';
+const CATEGORIES = ['健康','學習','生活','財務','自律','其他'];
+const WEEKDAYS = ['日','一','二','三','四','五','六'];
+const STATUS_LABELS = {completed:'完成', partial:'部分完成', missed:'未完成'};
+const STATUS_CLASS = {completed:'green', partial:'amber', missed:'red'};
+ 
+let state = loadState();
+let selectedWeekdays = [1,2,3,4,5];
+let deferredToastTimer = null;
+ 
+function uid(prefix='id'){
+  return prefix + '-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,8);
+}
+function todayISO(){ return toISODate(new Date()); }
+function toISODate(date){
+  const y = date.getFullYear();
+  const m = String(date.getMonth()+1).padStart(2,'0');
+  const d = String(date.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+function parseISODate(iso){
+  const [y,m,d] = iso.split('-').map(Number);
+  return new Date(y,m-1,d);
+}
+function formatDate(iso){
+  const d = parseISODate(iso);
+  return `${d.getMonth()+1}/${d.getDate()}（${WEEKDAYS[d.getDay()]}）`;
+}
+function nowISO(){ return new Date().toISOString(); }
+function clamp(n,min,max){ return Math.max(min, Math.min(max, n)); }
+function pct(done,total){ return total ? Math.round(done/total*100) : 0; }
+function safeNumber(v, fallback=0){
+  const n = Number(v);
+  return Number.isFinite(n) ? n : fallback;
+}
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  const text = document.getElementById('toastText');
+  text.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(deferredToastTimer);
+  deferredToastTimer = setTimeout(()=>toast.classList.remove('show'), 1800);
+}
+ 
+function defaultState(){
+  return {
+    version:'V1',
+    appName:'習慣任務',
+    currentUserId: DEFAULT_USER_ID,
+    currentRoomId: DEFAULT_ROOM_ID,
+    users:[{id:DEFAULT_USER_ID, roomId:DEFAULT_ROOM_ID, name:'我', visibility:'private', createdAt:nowISO(), updatedAt:nowISO()}],
+    habits:[],
+    habitLogs:[],
+    settings:{createdAt:nowISO(), updatedAt:nowISO()}
+  };
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(APP_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    const base = defaultState();
+    const merged = {...base, ...parsed};
+    merged.users = Array.isArray(merged.users) ? merged.users : base.users;
+    merged.habits = Array.isArray(merged.habits) ? merged.habits : [];
+    merged.habitLogs = Array.isArray(merged.habitLogs) ? merged.habitLogs : [];
+    return merged;
+  }catch(e){
+    console.error(e);
+    return defaultState();
+  }
+}
+function saveState(){
+  state.settings.updatedAt = nowISO();
+  localStorage.setItem(APP_KEY, JSON.stringify(state));
+}
+function touch(obj){ obj.updatedAt = nowISO(); return obj; }
+ 
+function init(){
+  setupPWA();
+  fillStaticOptions();
+  bindEvents();
+  document.getElementById('todayLabel').textContent = new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+  document.getElementById('taskDate').value = todayISO();
+  renderAll();
+}
+ 
+function setupPWA(){
+  const manifest = {
+    name:'習慣任務 V1',
+    short_name:'習慣任務',
+    start_url:'.',
+    display:'standalone',
+    background_color:'#f5f7fb',
+    theme_color:'#111827',
+    icons:[
+      {src: makeIconDataUrl(192), sizes:'192x192', type:'image/svg+xml'},
+      {src: makeIconDataUrl(512), sizes:'512x512', type:'image/svg+xml'}
+    ]
+  };
+  const manifestBlob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
+  document.getElementById('dynamicManifest').setAttribute('href', URL.createObjectURL(manifestBlob));
+  if('serviceWorker' in navigator){
+    const swCode = `const CACHE='habit-mission-v1-cache';self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./']).catch(()=>undefined)));});self.addEventListener('activate',e=>{e.waitUntil(self.clients.claim());});self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>undefined);return r;}).catch(()=>caches.match(e.request).then(r=>r||caches.match('./'))));});`;
+    const swBlob = new Blob([swCode], {type:'text/javascript'});
+    const swUrl = URL.createObjectURL(swBlob);
+    navigator.serviceWorker.register(swUrl).catch(()=>{});
+  }
+}
+function makeIconDataUrl(size){
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}' viewBox='0 0 512 512'><rect width='512' height='512' rx='120' fill='%23111827'/><path d='M145 263l73 73 153-171' fill='none' stroke='white' stroke-width='48' stroke-linecap='round' stroke-linejoin='round'/><circle cx='392' cy='120' r='40' fill='%232563eb'/></svg>`;
+  return 'data:image/svg+xml,' + svg;
+}
+ 
+function fillStaticOptions(){
+  const catSelect = document.getElementById('habitCategory');
+  catSelect.innerHTML = CATEGORIES.map(c=>`<option value="${c}">${c}</option>`).join('');
+  const picker = document.getElementById('weekdayPicker');
+  picker.innerHTML = WEEKDAYS.map((w,i)=>`<button type="button" class="weekday" data-day="${i}">${w}</button>`).join('');
+  picker.querySelectorAll('.weekday').forEach(btn=>btn.addEventListener('click',()=>{
+    const day = Number(btn.dataset.day);
+    selectedWeekdays = selectedWeekdays.includes(day) ? selectedWeekdays.filter(d=>d!==day) : [...selectedWeekdays, day].sort((a,b)=>a-b);
+    renderWeekdayPicker();
+  }));
+  renderWeekdayPicker();
+  updateFrequencyFields();
+}
+function renderWeekdayPicker(){
+  document.querySelectorAll('.weekday').forEach(btn=>btn.classList.toggle('active', selectedWeekdays.includes(Number(btn.dataset.day))));
+}
+function updateFrequencyFields(){
+  const type = document.getElementById('habitFrequencyType').value;
+  document.getElementById('weeklyCountField').classList.toggle('hidden', type !== 'weeklyCount');
+  document.getElementById('weekdaysField').classList.toggle('hidden', type !== 'weekdays');
+}
+ 
+function bindEvents(){
+  document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>showPage(tab.dataset.page)));
+  document.getElementById('habitFrequencyType').addEventListener('change', updateFrequencyFields);
+  document.getElementById('habitForm').addEventListener('submit', saveHabitFromForm);
+  document.getElementById('resetHabitFormBtn').addEventListener('click', resetHabitForm);
+  document.getElementById('closeTaskModal').addEventListener('click', closeTaskModal);
+  document.getElementById('taskModal').addEventListener('click', e=>{ if(e.target.id==='taskModal') closeTaskModal(); });
+  document.getElementById('taskLogForm').addEventListener('submit', saveTaskLogFromModal);
+  document.getElementById('logFilterDate').addEventListener('input', renderLogs);
+  document.getElementById('logFilterStatus').addEventListener('change', renderLogs);
+  document.getElementById('clearLogFiltersBtn').addEventListener('click',()=>{document.getElementById('logFilterDate').value='';document.getElementById('logFilterStatus').value='all';renderLogs();});
+  document.getElementById('exportJsonBtn').addEventListener('click', exportJson);
+  document.getElementById('importJsonInput').addEventListener('change', importJson);
+  document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
+}
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.page===page));
+  renderAll();
+}
+ 
+function getHabits(){ return state.habits.filter(h=>h.userId===state.currentUserId); }
+function getLogs(){ return state.habitLogs.filter(l=>l.userId===state.currentUserId); }
+function activeHabits(){ return getHabits().filter(h=>h.active); }
+function shouldShowOnDate(habit, iso){
+  if(!habit.active) return false;
+  const date = parseISODate(iso);
+  const day = date.getDay();
+  if(habit.frequencyType === 'daily') return true;
+  if(habit.frequencyType === 'weekdays') return (habit.weekdays || []).includes(day);
+  if(habit.frequencyType === 'weeklyCount'){
+    const count = clamp(safeNumber(habit.weeklyCount,1),1,7);
+    const defaultDays = [1,2,3,4,5,6,0].slice(0,count);
+    return defaultDays.includes(day);
+  }
+  return true;
+}
+function scheduledHabitsForDate(iso){ return activeHabits().filter(h=>shouldShowOnDate(h, iso)); }
+function findLog(habitId, date=todayISO()){
+  return getLogs().find(l=>l.habitId===habitId && l.date===date);
+}
+function pointsForStatus(habit, status, actualValue){
+  const points = safeNumber(habit.points,0);
+  const target = safeNumber(habit.targetValue,0);
+  const actual = safeNumber(actualValue,0);
+  if(status==='completed') return points;
+  if(status==='partial'){
+    if(target <= 0) return Math.floor(points/2);
+    return Math.max(0, Math.min(points-1, Math.floor(points * clamp(actual/target, 0, .99))));
+  }
+  return 0;
+}
+ 
+function saveHabitFromForm(e){
+  e.preventDefault();
+  const id = document.getElementById('habitId').value || uid('habit');
+  const existing = state.habits.find(h=>h.id===id);
+  const data = {
+    id,
+    userId: state.currentUserId,
+    roomId: state.currentRoomId,
+    visibility: document.getElementById('habitVisibility').value,
+    name: document.getElementById('habitName').value.trim(),
+    category: document.getElementById('habitCategory').value,
+    frequencyType: document.getElementById('habitFrequencyType').value,
+    weeklyCount: safeNumber(document.getElementById('habitWeeklyCount').value,3),
+    weekdays: [...selectedWeekdays],
+    targetValue: safeNumber(document.getElementById('habitTargetValue').value,0),
+    targetUnit: document.getElementById('habitTargetUnit').value.trim(),
+    difficulty: document.getElementById('habitDifficulty').value,
+    points: safeNumber(document.getElementById('habitPoints').value,0),
+    active: document.getElementById('habitActive').value === 'true',
+    note: document.getElementById('habitNote').value.trim(),
+    createdAt: existing ? existing.createdAt : nowISO(),
+    updatedAt: nowISO()
+  };
+  if(!data.name){ showToast('請輸入習慣名稱'); return; }
+  if(existing){ Object.assign(existing, data); }
+  else{ state.habits.push(data); }
+  saveState();
+  resetHabitForm();
+  renderAll();
+  showToast(existing ? '已更新習慣' : '已新增習慣');
+}
+function resetHabitForm(){
+  document.getElementById('habitForm').reset();
+  document.getElementById('habitId').value = '';
+  document.getElementById('habitFormTitle').textContent = '新增習慣';
+  document.getElementById('habitWeeklyCount').value = 3;
+  document.getElementById('habitPoints').value = 10;
+  document.getElementById('habitActive').value = 'true';
+  document.getElementById('habitVisibility').value = 'private';
+  selectedWeekdays = [1,2,3,4,5];
+  renderWeekdayPicker();
+  updateFrequencyFields();
+}
+function editHabit(id){
+  const h = state.habits.find(x=>x.id===id);
+  if(!h) return;
+  showPage('habits');
+  document.getElementById('habitFormTitle').textContent = '編輯習慣';
+  document.getElementById('habitId').value = h.id;
+  document.getElementById('habitName').value = h.name || '';
+  document.getElementById('habitCategory').value = h.category || '其他';
+  document.getElementById('habitFrequencyType').value = h.frequencyType || 'daily';
+  document.getElementById('habitWeeklyCount').value = h.weeklyCount || 3;
+  selectedWeekdays = Array.isArray(h.weekdays) ? [...h.weekdays] : [1,2,3,4,5];
+  document.getElementById('habitTargetValue').value = h.targetValue ?? '';
+  document.getElementById('habitTargetUnit').value = h.targetUnit || '';
+  document.getElementById('habitDifficulty').value = h.difficulty || '普通';
+  document.getElementById('habitPoints').value = h.points ?? 10;
+  document.getElementById('habitVisibility').value = h.visibility || 'private';
+  document.getElementById('habitActive').value = String(!!h.active);
+  document.getElementById('habitNote').value = h.note || '';
+  renderWeekdayPicker(); updateFrequencyFields();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function deleteHabit(id){
+  const h = state.habits.find(x=>x.id===id);
+  if(!h) return;
+  const relatedLogs = state.habitLogs.filter(l=>l.habitId===id).length;
+  const msg = relatedLogs ? `確定刪除「${h.name}」？相關 ${relatedLogs} 筆紀錄也會刪除。` : `確定刪除「${h.name}」？`;
+  if(!confirm(msg)) return;
+  state.habits = state.habits.filter(x=>x.id!==id);
+  state.habitLogs = state.habitLogs.filter(l=>l.habitId!==id);
+  saveState(); renderAll(); showToast('已刪除習慣');
+}
+function toggleHabit(id){
+  const h = state.habits.find(x=>x.id===id);
+  if(!h) return;
+  h.active = !h.active; touch(h); saveState(); renderAll(); showToast(h.active ? '已啟用' : '已停用');
+}
+ 
+function openTaskModal(habitId, status){
+  const habit = state.habits.find(h=>h.id===habitId);
+  if(!habit) return;
+  const log = findLog(habitId, todayISO());
+  document.getElementById('taskModalTitle').textContent = `${STATUS_LABELS[status]}｜${habit.name}`;
+  document.getElementById('taskHabitId').value = habitId;
+  document.getElementById('taskStatus').value = status;
+  document.getElementById('taskDate').value = todayISO();
+  let actual = '';
+  if(log) actual = log.actualValue;
+  else if(status==='completed') actual = habit.targetValue;
+  else if(status==='missed') actual = 0;
+  document.getElementById('taskActualValue').value = actual;
+  document.getElementById('taskNote').value = log ? (log.note || '') : '';
+  document.getElementById('taskModal').classList.add('show');
+}
+function closeTaskModal(){ document.getElementById('taskModal').classList.remove('show'); }
+function saveTaskLogFromModal(e){
+  e.preventDefault();
+  const habitId = document.getElementById('taskHabitId').value;
+  const habit = state.habits.find(h=>h.id===habitId);
+  if(!habit) return;
+  const date = document.getElementById('taskDate').value || todayISO();
+  const status = document.getElementById('taskStatus').value;
+  const actualValue = safeNumber(document.getElementById('taskActualValue').value,0);
+  const existing = state.habitLogs.find(l=>l.userId===state.currentUserId && l.habitId===habitId && l.date===date);
+  const log = {
+    id: existing ? existing.id : uid('log'),
+    userId: state.currentUserId,
+    roomId: state.currentRoomId,
+    visibility: habit.visibility || 'private',
+    habitId: habit.id,
+    habitName: habit.name,
+    category: habit.category,
+    date,
+    targetValue: habit.targetValue,
+    targetUnit: habit.targetUnit,
+    actualValue,
+    status,
+    pointsEarned: pointsForStatus(habit, status, actualValue),
+    note: document.getElementById('taskNote').value.trim(),
+    createdAt: existing ? existing.createdAt : nowISO(),
+    updatedAt: nowISO()
+  };
+  if(existing) Object.assign(existing, log); else state.habitLogs.push(log);
+  saveState(); closeTaskModal(); renderAll(); showToast('已儲存完成紀錄');
+}
+function deleteLog(id){
+  if(!confirm('確定刪除這筆完成紀錄？')) return;
+  state.habitLogs = state.habitLogs.filter(l=>l.id!==id);
+  saveState(); renderAll(); showToast('已刪除紀錄');
+}
+ 
+function renderAll(){
+  renderToday(); renderHabits(); renderLogs(); renderStats(); renderSettings();
+}
+function renderToday(){
+  const today = todayISO();
+  const habits = scheduledHabitsForDate(today);
+  const logs = habits.map(h=>findLog(h.id, today)).filter(Boolean);
+  const done = logs.filter(l=>l.status==='completed' || l.status==='partial').length;
+  const rate = pct(done, habits.length);
+  const points = logs.reduce((s,l)=>s+safeNumber(l.pointsEarned,0),0);
+  document.getElementById('statTodayRate').textContent = rate + '%';
+  document.getElementById('statTodayCount').textContent = `${done} / ${habits.length} 個任務`;
+  document.getElementById('statTodayPoints').textContent = points;
+  document.getElementById('statActiveHabits').textContent = activeHabits().length;
+  document.getElementById('todayProgressText').textContent = habits.length ? `${done} / ${habits.length}` : '尚無任務';
+  document.getElementById('todayProgressFill').style.width = rate + '%';
+  document.getElementById('todayTaskHint').textContent = habits.length ? `${formatDate(today)}` : '請先新增習慣';
+  const wrap = document.getElementById('todayTasks');
+  if(!habits.length){
+    wrap.innerHTML = `<div class="empty">今天沒有任務。請到「習慣管理」新增或啟用習慣。</div>`;
+    return;
+  }
+  wrap.innerHTML = habits.map(h=>{
+    const log = findLog(h.id, today);
+    const status = log ? log.status : 'pending';
+    const statusText = log ? STATUS_LABELS[log.status] : '未記錄';
+    const statusClass = log ? STATUS_CLASS[log.status] : 'blue';
+    return `<div class="card taskCard">
+      <div class="taskHeader">
+        <div><div class="taskName">${escapeHTML(h.name)}</div>
+          <div class="meta">
+            <span class="pill blue">${escapeHTML(h.category)}</span>
+            <span class="pill">目標 ${h.targetValue} ${escapeHTML(h.targetUnit)}</span>
+            <span class="pill purple">${escapeHTML(h.difficulty)}</span>
+            <span class="pill green">+${h.points} 點</span>
+            <span class="pill ${statusClass}">${statusText}</span>
+          </div>
+        </div>
+      </div>
+      ${h.note ? `<div class="itemSub">${escapeHTML(h.note)}</div>` : ''}
+      ${log ? `<div class="item soft"><div class="itemSub">實際：${log.actualValue} ${escapeHTML(h.targetUnit)}｜獲得 ${log.pointsEarned} 點${log.note ? '｜' + escapeHTML(log.note) : ''}</div></div>` : ''}
+      <div class="taskActions">
+        <button class="btn green" onclick="HabitApp.openTaskModal('${h.id}','completed')">完成</button>
+        <button class="btn amber" onclick="HabitApp.openTaskModal('${h.id}','partial')">部分完成</button>
+        <button class="btn ghost" onclick="HabitApp.openTaskModal('${h.id}','missed')">未完成</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function renderHabits(){
+  const habits = getHabits().slice().sort((a,b)=>(b.active-a.active)||a.name.localeCompare(b.name,'zh-Hant'));
+  document.getElementById('habitCountText').textContent = `${habits.length} 個習慣`;
+  const wrap = document.getElementById('habitList');
+  if(!habits.length){ wrap.innerHTML = `<div class="empty">尚未建立習慣。先新增一個「運動 15 分鐘」吧。</div>`; return; }
+  wrap.innerHTML = habits.map(h=>`<div class="item">
+    <div class="itemTop">
+      <div><div class="itemTitle">${escapeHTML(h.name)}</div>
+        <div class="meta">
+          <span class="pill blue">${escapeHTML(h.category)}</span>
+          <span class="pill">${frequencyText(h)}</span>
+          <span class="pill">目標 ${h.targetValue} ${escapeHTML(h.targetUnit)}</span>
+          <span class="pill green">+${h.points}</span>
+          <span class="pill ${h.active?'green':'red'}">${h.active?'啟用':'停用'}</span>
+          <span class="pill">${escapeHTML(h.visibility || 'private')}</span>
+        </div>
+        ${h.note ? `<div class="itemSub">${escapeHTML(h.note)}</div>` : ''}
+      </div>
+      <div class="itemActions">
+        <button class="btn small ghost" onclick="HabitApp.editHabit('${h.id}')">編輯</button>
+        <button class="btn small secondary" onclick="HabitApp.toggleHabit('${h.id}')">${h.active?'停用':'啟用'}</button>
+        <button class="btn small red" onclick="HabitApp.deleteHabit('${h.id}')">刪除</button>
+      </div>
+    </div>
+  </div>`).join('');
+}
+function frequencyText(h){
+  if(h.frequencyType==='daily') return '每日';
+  if(h.frequencyType==='weeklyCount') return `每週 ${h.weeklyCount || 1} 天`;
+  if(h.frequencyType==='weekdays') return '週' + (h.weekdays||[]).map(d=>WEEKDAYS[d]).join('、');
+  return '每日';
+}
+function renderLogs(){
+  const date = document.getElementById('logFilterDate').value;
+  const status = document.getElementById('logFilterStatus').value;
+  let logs = getLogs().slice().sort((a,b)=>b.date.localeCompare(a.date) || b.updatedAt.localeCompare(a.updatedAt));
+  if(date) logs = logs.filter(l=>l.date===date);
+  if(status !== 'all') logs = logs.filter(l=>l.status===status);
+  document.getElementById('logCountText').textContent = `${logs.length} 筆`;
+  const tbody = document.getElementById('logTableBody');
+  if(!logs.length){ tbody.innerHTML = `<tr><td colspan="8" class="muted">目前沒有符合條件的紀錄。</td></tr>`; return; }
+  tbody.innerHTML = logs.map(l=>`<tr>
+    <td>${formatDate(l.date)}</td><td>${escapeHTML(l.habitName)}</td><td>${l.targetValue} ${escapeHTML(l.targetUnit)}</td><td>${l.actualValue} ${escapeHTML(l.targetUnit)}</td><td><span class="pill ${STATUS_CLASS[l.status]}">${STATUS_LABELS[l.status]}</span></td><td>${l.pointsEarned}</td><td>${escapeHTML(l.note || '')}</td><td><button class="btn small red" onclick="HabitApp.deleteLog('${l.id}')">刪除</button></td>
+  </tr>`).join('');
+}
+function renderStats(){
+  const today = todayISO();
+  const todaySummary = completionSummary(today, today);
+  const weekRange = getWeekRange(new Date());
+  const weekSummary = completionSummary(weekRange.start, weekRange.end);
+  const monthRange = getMonthRange(new Date());
+  const monthSummary = completionSummary(monthRange.start, monthRange.end);
+  setRateBox('statsToday', todaySummary);
+  setRateBox('statsWeek', weekSummary);
+  setRateBox('statsMonth', monthSummary);
+  renderLast7Days(); renderCategoryStats(); renderHabitStats();
+}
+function setRateBox(prefix, summary){
+  document.getElementById(prefix+'Rate').textContent = pct(summary.done, summary.total) + '%';
+  document.getElementById(prefix+'Sub').textContent = `${summary.done} / ${summary.total} 個任務`;
+}
+function completionSummary(startISO, endISO){
+  let total = 0, done = 0;
+  dateRange(startISO, endISO).forEach(date=>{
+    const scheduled = scheduledHabitsForDate(date);
+    total += scheduled.length;
+    scheduled.forEach(h=>{
+      const log = state.habitLogs.find(l=>l.userId===state.currentUserId && l.habitId===h.id && l.date===date);
+      if(log && (log.status==='completed' || log.status==='partial')) done++;
+    });
+  });
+  return {total, done};
+}
+function renderLast7Days(){
+  const wrap = document.getElementById('last7Days');
+  const days = [];
+  const base = new Date();
+  for(let i=6;i>=0;i--){ const d = new Date(base); d.setDate(base.getDate()-i); days.push(toISODate(d)); }
+  wrap.innerHTML = days.map(day=>{
+    const s = completionSummary(day, day); const r = pct(s.done,s.total);
+    return barRow(formatDate(day), r, `${s.done}/${s.total}`);
+  }).join('') || `<div class="empty">尚無資料</div>`;
+}
+function renderCategoryStats(){
+  const logs = getLogs().filter(l=>l.status==='completed');
+  const counts = {};
+  CATEGORIES.forEach(c=>counts[c]=0);
+  logs.forEach(l=>counts[l.category || '其他'] = (counts[l.category || '其他'] || 0) + 1);
+  const max = Math.max(1, ...Object.values(counts));
+  document.getElementById('categoryStats').innerHTML = Object.entries(counts).map(([k,v])=>barRow(k, Math.round(v/max*100), String(v))).join('');
+}
+function renderHabitStats(){
+  const habits = getHabits();
+  if(!habits.length){ document.getElementById('habitStats').innerHTML = `<div class="empty">尚無習慣資料</div>`; return; }
+  const logs = getLogs().filter(l=>l.status==='completed');
+  const counts = habits.map(h=>({name:h.name, count:logs.filter(l=>l.habitId===h.id).length}));
+  const max = Math.max(1, ...counts.map(x=>x.count));
+  document.getElementById('habitStats').innerHTML = counts.map(x=>barRow(x.name, Math.round(x.count/max*100), String(x.count))).join('');
+}
+function barRow(label, width, value){
+  return `<div class="barRow"><div title="${escapeHTML(label)}">${escapeHTML(label)}</div><div class="barTrack"><div class="barFill" style="width:${width}%"></div></div><div class="muted">${escapeHTML(value)}</div></div>`;
+}
+function getWeekRange(date){
+  const d = new Date(date); const day = d.getDay(); const diff = (day===0 ? -6 : 1-day);
+  const start = new Date(d); start.setDate(d.getDate()+diff);
+  const end = new Date(start); end.setDate(start.getDate()+6);
+  return {start:toISODate(start), end:toISODate(end)};
+}
+function getMonthRange(date){
+  const start = new Date(date.getFullYear(), date.getMonth(), 1);
+  const end = new Date(date.getFullYear(), date.getMonth()+1, 0);
+  return {start:toISODate(start), end:toISODate(end)};
+}
+function dateRange(startISO, endISO){
+  const arr = []; const d = parseISODate(startISO); const end = parseISODate(endISO);
+  while(d <= end){ arr.push(toISODate(d)); d.setDate(d.getDate()+1); }
+  return arr;
+}
+function renderSettings(){
+  document.getElementById('settingsHabitCount').textContent = getHabits().length;
+  document.getElementById('settingsLogCount').textContent = getLogs().length;
+}
+ 
+function exportJson(){
+  const payload = JSON.stringify(state, null, 2);
+  const blob = new Blob([payload], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `習慣任務V1備份_${todayISO()}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+  showToast('已匯出 JSON');
+}
+function importJson(e){
+  const file = e.target.files && e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const data = JSON.parse(reader.result);
+      if(!data || !Array.isArray(data.habits) || !Array.isArray(data.habitLogs)) throw new Error('格式不符');
+      if(!confirm('匯入後會覆蓋目前本機資料，確定匯入？')) return;
+      state = {...defaultState(), ...data};
+      saveState(); renderAll(); showToast('已匯入 JSON');
+    }catch(err){
+      alert('JSON 格式不正確，無法匯入。');
+    }finally{ e.target.value = ''; }
+  };
+  reader.readAsText(file, 'utf-8');
+}
+function clearAllData(){
+  if(!confirm('確定清空全部資料？此動作無法復原。')) return;
+  state = defaultState(); saveState(); resetHabitForm(); renderAll(); showToast('已清空全部資料');
+}
+function escapeHTML(str){
+  return String(str ?? '').replace(/[&<>'"]/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+}
+ 
+window.HabitApp = {openTaskModal, editHabit, deleteHabit, toggleHabit, deleteLog};
+init();
+})();
+</script>
+</body>
+</html>
