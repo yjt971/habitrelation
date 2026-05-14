@@ -2,12 +2,21 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>習慣任務｜離線模式</title>
 <meta name="theme-color" content="#111827">
 <style>
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f5f7fb;color:#111827;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;padding:20px}.card{max-width:420px;background:#fff;border:1px solid #e5e7eb;border-radius:24px;padding:24px;box-shadow:0 10px 25px rgba(15,23,42,.08)}h1{margin:0 0 8px;font-size:24px}p{color:#667085;line-height:1.6}.btn{display:inline-flex;margin-top:12px;background:#111827;color:#fff;text-decoration:none;border-radius:14px;padding:12px 14px;font-weight:700}
+:root{--bg:#f5f7fb;--card:#fff;--text:#111827;--muted:#667085;--line:#e5e7eb;--shadow:0 10px 25px rgba(15,23,42,.08)}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;padding:20px}.card{width:min(430px,100%);background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}.icon{width:56px;height:56px;border-radius:20px;background:linear-gradient(135deg,#111827,#7c3aed);color:#fff;display:grid;place-items:center;font-size:28px;margin-bottom:14px}h1{font-size:24px;margin:0 0 8px}p{color:var(--muted);line-height:1.65;margin:0 0 12px}.btn{display:inline-flex;align-items:center;justify-content:center;background:#111827;color:#fff;text-decoration:none;border-radius:14px;padding:12px 14px;font-weight:800;margin-top:6px}.hint{font-size:13px;color:var(--muted);margin-top:14px}
 </style>
 </head>
-<body><div class="card"><h1>目前離線</h1><p>習慣任務可以使用已快取的本機頁面。若畫面沒有自動載入，請回到首頁或稍後重新連線。</p><a class="btn" href="./index.html">回到習慣任務</a></div></body>
+<body>
+  <main class="card">
+    <div class="icon">✦</div>
+    <h1>目前離線</h1>
+    <p>習慣任務可以使用已快取的本機頁面。若首頁已成功快取，你仍可開啟 APP 並使用 localStorage 的本機資料。</p>
+    <p>需要 Firebase 同步、Google 登入或跨裝置資料更新時，請恢復網路後再操作。</p>
+    <a class="btn" href="./index.html">回到習慣任務</a>
+    <div class="hint">如果還是看到這頁，請重新整理或稍後再次連線。</div>
+  </main>
+</body>
 </html>
